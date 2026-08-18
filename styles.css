@@ -877,6 +877,88 @@ section {
     font-weight: 600;
 }
 
+/* Mobile Portfolio Styles */
+@media (max-width: 768px) {
+    .portfolio-carousel {
+        padding: 0 15px;
+    }
+    
+    .carousel-slide {
+        padding: 0;
+    }
+    
+    .portfolio-card {
+        height: 450px;
+        border-radius: 12px;
+    }
+    
+    .portfolio-overlay {
+        padding: 2rem 1.5rem 1.5rem;
+    }
+    
+    .portfolio-badge {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .portfolio-overlay h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .portfolio-overlay p {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+    }
+    
+    .portfolio-tag {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .carousel-btn.prev {
+        left: 5px;
+    }
+    
+    .carousel-btn.next {
+        right: 5px;
+    }
+    
+    .portfolio-cta p {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .portfolio-carousel {
+        padding: 0 10px;
+    }
+    
+    .portfolio-card {
+        height: 400px;
+    }
+    
+    .portfolio-overlay {
+        padding: 1.5rem 1rem 1rem;
+    }
+    
+    .portfolio-overlay h3 {
+        font-size: 1.25rem;
+    }
+    
+    .portfolio-overlay p {
+        font-size: 0.9rem;
+    }
+}
+
 /* Testimonials Section */
 .testimonials {
     background: var(--bg-light);
