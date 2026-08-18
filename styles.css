@@ -277,7 +277,10 @@ h1, h2, h3, h4, h5, h6 {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-dark) 100%);
+    background: linear-gradient(135deg, rgba(0, 78, 137, 0.95) 0%, rgba(0, 58, 107, 0.95) 100%), url('/images/hero-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     padding: 8rem 0 4rem;
     overflow: hidden;
 }
@@ -879,6 +882,10 @@ section {
 
 /* Mobile Portfolio Styles */
 @media (max-width: 768px) {
+    .hero {
+        background-attachment: scroll;
+    }
+    
     .portfolio-carousel {
         padding: 0 15px;
     }
