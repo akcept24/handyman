@@ -667,11 +667,108 @@ if ('loading' in HTMLImageElement.prototype) {
 }
 
 // ==========================================
+// Portfolio Carousel
+// ==========================================
+
+let currentSlide = 0;
+let totalSlides = 0;
+let autoplayInterval;
+
+function initCarousel() {
+    const track = document.getElementById('carousel-track');
+    const dotsContainer = document.getElementById('carousel-dots');
+    
+    if (!track) return;
+    
+    const slides = track.querySelectorAll('.carousel-slide');
+    totalSlides = slides.length;
+    
+    // Create dots
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('span');
+        dot.className = 'carousel-dot';
+        if (i === 0) dot.classList.add('active');
+        dot.onclick = () => goToSlide(i);
+        dotsContainer.appendChild(dot);
+    }
+    
+    // Start autoplay
+    startAutoplay();
+}
+
+function moveCarousel(direction) {
+    currentSlide += direction;
+    
+    if (currentSlide < 0) {
+        currentSlide = totalSlides - 1;
+    } else if (currentSlide >= totalSlides) {
+        currentSlide = 0;
+    }
+    
+    updateCarousel();
+    resetAutoplay();
+}
+
+function goToSlide(index) {
+    currentSlide = index;
+    updateCarousel();
+    resetAutoplay();
+}
+
+function updateCarousel() {
+    const track = document.getElementById('carousel-track');
+    const dots = document.querySelectorAll('.carousel-dot');
+    
+    if (!track) return;
+    
+    // Move track
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    
+    // Update dots
+    dots.forEach((dot, index) => {
+        if (index === currentSlide) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+function startAutoplay() {
+    autoplayInterval = setInterval(() => {
+        moveCarousel(1);
+    }, 5000); // Change slide every 5 seconds
+}
+
+function resetAutoplay() {
+    clearInterval(autoplayInterval);
+    startAutoplay();
+}
+
+// Stop autoplay on hover
+document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.querySelector('.portfolio-carousel');
+    if (carousel) {
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(autoplayInterval);
+        });
+        
+        carousel.addEventListener('mouseleave', () => {
+            startAutoplay();
+        });
+    }
+});
+
+// ==========================================
 // Initialize Everything on DOM Load
 // ==========================================
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('California Handyman Pro - Landing Page Loaded');
+    
+    // Initialize carousel
+    initCarousel();
     
     // Add smooth reveal animations to sections
     const sections = document.querySelectorAll('section');

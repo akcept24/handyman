@@ -111,6 +111,7 @@
                     <li><a href="#home" class="nav-link">Home</a></li>
                     <li><a href="#services" class="nav-link">Services</a></li>
                     <li><a href="#why-us" class="nav-link">Why Us</a></li>
+                    <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
                     <li><a href="#areas" class="nav-link">Service Areas</a></li>
                     <li><a href="#testimonials" class="nav-link">Reviews</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -424,6 +425,118 @@
                         <p>Enjoy your improved home with our quality guarantee backing our work.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Our Work</span>
+                <h2 class="section-title">Real Results, Real Projects</h2>
+                <p class="section-subtitle">See the transformation we bring to homes across California. Before & After photos of our recent projects.</p>
+            </div>
+            
+            <div class="portfolio-carousel">
+                <button class="carousel-btn prev" onclick="moveCarousel(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carousel-track">
+                        <!-- Slide 1 -->
+                        <div class="carousel-slide">
+                            <div class="portfolio-card">
+                                <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1200&h=675&fit=crop" alt="Kitchen Electrical Work - Before and After" loading="lazy">
+                                <div class="portfolio-overlay">
+                                    <div class="portfolio-badge">Before & After</div>
+                                    <h3>Kitchen Lighting Upgrade</h3>
+                                    <p>Complete electrical renovation with modern LED lighting and new fixtures</p>
+                                    <div class="portfolio-tag">Electrical Work</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 2 -->
+                        <div class="carousel-slide">
+                            <div class="portfolio-card">
+                                <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?w=1200&h=675&fit=crop" alt="Bathroom Plumbing - Before and After" loading="lazy">
+                                <div class="portfolio-overlay">
+                                    <div class="portfolio-badge">Before & After</div>
+                                    <h3>Bathroom Faucet Replacement</h3>
+                                    <p>Modern fixtures installed with professional plumbing work</p>
+                                    <div class="portfolio-tag">Plumbing</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 3 -->
+                        <div class="carousel-slide">
+                            <div class="portfolio-card">
+                                <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=1200&h=675&fit=crop" alt="Living Room Painting - Before and After" loading="lazy">
+                                <div class="portfolio-overlay">
+                                    <div class="portfolio-badge">Before & After</div>
+                                    <h3>Living Room Transformation</h3>
+                                    <p>Complete drywall repair and fresh professional painting</p>
+                                    <div class="portfolio-tag">Painting & Drywall</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 4 -->
+                        <div class="carousel-slide">
+                            <div class="portfolio-card">
+                                <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=1200&h=675&fit=crop" alt="Deck Restoration - Before and After" loading="lazy">
+                                <div class="portfolio-overlay">
+                                    <div class="portfolio-badge">Before & After</div>
+                                    <h3>Deck Restoration Project</h3>
+                                    <p>Complete deck rebuild with modern materials and finish</p>
+                                    <div class="portfolio-tag">Carpentry</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 5 -->
+                        <div class="carousel-slide">
+                            <div class="portfolio-card">
+                                <img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1200&h=675&fit=crop" alt="Home Office Setup - Before and After" loading="lazy">
+                                <div class="portfolio-overlay">
+                                    <div class="portfolio-badge">Before & After</div>
+                                    <h3>Home Office Assembly</h3>
+                                    <p>Professional furniture assembly and organization</p>
+                                    <div class="portfolio-tag">Furniture Assembly</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 6 -->
+                        <div class="carousel-slide">
+                            <div class="portfolio-card">
+                                <img src="https://images.unsplash.com/photo-1577587820266-c9c8f1db44f6?w=1200&h=675&fit=crop" alt="Garage Organization - Before and After" loading="lazy">
+                                <div class="portfolio-overlay">
+                                    <div class="portfolio-badge">Before & After</div>
+                                    <h3>Garage Transformation</h3>
+                                    <p>Complete organization system and repairs</p>
+                                    <div class="portfolio-tag">General Repairs</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="carousel-btn next" onclick="moveCarousel(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <div class="carousel-dots" id="carousel-dots"></div>
+            
+            <div class="portfolio-cta">
+                <p>Want to see your home transformed?</p>
+                <button class="btn btn-primary btn-large" onclick="openBookingModal()">
+                    Get Your Free Estimate
+                </button>
             </div>
         </div>
     </section>
