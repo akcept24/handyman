@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview - California Handyman Pro Landing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #FF6B35;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .access-info {
+            background: linear-gradient(135deg, #004E89, #003A6B);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+        
+        .access-info h2 {
+            margin-bottom: 15px;
+        }
+        
+        .access-info code {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+        
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .section-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .section-card:hover {
+            border-color: #FF6B35;
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.15);
+            transform: translateY(-5px);
+        }
+        
+        .section-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #FF6B35, #E55527);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .section-card h3 {
+            color: #1A1A1A;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .section-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .features {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .features li {
+            padding: 6px 0;
+            color: #555;
+            display: flex;
+            align-items: center;
+        }
+        
+        .features li::before {
+            content: '✓';
+            color: #28A745;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 12px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FF6B35;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .tech-stack {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+        
+        .tech-stack h3 {
+            margin-bottom: 20px;
+            color: #1A1A1A;
+        }
+        
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tech-tag {
+            background: white;
+            border: 2px solid #FF6B35;
+            color: #FF6B35;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #FF6B35, #E55527);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .cta-section h2 {
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: white;
+            color: #FF6B35;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        .mockup {
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .browser-mockup {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            overflow: hidden;
+            margin: 20px auto;
+            max-width: 900px;
+        }
+        
+        .browser-header {
+            background: #e8e8e8;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .browser-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+        
+        .browser-url {
+            flex: 1;
+            background: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #666;
+            margin-left: 10px;
+        }
+        
+        .page-preview {
+            background: linear-gradient(180deg, #004E89 0%, #003A6B 100%);
+            color: white;
+            padding: 60px 30px;
+            text-align: center;
+        }
+        
+        .page-preview h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .page-preview p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .preview-cta {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #FF6B35;
+            color: white;
+            border-radius: 6px;
+            margin: 5px;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .preview-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 California Handyman Pro</h1>
+        <p class="subtitle">Premium Landing Page - Preview & Documentation</p>
+        
+        <div class="access-info">
+            <h2>🌐 Доступ к лендингу:</h2>
+            <p>Веб-сервер запущен! Откройте в браузере:</p>
+            <code>http://localhost:8000/index.html</code>
+            <p style="margin-top: 15px; opacity: 0.9;">
+                Или перейдите в папку /agent и откройте index.html напрямую
+            </p>
+        </div>
+        
+        <div class="mockup">
+            <h2 style="margin-bottom: 20px; color: #1A1A1A;">Предпросмотр главного экрана:</h2>
+            <div class="browser-mockup">
+                <div class="browser-header">
+                    <div class="browser-dot dot-red"></div>
+                    <div class="browser-dot dot-yellow"></div>
+                    <div class="browser-dot dot-green"></div>
+                    <div class="browser-url">californiahandymanpro.com</div>
+                </div>
+                <div class="page-preview">
+                    <div style="margin-bottom: 20px;">
+                        <span style="background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 50px; font-size: 0.9rem;">
+                            🛡️ Licensed & Insured • 10+ Years Experience
+                        </span>
+                    </div>
+                    <h1>Your Trusted <span style="color: #FFD23F;">Handyman</span><br>In California</h1>
+                    <p>Professional home repair and maintenance services. Fast response, guaranteed quality, transparent pricing. Same-day service available!</p>
+                    <div>
+                        <span class="preview-cta">Get Free Estimate</span>
+                        <span class="preview-cta" style="background: transparent; border: 2px solid white;">📞 Call Now</span>
+                    </div>
+                    <p style="margin-top: 30px; font-size: 0.9rem;">
+                        ⏰ 24/7 Emergency Service | ⭐ 5-Star Rated | 📜 Licensed Professionals
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <span class="stat-number">10</span>
+                <span class="stat-label">Секций лендинга</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">3</span>
+                <span class="stat-label">Формы лидогенерации</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Адаптивный дизайн</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">127KB</span>
+                <span class="stat-label">Общий размер</span>
+            </div>
+        </div>
+        
+        <h2 style="margin: 40px 0 20px; color: #1A1A1A;">📋 Структура лендинга:</h2>
+        
+        <div class="preview-grid">
+            <div class="section-card">
+                <div class="section-number">1</div>
+                <h3>Hero Section</h3>
+                <p>Мощный первый экран с формой заявки</p>
+                <ul class="features">
+                    <li>УТП и заголовок</li>
+                    <li>Форма быстрой заявки</li>
+                    <li>Trust badges</li>
+                    <li>Телефон для звонков</li>
+                </ul>
+            </div>
+            
+            <div class="section-card">
+                <div class="section-number">2</div>
+                <h3>Services</h3>
+                <p>6 категорий услуг с описанием</p>
+                <ul class="features">
+                    <li>Electrical Work</li>
+                    <li>Plumbing Services</li>
+                    <li>Painting & Drywall</li>
+                    <li>Furniture Assembly</li>
+                </ul>
+            </div>
+            
+            <div class="section-card">
+                <div class="section-number">3</div>
+                <h3>Why Choose Us</h3>
+                <p>6 ключевых преимуществ компании</p>
+                <ul class="features">
+                    <li>Fast Response</li>
+                    <li>Licensed & Insured</li>
+                    <li>Quality Guarantee</li>
+                    <li>Transparent Pricing</li>
+                </ul>
+            </div>
+            
+            <div class="section-card">
+                <div class="section-number">4</div>
+                <h3>How It Works</h3>
+                <p>4-шаговый процесс работы</p>
+                <ul class="features">
+                    <li>Contact Us</li>
+                    <li>Free Consultation</li>
+                    <li>Schedule Service</li>
+                    <li>Job Complete</li>
+                </ul>
+            </div>
+            
+            <div class="section-card">
+                <div class="section-number">5</div>
+                <h3>Service Areas</h3>
+                <p>Покрытие по всей Калифорнии</p>
+                <ul class="features">
+                    <li>Southern California</li>
+                    <li>Bay Area</li>
+                    <li>Central California</li>
+                    <li>18+ городов</li>
+                </ul>
+            </div>
+            
+            <div class="section-card">
+                <div class="section-number">6</div>
+                <h3>Testimonials</h3>
+                <p>Отзывы довольных клиентов</p>
+                <ul class="features">
+                    <li>5-звездочные отзывы</li>
+                    <li>Реальные истории</li>
+                    <li>Рейтинг 4.9/5</li>
+                    <li>500+ отзывов</li>
+                </ul>
+            </div>
+            
+            <div class="section-card">
+                <div class="section-number">7</div>
+                <h3>Pricing</h3>
+                <p>Прозрачные тарифы и цены</p>
+                <ul class="features">
+                    <li>Standard Rate: $85/час</li>
+                    <li>Project Package</li>
+                    <li>Emergency: $125/час</li>
+                    <li>Без скрытых платежей</li>
+                </ul>
+            </div>
+            
+            <div class="section-card">
+                <div class="section-number">8</div>
+                <h3>CTA Section</h3>
+                <p>Призыв к действию</p>
+                <ul class="features">
+                    <li>Яркий дизайн</li>
+                    <li>Множественные CTA</li>
+                    <li>Срочность предложения</li>
+                    <li>Гарантии</li>
+                </ul>
+            </div>
+            
+            <div class="section-card">
+                <div class="section-number">9</div>
+                <h3>Contact Form</h3>
+                <p>Подробная форма связи</p>
+                <ul class="features">
+                    <li>Валидация полей</li>
+                    <li>Выбор услуги</li>
+                    <li>Контактная информация</li>
+                    <li>Социальные сети</li>
+                </ul>
+            </div>
+            
+            <div class="section-card">
+                <div class="section-number">10</div>
+                <h3>Footer</h3>
+                <p>Навигация и доверие</p>
+                <ul class="features">
+                    <li>Полная навигация</li>
+                    <li>Контакты</li>
+                    <li>Trust badges</li>
+                    <li>Legal links</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="tech-stack">
+            <h3>🛠️ Технологический стек:</h3>
+            <div class="tech-tags">
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">JavaScript ES6+</span>
+                <span class="tech-tag">Responsive Design</span>
+                <span class="tech-tag">SEO Optimized</span>
+                <span class="tech-tag">Google Analytics</span>
+                <span class="tech-tag">Facebook Pixel</span>
+                <span class="tech-tag">Schema.org</span>
+                <span class="tech-tag">Open Graph</span>
+                <span class="tech-tag">Mobile-First</span>
+                <span class="tech-tag">Fast Loading</span>
+                <span class="tech-tag">Animations</span>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <h2>🚀 Готово к запуску!</h2>
+            <p>Все файлы созданы и оптимизированы. Лендинг готов привлекать клиентов!</p>
+            <a href="index.html" class="btn">Открыть лендинг</a>
+            <a href="README.md" class="btn">Документация</a>
+        </div>
+        
+        <div style="margin-top: 40px; padding: 30px; background: #f8f9fa; border-radius: 12px;">
+            <h3 style="margin-bottom: 15px;">📦 Файлы проекта:</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="border-bottom: 2px solid #ddd;">
+                    <th style="text-align: left; padding: 12px; color: #666;">Файл</th>
+                    <th style="text-align: left; padding: 12px; color: #666;">Размер</th>
+                    <th style="text-align: left; padding: 12px; color: #666;">Описание</th>
+                </tr>
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 12px; font-family: monospace;">index.html</td>
+                    <td style="padding: 12px;">44 KB</td>
+                    <td style="padding: 12px;">Основной лендинг</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 12px; font-family: monospace;">styles.css</td>
+                    <td style="padding: 12px;">29 KB</td>
+                    <td style="padding: 12px;">Премиум стили</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 12px; font-family: monospace;">script.js</td>
+                    <td style="padding: 12px;">22 KB</td>
+                    <td style="padding: 12px;">Интерактивность</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 12px; font-family: monospace;">README.md</td>
+                    <td style="padding: 12px;">17 KB</td>
+                    <td style="padding: 12px;">Техническая документация</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 12px; font-family: monospace;">MARKETING_GUIDE.md</td>
+                    <td style="padding: 12px;">13 KB</td>
+                    <td style="padding: 12px;">Гайд по рекламе</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 12px; font-family: monospace;">PROJECT_SUMMARY.md</td>
+                    <td style="padding: 12px;">9 KB</td>
+                    <td style="padding: 12px;">Итоги проекта</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; font-family: monospace; font-weight: bold;">TOTAL</td>
+                    <td style="padding: 12px; font-weight: bold;">~140 KB</td>
+                    <td style="padding: 12px; font-weight: bold;">Полный проект</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div style="margin-top: 40px; text-align: center; color: #666;">
+            <p>✨ Создано с использованием лучших практик веб-разработки</p>
+            <p style="margin-top: 10px;">🎯 Ready for Production | 📱 Mobile Optimized | 🚀 Fast & SEO-Friendly</p>
+        </div>
+    </div>
+</body>
+</html>
