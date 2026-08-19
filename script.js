@@ -808,6 +808,39 @@ function initTestimonialsSlider() {
 }
 
 // ==========================================
+// Smooth Scroll Animations (Intersection Observer)
+// ==========================================
+
+// Create Intersection Observer for fade-in animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            // Optionally unobserve after animation
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Observe all animated elements
+document.addEventListener('DOMContentLoaded', () => {
+    const animatedElements = document.querySelectorAll(
+        '.service-card, .testimonial-card, .portfolio-card, .stat-card, .how-it-works-card, .faq-item'
+    );
+    
+    animatedElements.forEach((el, index) => {
+        // Add stagger delay for better effect
+        el.style.transitionDelay = `${index * 0.1}s`;
+        observer.observe(el);
+    });
+});
+
+// ==========================================
 // Performance Optimization
 // ==========================================
 
