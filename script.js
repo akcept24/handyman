@@ -589,12 +589,15 @@ const observer = new IntersectionObserver((entries) => {
 // Observe all service cards and other animated elements
 document.addEventListener('DOMContentLoaded', () => {
     const animatedElements = document.querySelectorAll(
-        '.service-card, .why-card, .testimonial-card, .pricing-card, .step'
+        '.service-card, .why-card, .testimonial-card, .pricing-card, .step, .portfolio-card'
     );
     
     animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
+        // Only set initial styles if not already set in CSS
+        if (!el.style.opacity) {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+        }
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
@@ -806,39 +809,6 @@ function initTestimonialsSlider() {
         slider.scrollLeft = scrollLeft - walk;
     });
 }
-
-// ==========================================
-// Smooth Scroll Animations (Intersection Observer)
-// ==========================================
-
-// Create Intersection Observer for fade-in animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            // Optionally unobserve after animation
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-// Observe all animated elements
-document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll(
-        '.service-card, .testimonial-card, .portfolio-card, .stat-card, .how-it-works-card, .faq-item'
-    );
-    
-    animatedElements.forEach((el, index) => {
-        // Add stagger delay for better effect
-        el.style.transitionDelay = `${index * 0.1}s`;
-        observer.observe(el);
-    });
-});
 
 // ==========================================
 // Performance Optimization
