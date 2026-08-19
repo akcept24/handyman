@@ -3,1046 +3,1144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Master Every Detail — Premium Handyman Services California</title>
-<meta name="description" content="Expert handyman services in California. Professional craftsmanship for every home improvement project. Licensed, insured, and trusted by homeowners.">
+<title>California's Premier Handyman Services — Master Craftsmanship</title>
+<meta name="description" content="Elite handyman services across California. Expert craftsmanship, 24/7 availability, licensed & insured. From repairs to renovations — we master every detail.">
 
 <style>
-/* ═══════════════════════════════════════════════════════════════════
-   FONTS
-   ═══════════════════════════════════════════════════════════════════ */
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 
-/* ═══════════════════════════════════════════════════════════════════
-   COLOR TOKENS
-   ═══════════════════════════════════════════════════════════════════ */
 :root {
   --ink: #fafafa;
-  --muted: #a7a6a6;
-  --nav: #b6b5b5;
-  --strip: #8b8a8a;
-  --pill: #ffffff;
-  --pill-ink: #050505;
+  --muted: #b8b8b8;
+  --dim: #6b6b6b;
+  --accent: #ffffff;
   --stage-black: #050505;
+  --card-bg: rgba(20, 20, 20, 0.8);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --gold: #d4af37;
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   RESPONSIVE UNIT SYSTEM
-   ═══════════════════════════════════════════════════════════════════ */
-:root {
-  --u: calc(100vh / 1058);
-  --uw: calc(100vw / 1487);
-  --h: clamp(var(--u), calc(var(--u) * .65 + var(--uw) * .35), calc(var(--u) * 1.16));
-}
-
-@supports (height: 100dvh) {
-  :root {
-    --u: calc(100dvh / 1058);
-  }
-}
-
-/* Portrait / narrow */
-@media (max-aspect-ratio: 11/10) {
-  :root {
-    --m: min(100vw / 430, 1.34px);
-    --u: var(--m);
-    --h: var(--m);
-  }
-}
-
-/* Tablet portrait band */
-@media (min-width: 600px) and (max-aspect-ratio: 11/10) {
-  :root {
-    --m: min(100vw / 860, 100vh / 760, 1.25px);
-    --u: var(--m);
-    --h: var(--m);
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   BASE RESET
-   ═══════════════════════════════════════════════════════════════════ */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Manrope', system-ui, -apple-system, sans-serif;
   background: var(--stage-black);
-  font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: geometricPrecision;
-  color: var(--ink);
+  overflow-x: hidden;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  background: none;
-  border: none;
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
-}
-
-ul {
-  list-style: none;
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 9999;
+  mix-blend-mode: overlay;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   STAGE & PLATE (VIDEO CONTAINER)
+   HERO SECTION
    ═══════════════════════════════════════════════════════════════════ */
-.stage {
-  position: fixed;
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0 5vw;
+}
+
+.hero-video {
+  position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-}
-
-.plate {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.plate-video {
-  position: absolute;
-  left: 50%;
-  top: calc(1 * var(--u));
-  width: calc(1492 * var(--u));
-  height: calc(1054 * var(--u));
-  transform: translateX(calc(-50% - calc(0.5 * var(--u))));
   object-fit: cover;
-  pointer-events: none;
+  opacity: 0.4;
 }
 
-/* Video overlays — desktop */
-.plate::after {
+.hero::after {
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(to bottom,
-      rgba(5,5,5,0) 78.8%,
-      rgba(5,5,5,.23) 79.6%,
-      rgba(5,5,5,.45) 81.4%,
-      rgba(5,5,5,.75) 83.3%,
-      rgba(5,5,5,.84) 85.2%,
-      rgba(5,5,5,.888) 88%,
-      rgba(5,5,5,.905) 91%,
-      rgba(5,5,5,.96) 95%,
-      #050505 100%
-    ),
-    linear-gradient(to right,
-      #050505 calc(50% - calc(746 * var(--u))),
-      transparent calc(50% - calc(676 * var(--u))),
-      transparent calc(50% + calc(676 * var(--u))),
-      #050505 calc(50% + calc(746 * var(--u)))
-    );
+  background: 
+    radial-gradient(ellipse at 50% 30%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+    linear-gradient(to bottom, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.7) 50%, #050505 100%);
   pointer-events: none;
 }
 
-/* Portrait video overlays */
-@media (max-aspect-ratio: 11/10) {
-  .plate-video {
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    transform: none;
-    object-position: 43% center;
-  }
-
-  .plate::after {
-    background:
-      linear-gradient(to right,
-        rgba(5,5,5,.86) 0%,
-        rgba(5,5,5,.66) 42%,
-        rgba(5,5,5,.20) 78%,
-        rgba(5,5,5,.10) 100%
-      ),
-      linear-gradient(to bottom,
-        rgba(5,5,5,.72) 0%,
-        rgba(5,5,5,.34) 24%,
-        rgba(5,5,5,.34) 56%,
-        rgba(5,5,5,.80) 82%,
-        rgba(5,5,5,.97) 94%,
-        #050505 100%
-      );
-  }
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 1200px;
+  padding: 120px 20px 60px;
 }
 
-/* Tablet portrait video overlays */
-@media (min-width: 600px) and (max-aspect-ratio: 11/10) {
-  .plate-video {
-    object-position: 44% center;
-  }
-
-  .plate::after {
-    background:
-      linear-gradient(to right,
-        rgba(5,5,5,.84) 0%,
-        rgba(5,5,5,.60) 42%,
-        rgba(5,5,5,.16) 78%,
-        rgba(5,5,5,.06) 100%
-      ),
-      linear-gradient(to bottom,
-        rgba(5,5,5,.66) 0%,
-        rgba(5,5,5,.28) 24%,
-        rgba(5,5,5,.30) 56%,
-        rgba(5,5,5,.78) 82%,
-        rgba(5,5,5,.96) 94%,
-        #050505 100%
-      );
-  }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gold);
+  margin-bottom: 32px;
+  backdrop-filter: blur(10px);
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   HEADER / TOPBAR
-   ═══════════════════════════════════════════════════════════════════ */
-.topbar {
-  position: absolute;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.topbar > * {
-  pointer-events: auto;
-}
-
-/* Brand mark */
-.brand {
-  position: absolute;
-  left: calc(75 * var(--u));
-  top: calc(27 * var(--u));
-  width: calc(31.5 * var(--u));
-  height: calc(48.5 * var(--u));
-  display: block;
-}
-
-.brand svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* Desktop nav links */
-.links {
-  position: absolute;
-  left: 50%;
-  top: calc(51 * var(--u));
-  transform: translate(-50%, -50%);
-  display: flex;
-  gap: calc(24.5 * var(--u));
-  font-size: calc(19.0 * var(--u));
+.hero h1 {
+  font-size: clamp(48px, 8vw, 96px);
   font-weight: 400;
-  color: var(--nav);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+  background: linear-gradient(to bottom, #ffffff 30%, #b8b8b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.links a {
-  white-space: nowrap;
-  transition: color 0.2s;
+.hero h1 strong {
+  font-weight: 700;
+  display: block;
 }
 
-.links a:hover {
-  color: var(--ink);
-}
-
-/* Header CTA pill */
-.pill-nav {
-  position: absolute;
-  right: calc(75.4 * var(--u));
-  top: calc(27 * var(--u));
-  width: calc(175 * var(--u));
-  height: calc(49 * var(--u));
-  background: var(--pill);
-  color: var(--pill-ink);
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(20.6 * var(--u));
-  font-weight: 500;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.pill-nav span {
-  transform: translateY(calc(1 * var(--u)));
-}
-
-.pill-nav:hover {
-  transform: translateY(calc(-2 * var(--u)));
-  box-shadow: 0 calc(8 * var(--u)) calc(24 * var(--u)) rgba(255,255,255,0.12);
-}
-
-/* Burger (mobile only) */
-.burger {
-  position: absolute;
-  right: calc(20 * var(--u));
-  top: calc(27 * var(--u));
-  width: calc(49 * var(--u));
-  height: calc(49 * var(--u));
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 999px;
-  backdrop-filter: blur(calc(12 * var(--u)));
-  -webkit-backdrop-filter: blur(calc(12 * var(--u)));
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: calc(4.3 * var(--u));
-  transition: all 0.42s cubic-bezier(.22, 1, .36, 1);
-}
-
-.burger i {
-  width: calc(18 * var(--u));
-  height: calc(2 * var(--u));
-  background: var(--ink);
-  border-radius: calc(1 * var(--u));
-  transition: all 0.42s cubic-bezier(.22, 1, .36, 1);
-}
-
-.stage.is-open .burger i:first-child {
-  transform: translateY(calc(6.3 * var(--u))) rotate(45deg);
-}
-
-.stage.is-open .burger i:last-child {
-  transform: translateY(calc(-6.3 * var(--u))) rotate(-45deg);
-}
-
-@media (max-aspect-ratio: 11/10) {
-  .links,
-  .pill-nav {
-    display: none;
-  }
-
-  .burger {
-    display: flex;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   MOBILE MENU OVERLAY
-   ═══════════════════════════════════════════════════════════════════ */
-.menu {
-  position: fixed;
-  inset: 0;
-  z-index: 9;
-  background: radial-gradient(ellipse at 50% 20%, rgba(40,40,40,0.95) 0%, rgba(5,5,5,0.98) 60%);
-  backdrop-filter: blur(calc(24 * var(--u)));
-  -webkit-backdrop-filter: blur(calc(24 * var(--u)));
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.42s cubic-bezier(.22, 1, .36, 1), visibility 0.42s cubic-bezier(.22, 1, .36, 1);
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-}
-
-.stage.is-open .menu {
-  opacity: 1;
-  visibility: visible;
-}
-
-.menu-inner {
-  position: absolute;
-  inset: calc(100 * var(--u)) calc(20 * var(--u)) calc(40 * var(--u));
-  display: flex;
-  flex-direction: column;
-  gap: calc(40 * var(--u));
-}
-
-.menu-eyebrow {
-  font-size: calc(14 * var(--u));
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+.hero p {
+  font-size: clamp(18px, 2.5vw, 24px);
+  line-height: 1.6;
   color: var(--muted);
-  opacity: 0;
-  transform: translateY(calc(14 * var(--u)));
-  transition: opacity 0.6s cubic-bezier(.22, 1, .36, 1), transform 0.6s cubic-bezier(.22, 1, .36, 1);
+  max-width: 800px;
+  margin: 0 auto 48px;
 }
 
-.stage.is-open .menu-eyebrow {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.06s;
-}
-
-.menu-list {
+.hero-actions {
   display: flex;
-  flex-direction: column;
-  gap: calc(24 * var(--u));
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.menu-list li {
-  opacity: 0;
-  transform: translateY(calc(14 * var(--u)));
-  transition: opacity 0.6s cubic-bezier(.22, 1, .36, 1), transform 0.6s cubic-bezier(.22, 1, .36, 1);
+.btn {
+  padding: 18px 40px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  cursor: pointer;
 }
 
-.stage.is-open .menu-list li:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.10s; }
-.stage.is-open .menu-list li:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.16s; }
-.stage.is-open .menu-list li:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.22s; }
-.stage.is-open .menu-list li:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.28s; }
+.btn-primary {
+  background: var(--accent);
+  color: var(--stage-black);
+}
 
-.menu-list a {
-  font-size: max(calc(31 * var(--u)), 25px);
-  font-weight: 400;
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(255, 255, 255, 0.2);
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--accent);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HEADER / NAV
+   ═══════════════════════════════════════════════════════════════════ */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20px 5vw;
+  transition: all 0.3s;
+}
+
+.header.scrolled {
+  background: rgba(5, 5, 5, 0.9);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nav-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: calc(8 * var(--u)) 0;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--gold) 0%, #b8924a 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 20px;
+  color: #000;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
   transition: color 0.2s;
 }
 
-.menu-list a:hover {
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+.nav-cta {
+  padding: 12px 28px;
+  font-size: 16px;
+}
+
+.mobile-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.mobile-toggle span {
+  width: 28px;
+  height: 2px;
+  background: var(--accent);
+  transition: all 0.3s;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  
+  .mobile-toggle {
+    display: flex;
+  }
+  
+  .nav-cta {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SECTIONS
+   ═══════════════════════════════════════════════════════════════════ */
+section {
+  padding: 120px 5vw;
+  max-width: 1600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.section-label {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+
+.section-subtitle {
+  font-size: clamp(16px, 2vw, 20px);
   color: var(--muted);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
-.menu-list a::after {
-  content: '→';
-  font-size: calc(24 * var(--u));
-  opacity: 0.5;
+/* ═══════════════════════════════════════════════════════════════════
+   STATS SECTION
+   ═══════════════════════════════════════════════════════════════════ */
+.stats {
+  background: linear-gradient(180deg, #050505 0%, #0a0a0a 50%, #050505 100%);
+  padding: 80px 5vw;
 }
 
-.menu-foot {
-  margin-top: auto;
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: clamp(48px, 6vw, 72px);
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.stat-label {
+  font-size: 16px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SERVICES SECTION
+   ═══════════════════════════════════════════════════════════════════ */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.service-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 40px 32px;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  backdrop-filter: blur(10px);
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.service-icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.05) 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 24px;
+}
+
+.service-card h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.service-card p {
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.service-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.service-card li {
+  padding: 8px 0;
+  color: var(--dim);
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.service-card li::before {
+  content: '✓';
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PORTFOLIO SECTION
+   ═══════════════════════════════════════════════════════════════════ */
+.portfolio {
+  background: linear-gradient(180deg, #050505 0%, #0d0d0d 100%);
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 32px;
+}
+
+.portfolio-item {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.portfolio-item:hover {
+  transform: scale(1.02);
+}
+
+.portfolio-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portfolio-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
   display: flex;
   flex-direction: column;
-  gap: calc(16 * var(--u));
+  justify-content: flex-end;
+  padding: 32px;
   opacity: 0;
-  transform: translateY(calc(14 * var(--u)));
-  transition: opacity 0.6s cubic-bezier(.22, 1, .36, 1), transform 0.6s cubic-bezier(.22, 1, .36, 1);
+  transition: opacity 0.3s;
 }
 
-.stage.is-open .menu-foot {
+.portfolio-item:hover .portfolio-overlay {
   opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.34s;
 }
 
-.menu-foot .pill {
-  width: 100%;
-  height: calc(56 * var(--u));
-  background: var(--pill);
-  color: var(--pill-ink);
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(18 * var(--u));
-  font-weight: 500;
+.portfolio-overlay h3 {
+  font-size: 22px;
+  margin-bottom: 8px;
 }
 
-.menu-foot .ghost {
-  width: 100%;
-  height: calc(56 * var(--u));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(18 * var(--u));
-  font-weight: 500;
-  color: var(--ink);
+.portfolio-overlay p {
+  color: var(--muted);
+  font-size: 14px;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   HERO CONTENT
+   PROCESS SECTION
    ═══════════════════════════════════════════════════════════════════ */
-.hero {
+.process-timeline {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.process-step {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 32px;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.process-step:not(:last-child)::after {
+  content: '';
   position: absolute;
-  z-index: 5;
+  left: 40px;
+  top: 80px;
+  width: 2px;
+  height: calc(100% + 20px);
+  background: linear-gradient(to bottom, var(--card-border), transparent);
 }
 
-/* Headline */
-.headline {
-  position: absolute;
-  left: calc(75.5 * var(--u));
-  top: calc(230.5 * var(--u));
-  font-size: calc(71.6 * var(--h));
-  line-height: calc(80.5 * var(--h));
-  font-weight: 400;
-  letter-spacing: calc(0.3 * var(--h));
-  color: var(--ink);
-  white-space: nowrap;
-}
-
-.headline span {
-  display: block;
-}
-
-/* Subcopy */
-.sub {
-  position: absolute;
-  left: calc(75.5 * var(--u));
-  top: calc(230.5 * var(--u) + 189.0 * var(--h));
-  font-size: calc(20.7 * var(--h));
-  line-height: calc(23.5 * var(--h));
-  font-weight: 400;
-  word-spacing: calc(1.8 * var(--h));
-  color: var(--muted);
-}
-
-.sub span {
-  display: block;
-  white-space: nowrap;
-}
-
-/* Actions */
-.actions {
-  position: absolute;
-  left: calc(74.9 * var(--u));
-  top: calc(230.5 * var(--u) + 264.5 * var(--h));
-}
-
-.pill-cta {
-  position: absolute;
-  width: calc(175.6 * var(--h));
-  height: calc(50 * var(--h));
-  background: var(--pill);
-  color: var(--pill-ink);
-  border-radius: 999px;
+.process-number {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.05) 100%);
+  border: 2px solid var(--card-border);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(20.6 * var(--h));
-  font-weight: 500;
-  transition: transform 0.2s, box-shadow 0.2s;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--gold);
+  position: relative;
+  z-index: 2;
 }
 
-.pill-cta span {
-  transform: translateY(calc(1 * var(--u)));
+.process-content h3 {
+  font-size: 28px;
+  margin-bottom: 12px;
 }
 
-.pill-cta:hover {
-  transform: translateY(calc(-2 * var(--u)));
-  box-shadow: 0 calc(8 * var(--u)) calc(24 * var(--u)) rgba(255,255,255,0.12);
+.process-content p {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 17px;
 }
 
-.ghost {
-  position: absolute;
-  left: calc(220.6 * var(--h));
-  top: calc(15 * var(--h));
-  font-size: calc(20.6 * var(--h));
-  font-weight: 500;
-  letter-spacing: calc(0.12 * var(--h));
-  color: #fff;
-  white-space: nowrap;
+/* ═══════════════════════════════════════════════════════════════════
+   TESTIMONIALS SECTION
+   ═══════════════════════════════════════════════════════════════════ */
+.testimonials {
+  background: linear-gradient(180deg, #050505 0%, #0a0a0a 100%);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+}
+
+.testimonial-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 40px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+
+.testimonial-card:hover {
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
+.stars {
+  color: var(--gold);
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.testimonial-text {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.author-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold) 0%, #b8924a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #000;
+  font-size: 20px;
+}
+
+.author-info h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.author-info p {
+  font-size: 14px;
+  color: var(--dim);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CTA SECTION
+   ═══════════════════════════════════════════════════════════════════ */
+.cta-section {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 24px;
+  padding: 80px 60px;
+  text-align: center;
+  margin: 120px 5vw;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-section h2 {
+  font-size: clamp(32px, 5vw, 56px);
+  margin-bottom: 20px;
+}
+
+.cta-section p {
+  font-size: 20px;
+  color: var(--muted);
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════════════ */
+.footer {
+  background: #000;
+  padding: 80px 5vw 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-content {
+  max-width: 1600px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+.footer-section h3 {
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.footer-section ul {
+  list-style: none;
+}
+
+.footer-section li {
+  margin-bottom: 12px;
+}
+
+.footer-section a {
+  color: var(--muted);
+  text-decoration: none;
   transition: color 0.2s;
 }
 
-.ghost:hover {
-  color: var(--muted);
+.footer-section a:hover {
+  color: var(--accent);
 }
 
-/* Portrait hero adjustments */
-@media (max-aspect-ratio: 11/10) {
-  .headline {
-    left: calc(20 * var(--u));
-    top: calc(140 * var(--u));
-    font-size: calc(48 * var(--h));
-    line-height: calc(54 * var(--h));
-    white-space: normal;
-    max-width: calc(390 * var(--u));
-  }
-
-  .headline span {
-    display: inline;
-  }
-
-  .sub {
-    left: calc(20 * var(--u));
-    top: calc(280 * var(--u));
-    white-space: normal;
-    max-width: calc(390 * var(--u));
-  }
-
-  .sub span {
-    display: inline;
-  }
-
-  .actions {
-    left: calc(20 * var(--u));
-    top: calc(400 * var(--u));
-    width: calc(390 * var(--u));
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: calc(16 * var(--u));
-  }
-
-  .pill-cta {
-    position: static;
-    width: 100%;
-  }
-
-  .ghost {
-    position: static;
-    left: auto;
-    top: auto;
-    text-align: center;
-  }
-}
-
-/* Tablet portrait hero adjustments */
-@media (min-width: 600px) and (max-aspect-ratio: 11/10) {
-  .headline {
-    left: calc(40 * var(--u));
-    top: calc(180 * var(--u));
-    font-size: calc(64 * var(--h));
-    line-height: calc(72 * var(--h));
-    max-width: calc(700 * var(--u));
-  }
-
-  .headline span {
-    display: block;
-  }
-
-  .sub {
-    left: calc(40 * var(--u));
-    top: calc(360 * var(--u));
-    max-width: calc(600 * var(--u));
-  }
-
-  .actions {
-    left: calc(40 * var(--u));
-    top: calc(480 * var(--u));
-    width: calc(600 * var(--u));
-  }
+.footer-bottom {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  color: var(--dim);
+  font-size: 14px;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   PARTNER LOGOS STRIP
+   ANIMATIONS
    ═══════════════════════════════════════════════════════════════════ */
-.logos {
-  position: absolute;
-  width: calc(741 * var(--u));
-  left: 50%;
-  transform: translateX(calc(-50% + calc(20 * var(--u))));
-  color: var(--strip);
-  z-index: 5;
-}
-
-.lg {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: calc(6 * var(--u));
-}
-
-.lg svg {
-  flex-shrink: 0;
-}
-
-.lg-word {
-  font-family: 'Manrope', sans-serif;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-/* Logo 1 */
-.lg1 {
-  left: calc(-0.5 * var(--u));
-  top: calc(994.7 * var(--u));
-}
-
-.lg1 svg {
-  width: calc(30.5 * var(--u));
-  height: calc(31 * var(--u));
-}
-
-.lg1 .lg-word {
-  font-size: calc(18.1 * var(--u));
-}
-
-/* Logo 2 */
-.lg2 {
-  left: calc(206.5 * var(--u));
-  top: calc(995.7 * var(--u));
-}
-
-.lg2 svg {
-  width: calc(24.5 * var(--u));
-  height: calc(30 * var(--u));
-}
-
-.lg2 .lg-word {
-  font-size: calc(18.5 * var(--u));
-}
-
-.lg2 .dot {
-  display: inline-block;
-  width: 0.09em;
-  height: 0.09em;
-  background: currentColor;
-  border-radius: 50%;
-  vertical-align: 0.62em;
-  margin-left: 0.06em;
-}
-
-/* Logo 3 */
-.lg3 {
-  left: calc(416.5 * var(--u));
-  top: calc(996.7 * var(--u));
-}
-
-.lg3 svg {
-  width: calc(28.5 * var(--u));
-  height: calc(28 * var(--u));
-}
-
-.lg3 .lg-word {
-  font-size: calc(16.15 * var(--u));
-}
-
-/* Logo 4 */
-.lg4 {
-  left: calc(620.5 * var(--u));
-  top: calc(998.7 * var(--u));
-}
-
-.lg4 svg {
-  width: calc(28.5 * var(--u));
-  height: calc(25.5 * var(--u));
-}
-
-.lg4 .lg-word {
-  font-size: calc(15.3 * var(--u));
-}
-
-/* Portrait logos - 2x2 grid */
-@media (max-aspect-ratio: 11/10) and (max-width: 599px) {
-  .logos {
-    width: calc(390 * var(--u));
-    left: calc(20 * var(--u));
-    top: calc(640 * var(--u));
-    transform: none;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: calc(40 * var(--u)) calc(20 * var(--u));
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
-
-  .lg {
-    position: static;
-  }
-
-  .lg1 { grid-column: 1; grid-row: 1; }
-  .lg2 { grid-column: 2; grid-row: 1; }
-  .lg3 { grid-column: 1; grid-row: 2; }
-  .lg4 { grid-column: 2; grid-row: 2; }
-}
-
-/* Tablet portrait logos - single row */
-@media (min-width: 600px) and (max-aspect-ratio: 11/10) {
-  .logos {
-    width: calc(700 * var(--u));
-    left: calc(40 * var(--u));
-    top: calc(640 * var(--u));
-    transform: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .lg {
-    position: static;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   ANIMATIONS (prefers-reduced-motion: no-preference)
-   ═══════════════════════════════════════════════════════════════════ */
-@media (prefers-reduced-motion: no-preference) {
-  @keyframes rise {
-    from {
-      opacity: 0;
-      transform: translateY(calc(14 * var(--u)));
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes riseNav {
-    from {
-      opacity: 0;
-      transform: translate(calc(-50% + 0 * var(--u)), calc(-50% + 14 * var(--u)));
-    }
-    to {
-      opacity: 1;
-      transform: translate(calc(-50% + 0 * var(--u)), -50%);
-    }
-  }
-
-  @keyframes fade {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  .brand {
-    animation: rise 0.8s cubic-bezier(.22, 1, .36, 1) both;
-  }
-
-  .links {
-    animation: riseNav 0.8s cubic-bezier(.22, 1, .36, 1) both;
-  }
-
-  .pill-nav {
-    animation: rise 0.8s cubic-bezier(.22, 1, .36, 1) both;
-  }
-
-  .headline {
-    animation: rise 0.9s cubic-bezier(.22, 1, .36, 1) both;
-    animation-delay: 0.06s;
-  }
-
-  .sub {
-    animation: rise 0.9s cubic-bezier(.22, 1, .36, 1) both;
-    animation-delay: 0.14s;
-  }
-
-  .pill-cta,
-  .ghost {
-    animation: rise 0.9s cubic-bezier(.22, 1, .36, 1) both;
-    animation-delay: 0.22s;
-  }
-
-  .lg {
-    animation: fade 1.1s ease both;
-    animation-delay: 0.34s;
-  }
+.fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Reduced motion fallback */
-@media (prefers-reduced-motion: reduce) {
-  .burger,
-  .burger i,
-  .menu,
-  .menu-eyebrow,
-  .menu-list li,
-  .menu-foot {
-    transition-duration: 0.001s !important;
+@media (max-width: 768px) {
+  section {
+    padding: 80px 5vw;
+  }
+  
+  .section-header {
+    margin-bottom: 48px;
+  }
+  
+  .stats-grid {
+    gap: 40px;
+  }
+  
+  .services-grid,
+  .portfolio-grid,
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .process-step {
+    grid-template-columns: 60px 1fr;
+    gap: 20px;
+  }
+  
+  .process-number {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
+  
+  .cta-section {
+    padding: 60px 40px;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
 }
 </style>
 </head>
 
 <body>
-<div class="stage" id="stage">
-  <!-- Video Background Plate -->
-  <div class="plate">
-    <video class="plate-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260808_112712_da9d53df-6d27-4b12-bdf6-aa9dc2622bdf.mp4" type="video/mp4">
-    </video>
-  </div>
+<div class="grain"></div>
 
-  <!-- Header / Topbar -->
-  <header class="topbar">
-    <!-- Brand Mark -->
-    <a href="#" class="brand" aria-label="Home">
-      <svg viewBox="0 0 31.5 48.5" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="bg1" x1="8" y1="0" x2="34.1" y2="28.9" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#9e9e9e"/>
-            <stop offset=".28" stop-color="#a6a6a6"/>
-            <stop offset=".34" stop-color="#a3a3a3"/>
-            <stop offset=".40" stop-color="#3a3a3a"/>
-            <stop offset=".55" stop-color="#414141"/>
-            <stop offset=".60" stop-color="#7a7a7a"/>
-            <stop offset=".68" stop-color="#8e8e8e"/>
-            <stop offset=".80" stop-color="#a9a9a9"/>
-            <stop offset=".95" stop-color="#c4c4c4"/>
-            <stop offset="1" stop-color="#cccccc"/>
-          </linearGradient>
-        </defs>
-        <path d="M21.5 0 L21.5 19.5 L31.5 19.5 L31.5 29 L10 48.5 L10 28.5 L0.5 28.5 L0.5 18.5 Z" fill="url(#bg1)"/>
-        <rect x="0.5" y="18.5" width="9" height="10" fill="#fdfdfd"/>
-        <rect x="22" y="19.5" width="9.5" height="9.5" fill="#fdfdfd"/>
-      </svg>
+<!-- Header -->
+<header class="header" id="header">
+  <nav class="nav-container">
+    <a href="#" class="logo">
+      <div class="logo-icon">CH</div>
+      <span>California Handyman</span>
     </a>
-
-    <!-- Desktop Navigation Links -->
-    <nav class="links" aria-label="Primary">
-      <a href="#services">Services</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-
-    <!-- Desktop Header CTA -->
-    <a href="tel:+15559876543" class="pill pill-nav">
-      <span>Call Now</span>
-    </a>
-
-    <!-- Mobile Burger -->
-    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
-      <i></i>
-      <i></i>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+    </ul>
+    <a href="tel:+15559876543" class="btn btn-primary nav-cta">Call Now</a>
+    <button class="mobile-toggle" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
     </button>
-  </header>
+  </nav>
+</header>
 
-  <!-- Mobile Menu Overlay -->
-  <nav class="menu" id="menu" aria-hidden="true">
-    <div class="menu-inner">
-      <p class="menu-eyebrow">Menu</p>
-      <ul class="menu-list">
-        <li><a href="#services" data-menu-link>Services</a></li>
-        <li><a href="#portfolio" data-menu-link>Portfolio</a></li>
-        <li><a href="#about" data-menu-link>About</a></li>
-        <li><a href="#contact" data-menu-link>Contact</a></li>
+<!-- Hero Section -->
+<section class="hero">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto">
+    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260808_112712_da9d53df-6d27-4b12-bdf6-aa9dc2622bdf.mp4" type="video/mp4">
+  </video>
+  <div class="hero-content fade-in-up">
+    <div class="hero-badge">★ California's Premier Handyman Service</div>
+    <h1>
+      Master Every Detail.
+      <strong>Perfect Every Project.</strong>
+    </h1>
+    <p>
+      Elite craftsmanship meets reliable service. From minor repairs to major renovations, 
+      we deliver excellence with every project across California.
+    </p>
+    <div class="hero-actions">
+      <a href="tel:+15559876543" class="btn btn-primary">
+        <span>📞</span> Call (555) 987-6543
+      </a>
+      <a href="#portfolio" class="btn btn-ghost">View Our Work →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-number">15+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">5,000+</div>
+      <div class="stat-label">Projects Completed</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">98%</div>
+      <div class="stat-label">Customer Satisfaction</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">24/7</div>
+      <div class="stat-label">Emergency Service</div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section id="services">
+  <div class="section-header">
+    <div class="section-label">Our Services</div>
+    <h2 class="section-title">Complete Home Solutions</h2>
+    <p class="section-subtitle">
+      Expert handyman services for every need. Licensed, insured, and trusted by homeowners across California.
+    </p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🔨</div>
+      <h3>General Repairs</h3>
+      <p>Quick fixes and comprehensive repairs for your home's everyday needs.</p>
+      <ul>
+        <li>Door & window repairs</li>
+        <li>Drywall patching</li>
+        <li>Fixture installation</li>
+        <li>General maintenance</li>
       </ul>
-      <div class="menu-foot">
-        <a href="tel:+15559876543" class="pill">Call Now</a>
-        <a href="#quote" class="ghost">Get Free Quote</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⚡</div>
+      <h3>Electrical Work</h3>
+      <p>Safe and certified electrical services for your home.</p>
+      <ul>
+        <li>Outlet & switch installation</li>
+        <li>Light fixture setup</li>
+        <li>Circuit breaker repair</li>
+        <li>Wiring upgrades</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🚰</div>
+      <h3>Plumbing Services</h3>
+      <p>Professional plumbing solutions for any issue.</p>
+      <ul>
+        <li>Leak repairs</li>
+        <li>Faucet replacement</li>
+        <li>Drain cleaning</li>
+        <li>Pipe installation</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎨</div>
+      <h3>Painting & Drywall</h3>
+      <p>Transform your space with expert painting and finishing.</p>
+      <ul>
+        <li>Interior & exterior painting</li>
+        <li>Drywall installation</li>
+        <li>Texture matching</li>
+        <li>Color consultation</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🪚</div>
+      <h3>Carpentry</h3>
+      <p>Custom woodwork and carpentry for your home.</p>
+      <ul>
+        <li>Cabinet installation</li>
+        <li>Trim & molding</li>
+        <li>Deck building</li>
+        <li>Custom shelving</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏠</div>
+      <h3>Home Improvement</h3>
+      <p>Complete renovation and remodeling services.</p>
+      <ul>
+        <li>Kitchen remodeling</li>
+        <li>Bathroom upgrades</li>
+        <li>Flooring installation</li>
+        <li>Room additions</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Portfolio Section -->
+<section id="portfolio" class="portfolio">
+  <div class="section-header">
+    <div class="section-label">Our Work</div>
+    <h2 class="section-title">Projects That Speak For Themselves</h2>
+    <p class="section-subtitle">
+      See the quality and attention to detail in every project we complete.
+    </p>
+  </div>
+  <div class="portfolio-grid">
+    <div class="portfolio-item">
+      <img src="/images/work-carpentry-deck.jpg" alt="Deck Construction" loading="lazy">
+      <div class="portfolio-overlay">
+        <h3>Custom Deck Build</h3>
+        <p>Complete deck construction with premium materials</p>
       </div>
     </div>
-  </nav>
-
-  <!-- Hero Content -->
-  <main class="hero">
-    <h1 class="headline">
-      <span>Master Every</span>
-      <span>Detail</span>
-    </h1>
-    <p class="sub">
-      <span>Expert craftsmanship and reliable service for every home</span>
-      <span>improvement project across California. Licensed and insured.</span>
-    </p>
-    <div class="actions">
-      <a href="tel:+15559876543" class="pill pill-cta">
-        <span>Call Now</span>
-      </a>
-      <a href="#portfolio" class="ghost">View Our Work</a>
+    <div class="portfolio-item">
+      <img src="/images/work-electrical-kitchen.jpg" alt="Kitchen Electrical" loading="lazy">
+      <div class="portfolio-overlay">
+        <h3>Kitchen Rewiring</h3>
+        <p>Full electrical upgrade and modern lighting</p>
+      </div>
     </div>
-  </main>
-
-  <!-- Partner Logos Strip -->
-  <div class="logos">
-    <!-- Logo 1 -->
-    <div class="lg lg1">
-      <svg viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <mask id="m1">
-            <rect width="30" height="31" fill="white"/>
-            <circle cx="19.5" cy="10.5" r="5.1" fill="black"/>
-          </mask>
-        </defs>
-        <rect width="30" height="31" stroke="currentColor" stroke-width="3.1" fill="none" mask="url(#m1)"/>
-        <circle cx="19.5" cy="10.5" r="5.1" stroke="currentColor" stroke-width="3.1" fill="none"/>
-      </svg>
-      <span class="lg-word">Licensed</span>
+    <div class="portfolio-item">
+      <img src="/images/work-painting-drywall.jpg" alt="Interior Painting" loading="lazy">
+      <div class="portfolio-overlay">
+        <h3>Interior Transformation</h3>
+        <p>Complete painting and drywall finishing</p>
+      </div>
     </div>
-
-    <!-- Logo 2 -->
-    <div class="lg lg2">
-      <svg viewBox="0 0 25 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="1.55" y="1.55" width="21.9" height="26.9" stroke="currentColor" stroke-width="3.1" fill="none"/>
-        <defs>
-          <mask id="m2">
-            <rect width="25" height="30" fill="white"/>
-            <path d="M12.5 0 L12.5 30" stroke="black" stroke-width="3.1"/>
-          </mask>
-        </defs>
-        <circle cx="12.5" cy="15" r="7.5" fill="currentColor" mask="url(#m2)"/>
-      </svg>
-      <span class="lg-word">Insured<span class="dot"></span></span>
+    <div class="portfolio-item">
+      <img src="/images/work-plumbing-bathroom.jpg" alt="Bathroom Plumbing" loading="lazy">
+      <div class="portfolio-overlay">
+        <h3>Bathroom Remodel</h3>
+        <p>Modern plumbing and fixture installation</p>
+      </div>
     </div>
-
-    <!-- Logo 3 -->
-    <div class="lg lg3">
-      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="14" cy="14" r="12.35" stroke="currentColor" stroke-width="3.1" fill="none"/>
-        <path d="M 6,14 Q 10,8 14,14 T 22,14" stroke="currentColor" stroke-width="3.1" fill="none" stroke-linecap="round"/>
-        <path d="M 6,18 Q 10,12 14,18 T 22,18" stroke="currentColor" stroke-width="3.1" fill="none" stroke-linecap="round"/>
-      </svg>
-      <span class="lg-word">Trusted</span>
+    <div class="portfolio-item">
+      <img src="/images/work-furniture-assembly.jpg" alt="Custom Carpentry" loading="lazy">
+      <div class="portfolio-overlay">
+        <h3>Custom Built-ins</h3>
+        <p>Handcrafted storage solutions</p>
+      </div>
     </div>
-
-    <!-- Logo 4 -->
-    <div class="lg lg4">
-      <svg viewBox="0 0 28 25.5" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M 0,12 Q 7,4 14,12 T 28,12 L 28,25.5 L 0,25.5 Z" fill="currentColor"/>
-        <path d="M 2,15 Q 7,10 12,15 T 22,15" stroke="currentColor" stroke-width="3.05" fill="none" stroke-linecap="round"/>
-        <path d="M 4,19 Q 8,15 12,19 T 20,19" stroke="currentColor" stroke-width="3.05" fill="none" stroke-linecap="round"/>
-      </svg>
-      <span class="lg-word">5-Star</span>
+    <div class="portfolio-item">
+      <img src="/images/work-garage-organization.jpg" alt="Garage Organization" loading="lazy">
+      <div class="portfolio-overlay">
+        <h3>Garage Makeover</h3>
+        <p>Complete organization and shelving system</p>
+      </div>
     </div>
   </div>
+</section>
 
+<!-- Process Section -->
+<section id="process">
+  <div class="section-header">
+    <div class="section-label">How We Work</div>
+    <h2 class="section-title">Simple, Transparent Process</h2>
+    <p class="section-subtitle">
+      From first contact to final walkthrough, we make every step effortless.
+    </p>
+  </div>
+  <div class="process-timeline">
+    <div class="process-step">
+      <div class="process-number">1</div>
+      <div class="process-content">
+        <h3>Contact & Consultation</h3>
+        <p>Reach out via phone or our website. We'll discuss your project needs, timeline, and provide an initial estimate within 24 hours.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="process-number">2</div>
+      <div class="process-content">
+        <h3>Detailed Assessment</h3>
+        <p>We visit your property for a thorough inspection, take measurements, and create a comprehensive project plan with transparent pricing.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="process-number">3</div>
+      <div class="process-content">
+        <h3>Expert Execution</h3>
+        <p>Our licensed professionals arrive on time with all necessary materials and complete your project with precision and care.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="process-number">4</div>
+      <div class="process-content">
+        <h3>Quality Guarantee</h3>
+        <p>Final walkthrough to ensure perfection. We stand behind our work with a comprehensive warranty on all services.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="testimonials">
+  <div class="section-header">
+    <div class="section-label">Client Reviews</div>
+    <h2 class="section-title">Trusted By Homeowners</h2>
+    <p class="section-subtitle">
+      Don't just take our word for it — see what our satisfied clients have to say.
+    </p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">
+        "Absolutely phenomenal service! They renovated our entire kitchen and the attention to detail was incredible. 
+        Professional, punctual, and the quality exceeded our expectations."
+      </p>
+      <div class="testimonial-author">
+        <div class="author-avatar">JS</div>
+        <div class="author-info">
+          <h4>Jennifer Silva</h4>
+          <p>San Francisco, CA</p>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">
+        "I've used their services multiple times and they never disappoint. From fixing a leaky faucet to building 
+        custom shelving, every job is done right the first time."
+      </p>
+      <div class="testimonial-author">
+        <div class="author-avatar">MR</div>
+        <div class="author-info">
+          <h4>Michael Rodriguez</h4>
+          <p>Los Angeles, CA</p>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">
+        "Best handyman service in California! They responded to my emergency call within an hour and fixed our 
+        electrical issue professionally. Highly recommend!"
+      </p>
+      <div class="testimonial-author">
+        <div class="author-avatar">LC</div>
+        <div class="author-info">
+          <h4>Lisa Chen</h4>
+          <p>San Diego, CA</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<div class="cta-section">
+  <h2>Ready to Start Your Project?</h2>
+  <p>Get a free estimate today. No obligation, no pressure — just expert advice and transparent pricing.</p>
+  <div class="hero-actions">
+    <a href="tel:+15559876543" class="btn btn-primary">
+      <span>📞</span> Call (555) 987-6543
+    </a>
+    <a href="mailto:info@californiahandyman.com" class="btn btn-ghost">Email Us</a>
+  </div>
 </div>
 
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>California Handyman</h3>
+      <p style="color: var(--muted); line-height: 1.6;">
+        Your trusted partner for expert home repairs and improvements across California. 
+        Licensed, insured, and committed to excellence.
+      </p>
+    </div>
+    <div class="footer-section">
+      <h3>Services</h3>
+      <ul>
+        <li><a href="#services">General Repairs</a></li>
+        <li><a href="#services">Electrical Work</a></li>
+        <li><a href="#services">Plumbing</a></li>
+        <li><a href="#services">Painting & Drywall</a></li>
+        <li><a href="#services">Carpentry</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Contact</h3>
+      <ul>
+        <li><a href="tel:+15559876543">📞 (555) 987-6543</a></li>
+        <li><a href="mailto:info@californiahandyman.com">✉️ info@californiahandyman.com</a></li>
+        <li>📍 Serving All of California</li>
+        <li>🕐 24/7 Emergency Service</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 California Handyman. All rights reserved. Licensed & Insured | CA License #123456</p>
+  </div>
+</footer>
+
 <script>
-// ═══════════════════════════════════════════════════════════════════
-// MOBILE MENU TOGGLE
-// ═══════════════════════════════════════════════════════════════════
-(function() {
-  const stage = document.getElementById('stage');
-  const burger = document.getElementById('burger');
-  const menu = document.getElementById('menu');
-  const menuLinks = document.querySelectorAll('[data-menu-link]');
-
-  function closeMenu() {
-    stage.classList.remove('is-open');
-    burger.setAttribute('aria-expanded', 'false');
-    burger.setAttribute('aria-label', 'Open menu');
-    menu.setAttribute('aria-hidden', 'true');
+// Header scroll effect
+window.addEventListener('scroll', () => {
+  const header = document.getElementById('header');
+  if (window.scrollY > 50) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
   }
+});
 
-  function openMenu() {
-    stage.classList.add('is-open');
-    burger.setAttribute('aria-expanded', 'true');
-    burger.setAttribute('aria-label', 'Close menu');
-    menu.setAttribute('aria-hidden', 'false');
-  }
+// Intersection Observer for fade-in animations
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
 
-  function toggleMenu() {
-    if (stage.classList.contains('is-open')) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  }
-
-  burger.addEventListener('click', toggleMenu);
-
-  // Close menu on Escape
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && stage.classList.contains('is-open')) {
-      closeMenu();
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
     }
   });
+}, observerOptions);
 
-  // Close menu on link click
-  menuLinks.forEach(function(link) {
-    link.addEventListener('click', closeMenu);
-  });
+document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .process-step').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+  observer.observe(el);
+});
 
-  // Close menu when resized to landscape
-  let resizeTimer;
-  window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
-      const aspectRatio = window.innerWidth / window.innerHeight;
-      if (aspectRatio > 1.1 && stage.classList.contains('is-open')) {
-        closeMenu();
-      }
-    }, 100);
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
   });
-})();
+});
 </script>
 
 </body>
