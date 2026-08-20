@@ -1,999 +1,317 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional handyman services in California. Licensed experts for home repairs, maintenance, and improvements. Same-day service available. Call now for a free estimate!">
-    <meta name="keywords" content="handyman California, home repair, emergency handyman, licensed handyman, home maintenance, professional handyman services">
-    <meta name="author" content="California Handyman Pro">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://californiahandymanpro.com/">
-    <meta property="og:title" content="California Handyman Pro - Expert Home Repair Services">
-    <meta property="og:description" content="Licensed & insured handyman services across California. Same-day service, guaranteed quality.">
-    <meta property="og:image" content="https://californiahandymanpro.com/images/og-image.jpg">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://californiahandymanpro.com/">
-    <meta property="twitter:title" content="California Handyman Pro - Expert Home Repair Services">
-    <meta property="twitter:description" content="Licensed & insured handyman services across California. Same-day service, guaranteed quality.">
-    <meta property="twitter:image" content="https://californiahandymanpro.com/images/og-image.jpg">
-    
-    <!-- Schema.org markup for Google -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "California Handyman Pro",
-        "image": "https://californiahandymanpro.com/logo.png",
-        "@id": "https://californiahandymanpro.com",
-        "url": "https://californiahandymanpro.com",
-        "telephone": "+1-888-HANDYMAN",
-        "priceRange": "$$$",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "123 Main Street",
-            "addressLocality": "Los Angeles",
-            "addressRegion": "CA",
-            "postalCode": "90001",
-            "addressCountry": "US"
-        },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 34.0522,
-            "longitude": -118.2437
-        },
-        "openingHoursSpecification": {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-                "Sunday"
-            ],
-            "opens": "07:00",
-            "closes": "20:00"
-        },
-        "sameAs": [
-            "https://www.facebook.com/californiahandymanpro",
-            "https://www.instagram.com/californiahandymanpro",
-            "https://www.linkedin.com/company/californiahandymanpro"
-        ]
-    }
-    </script>
-    
-    <title>California Handyman Pro - Licensed Home Repair & Maintenance Services</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Analytics Placeholder -->
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'GA_MEASUREMENT_ID');
-    </script>
-    
-    <!-- Facebook Pixel Placeholder -->
-    <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', 'YOUR_PIXEL_ID');
-        fbq('track', 'PageView');
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Request a clear, no-obligation estimate for handyman repairs, installations, assembly, painting, and home maintenance across California service areas.">
+  <meta name="author" content="California Handyman">
+  <link rel="canonical" href="https://california-handymen.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://california-handymen.com/">
+  <meta property="og:title" content="California Handyman | Home Repair & Maintenance Estimates">
+  <meta property="og:description" content="Tell us what needs fixing and where. We’ll confirm availability and provide a clear estimate before work begins.">
+  <meta property="og:image" content="https://california-handymen.com/images/generated/hero-handyman.webp">
+  <meta property="og:image:width" content="1000">
+  <meta property="og:image:height" content="1250">
+  <meta property="og:image:alt" content="California handyman ready for a home repair project">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="California Handyman | Home Repair Estimates">
+  <meta name="twitter:description" content="Request a clear estimate for repairs, installations, assembly, painting, and home maintenance.">
+  <meta name="twitter:image" content="https://california-handymen.com/images/generated/hero-handyman.webp">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"California Handyman","url":"https://california-handymen.com/","image":"https://california-handymen.com/images/generated/hero-handyman.webp","description":"Handyman repair, installation, assembly, painting, and home maintenance estimate requests.","areaServed":{"@type":"State","name":"California"},"priceRange":"Request an estimate"}
+  </script>
+  <title>California Handyman | Home Repairs & Installations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="container">
-            <div class="nav-wrapper">
-                <div class="logo">
-                    <i class="fas fa-tools"></i>
-                    <span>California<strong>Handyman</strong></span>
-                </div>
-                <ul class="nav-menu" id="nav-menu">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#services" class="nav-link">Services</a></li>
-                    <li><a href="#why-us" class="nav-link">Why Us</a></li>
-                    <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-                    <li><a href="#areas" class="nav-link">Service Areas</a></li>
-                    <li><a href="#testimonials" class="nav-link">Reviews</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-                <div class="nav-cta">
-                    <a href="tel:+18888888888" class="btn-phone">
-                        <i class="fas fa-phone"></i> (888) 888-8888
-                    </a>
-                    <button class="btn btn-primary" onclick="openBookingModal()">Book Now</button>
-                </div>
-                <div class="hamburger" id="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-        </div>
-    </nav>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <!-- Left Column: Sales Content -->
-                <div class="hero-text">
-                    <div class="hero-badge">
-                        <i class="fas fa-shield-alt"></i> Licensed & Insured • 10+ Years Experience
-                    </div>
-                    <h1 class="hero-title">
-                        Your Trusted <span class="highlight">Handyman</span><br>
-                        In California
-                    </h1>
-                    <p class="hero-subtitle">
-                        Professional home repair and maintenance services. Fast response, guaranteed quality, transparent pricing. Same-day service available!
-                    </p>
-                    <div class="hero-features">
-                        <div class="feature-item">
-                            <i class="fas fa-clock"></i>
-                            <span>24/7 Emergency Service</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-star"></i>
-                            <span>5-Star Rated</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-certificate"></i>
-                            <span>Licensed Professionals</span>
-                        </div>
-                    </div>
-                    <div class="hero-cta">
-                        <button class="btn btn-large btn-primary" onclick="openBookingModal()">
-                            Get Free Estimate
-                        </button>
-                        <a href="tel:+18888888888" class="btn btn-large btn-secondary">
-                            <i class="fas fa-phone"></i> Call Now
-                        </a>
-                    </div>
-                    <div class="trust-badges">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='30' viewBox='0 0 80 30'%3E%3Crect fill='%23f0f0f0' width='80' height='30' rx='5'/%3E%3Ctext x='40' y='20' font-family='Arial' font-size='12' fill='%23333' text-anchor='middle'%3EBBB A+%3C/text%3E%3C/svg%3E" alt="BBB Accredited">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='30' viewBox='0 0 80 30'%3E%3Crect fill='%23f0f0f0' width='80' height='30' rx='5'/%3E%3Ctext x='40' y='20' font-family='Arial' font-size='10' fill='%23333' text-anchor='middle'%3ECA Licensed%3C/text%3E%3C/svg%3E" alt="California Licensed">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='30' viewBox='0 0 80 30'%3E%3Crect fill='%23f0f0f0' width='80' height='30' rx='5'/%3E%3Ctext x='40' y='20' font-family='Arial' font-size='10' fill='%23333' text-anchor='middle'%3EInsured%3C/text%3E%3C/svg%3E" alt="Fully Insured">
-                    </div>
-                </div>
-                
-                <!-- Right Column: Handyman Photo -->
-                <div class="hero-image">
-                    <picture>
-                        <source srcset="/images/hero-handyman.png" type="image/png">
-                        <img src="/images/hero-handyman.png" alt="Professional California Handyman" loading="eager" fetchpriority="high">
-                    </picture>
-                </div>
-            </div>
-            
-            <!-- Compact Lead Form Below Hero Content -->
-            <div class="hero-form-compact">
-                <div class="form-card-compact">
-                    <h3>Get Your Free Quote</h3>
-                    <form id="hero-form" class="quote-form-compact">
-                        <div class="form-row-compact">
-                            <input type="text" name="name" placeholder="Your Name *" required>
-                            <input type="tel" name="phone" placeholder="Phone *" required>
-                        </div>
-                        <div class="form-row-compact">
-                            <select name="service" required>
-                                <option value="">Select Service *</option>
-                                <option value="electrical">Electrical Work</option>
-                                <option value="plumbing">Plumbing</option>
-                                <option value="painting">Painting & Drywall</option>
-                                <option value="furniture">Furniture Assembly</option>
-                                <option value="carpentry">Carpentry</option>
-                                <option value="other">Other</option>
-                            </select>
-                            <button type="submit" class="btn btn-primary">
-                                Get Free Quote <i class="fas fa-arrow-right"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="hero-scroll">
-            <a href="#services">
-                <i class="fas fa-chevron-down"></i>
-            </a>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Our Services</span>
-                <h2 class="section-title">Complete Home Services</h2>
-                <p class="section-subtitle">From minor repairs to major improvements, we handle it all with expertise and care.</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Electrical Work</h3>
-                    <p>Light fixtures, outlets, switches, ceiling fans, and minor electrical repairs.</p>
-                    <ul class="service-list">
-                        <li>Light installation</li>
-                        <li>Outlet & switch repair</li>
-                        <li>Ceiling fan installation</li>
-                        <li>Electrical troubleshooting</li>
-                    </ul>
-                    <button class="btn-text" onclick="openBookingModal('Electrical Work')">
-                        Request Service <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-faucet"></i>
-                    </div>
-                    <h3>Plumbing Services</h3>
-                    <p>Faucet repairs, toilet fixes, drain cleaning, and general plumbing maintenance.</p>
-                    <ul class="service-list">
-                        <li>Faucet repair & replacement</li>
-                        <li>Toilet repair</li>
-                        <li>Drain unclogging</li>
-                        <li>Pipe leak fixes</li>
-                    </ul>
-                    <button class="btn-text" onclick="openBookingModal('Plumbing Services')">
-                        Request Service <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-paint-roller"></i>
-                    </div>
-                    <h3>Painting & Drywall</h3>
-                    <p>Professional painting, drywall repair, texture matching, and wall finishing.</p>
-                    <ul class="service-list">
-                        <li>Interior & exterior painting</li>
-                        <li>Drywall repair</li>
-                        <li>Texture matching</li>
-                        <li>Wall preparation</li>
-                    </ul>
-                    <button class="btn-text" onclick="openBookingModal('Painting & Drywall')">
-                        Request Service <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-couch"></i>
-                    </div>
-                    <h3>Furniture Assembly</h3>
-                    <p>Expert assembly of all furniture types, from IKEA to custom pieces.</p>
-                    <ul class="service-list">
-                        <li>IKEA assembly</li>
-                        <li>Office furniture</li>
-                        <li>Outdoor furniture</li>
-                        <li>Custom installations</li>
-                    </ul>
-                    <button class="btn-text" onclick="openBookingModal('Furniture Assembly')">
-                        Request Service <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-hammer"></i>
-                    </div>
-                    <h3>Carpentry</h3>
-                    <p>Custom carpentry, trim work, door installation, and wood repairs.</p>
-                    <ul class="service-list">
-                        <li>Door installation & repair</li>
-                        <li>Trim & molding</li>
-                        <li>Shelving installation</li>
-                        <li>Cabinet repairs</li>
-                    </ul>
-                    <button class="btn-text" onclick="openBookingModal('Carpentry')">
-                        Request Service <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-wrench"></i>
-                    </div>
-                    <h3>General Repairs</h3>
-                    <p>All types of home repairs and maintenance tasks, big or small.</p>
-                    <ul class="service-list">
-                        <li>Window & door repairs</li>
-                        <li>Home maintenance</li>
-                        <li>Fixture installation</li>
-                        <li>And much more!</li>
-                    </ul>
-                    <button class="btn-text" onclick="openBookingModal('General Repairs')">
-                        Request Service <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Choose Us Section -->
-    <section class="why-us" id="why-us">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Why Choose Us</span>
-                <h2 class="section-title">The California Handyman Difference</h2>
-                <p class="section-subtitle">Experience the best in home repair services with our commitment to quality and customer satisfaction.</p>
-            </div>
-            <div class="why-us-grid">
-                <div class="why-card">
-                    <div class="why-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <h3>Fast Response Time</h3>
-                    <p>We respond to all inquiries within 1 hour and offer same-day service for urgent repairs.</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon">
-                        <i class="fas fa-user-shield"></i>
-                    </div>
-                    <h3>Licensed & Insured</h3>
-                    <p>All our technicians are fully licensed, bonded, and insured for your peace of mind.</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon">
-                        <i class="fas fa-medal"></i>
-                    </div>
-                    <h3>Quality Guarantee</h3>
-                    <p>We stand behind our work with a 100% satisfaction guarantee and warranty on all services.</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon">
-                        <i class="fas fa-dollar-sign"></i>
-                    </div>
-                    <h3>Transparent Pricing</h3>
-                    <p>No hidden fees. You'll know the cost before we start, with detailed estimates provided upfront.</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h3>5-Star Service</h3>
-                    <p>Rated 4.9/5 stars by hundreds of satisfied customers across California.</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3>Fully Equipped</h3>
-                    <p>Our technicians arrive with all necessary tools and equipment to complete your job efficiently.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section class="how-it-works">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Process</span>
-                <h2 class="section-title">How It Works</h2>
-                <p class="section-subtitle">Getting your repairs done is easy with our streamlined 4-step process.</p>
-            </div>
-            <div class="steps-container">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Contact Us</h3>
-                        <p>Call, text, or fill out our online form. We'll respond within the hour.</p>
-                    </div>
-                </div>
-                <div class="step-connector"></div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Free Consultation</h3>
-                        <p>We'll discuss your project and provide a transparent estimate.</p>
-                    </div>
-                </div>
-                <div class="step-connector"></div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Schedule Service</h3>
-                        <p>Choose a convenient time. Same-day service often available.</p>
-                    </div>
-                </div>
-                <div class="step-connector"></div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Job Complete</h3>
-                        <p>Enjoy your improved home with our quality guarantee backing our work.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section class="portfolio" id="portfolio">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Our Work</span>
-                <h2 class="section-title">Real Results, Real Projects</h2>
-                <p class="section-subtitle">See the transformation we bring to homes across California. Before & After photos of our recent projects.</p>
-            </div>
-            
-            <div class="portfolio-carousel">
-                <button class="carousel-btn prev" onclick="moveCarousel(-1)">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                
-                <div class="carousel-container">
-                    <div class="carousel-track" id="carousel-track">
-                        <!-- Slide 1 -->
-                        <div class="carousel-slide">
-                            <div class="portfolio-card">
-                                <img src="/images/work-electrical-kitchen.jpg" alt="Kitchen Electrical Work - Before and After">
-                                <div class="portfolio-overlay">
-                                    <div class="portfolio-badge">Before & After</div>
-                                    <h3>Kitchen Lighting Upgrade</h3>
-                                    <p>Complete electrical renovation with modern LED lighting and new fixtures</p>
-                                    <div class="portfolio-tag">Electrical Work</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 2 -->
-                        <div class="carousel-slide">
-                            <div class="portfolio-card">
-                                <img src="/images/work-plumbing-bathroom.jpg" alt="Bathroom Plumbing - Before and After">
-                                <div class="portfolio-overlay">
-                                    <div class="portfolio-badge">Before & After</div>
-                                    <h3>Bathroom Faucet Replacement</h3>
-                                    <p>Modern fixtures installed with professional plumbing work</p>
-                                    <div class="portfolio-tag">Plumbing</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 3 -->
-                        <div class="carousel-slide">
-                            <div class="portfolio-card">
-                                <img src="/images/work-painting-drywall.jpg" alt="Living Room Painting - Before and After">
-                                <div class="portfolio-overlay">
-                                    <div class="portfolio-badge">Before & After</div>
-                                    <h3>Living Room Transformation</h3>
-                                    <p>Complete drywall repair and fresh professional painting</p>
-                                    <div class="portfolio-tag">Painting & Drywall</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 4 -->
-                        <div class="carousel-slide">
-                            <div class="portfolio-card">
-                                <img src="/images/work-carpentry-deck.jpg" alt="Deck Restoration - Before and After">
-                                <div class="portfolio-overlay">
-                                    <div class="portfolio-badge">Before & After</div>
-                                    <h3>Deck Restoration Project</h3>
-                                    <p>Complete deck rebuild with modern materials and finish</p>
-                                    <div class="portfolio-tag">Carpentry</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 5 -->
-                        <div class="carousel-slide">
-                            <div class="portfolio-card">
-                                <img src="/images/work-furniture-assembly.jpg" alt="Home Office Setup - Before and After">
-                                <div class="portfolio-overlay">
-                                    <div class="portfolio-badge">Before & After</div>
-                                    <h3>Home Office Assembly</h3>
-                                    <p>Professional furniture assembly and organization</p>
-                                    <div class="portfolio-tag">Furniture Assembly</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 6 -->
-                        <div class="carousel-slide">
-                            <div class="portfolio-card">
-                                <img src="/images/work-garage-organization.jpg" alt="Garage Organization - Before and After">
-                                <div class="portfolio-overlay">
-                                    <div class="portfolio-badge">Before & After</div>
-                                    <h3>Garage Transformation</h3>
-                                    <p>Complete organization system and repairs</p>
-                                    <div class="portfolio-tag">General Repairs</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="carousel-btn next" onclick="moveCarousel(1)">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-            
-            <div class="carousel-dots" id="carousel-dots"></div>
-            
-            <div class="portfolio-cta">
-                <p>Want to see your home transformed?</p>
-                <button class="btn btn-primary btn-large" onclick="openBookingModal()">
-                    Get Your Free Estimate
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Service Areas Section -->
-    <section class="service-areas" id="areas">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Coverage</span>
-                <h2 class="section-title">Service Areas Across California</h2>
-                <p class="section-subtitle">Proudly serving major cities and surrounding areas throughout California.</p>
-            </div>
-            <div class="areas-content">
-                <div class="areas-grid">
-                    <div class="area-column">
-                        <h4><i class="fas fa-map-marker-alt"></i> Southern California</h4>
-                        <ul>
-                            <li>Los Angeles</li>
-                            <li>San Diego</li>
-                            <li>Orange County</li>
-                            <li>Riverside</li>
-                            <li>San Bernardino</li>
-                            <li>Santa Barbara</li>
-                        </ul>
-                    </div>
-                    <div class="area-column">
-                        <h4><i class="fas fa-map-marker-alt"></i> Bay Area</h4>
-                        <ul>
-                            <li>San Francisco</li>
-                            <li>San Jose</li>
-                            <li>Oakland</li>
-                            <li>Fremont</li>
-                            <li>Santa Clara</li>
-                            <li>Berkeley</li>
-                        </ul>
-                    </div>
-                    <div class="area-column">
-                        <h4><i class="fas fa-map-marker-alt"></i> Central California</h4>
-                        <ul>
-                            <li>Fresno</li>
-                            <li>Sacramento</li>
-                            <li>Bakersfield</li>
-                            <li>Stockton</li>
-                            <li>Modesto</li>
-                            <li>Salinas</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="area-note">
-                    <i class="fas fa-info-circle"></i>
-                    <p>Don't see your city? <a href="#contact">Contact us</a> to check if we service your area!</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Reviews</span>
-                <h2 class="section-title">What Our Customers Say</h2>
-                <p class="section-subtitle">Join hundreds of satisfied homeowners who trust us with their repairs.</p>
-            </div>
-            <div class="testimonials-slider">
-                <div class="testimonial-card">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Absolutely phenomenal service! They fixed my electrical issues same day and were incredibly professional. Highly recommend!"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Sarah Johnson</h4>
-                            <p>Los Angeles, CA</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Best handyman service I've ever used. Fair pricing, excellent work quality, and they showed up exactly when promised."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Michael Chen</h4>
-                            <p>San Francisco, CA</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Professional, courteous, and skilled. They transformed my dated kitchen with new fixtures and paint. Worth every penny!"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Emily Rodriguez</h4>
-                            <p>San Diego, CA</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="rating-summary">
-                <div class="rating-box">
-                    <div class="rating-score">4.9</div>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p>Based on 500+ Reviews</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section class="pricing">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Pricing</span>
-                <h2 class="section-title">Transparent, Honest Pricing</h2>
-                <p class="section-subtitle">No hidden fees. No surprises. Just quality service at fair prices.</p>
-            </div>
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>Standard Rate</h3>
-                        <div class="price">
-                            <span class="amount">$85</span>
-                            <span class="period">/hour</span>
-                        </div>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> General repairs</li>
-                        <li><i class="fas fa-check"></i> 2-hour minimum</li>
-                        <li><i class="fas fa-check"></i> All tools included</li>
-                        <li><i class="fas fa-check"></i> 90-day warranty</li>
-                    </ul>
-                    <button class="btn btn-outline" onclick="openBookingModal()">Get Quote</button>
-                </div>
-                <div class="pricing-card featured">
-                    <div class="badge">Most Popular</div>
-                    <div class="pricing-header">
-                        <h3>Project Package</h3>
-                        <div class="price">
-                            <span class="amount">Custom</span>
-                        </div>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Multiple repairs</li>
-                        <li><i class="fas fa-check"></i> Fixed project price</li>
-                        <li><i class="fas fa-check"></i> Detailed estimate</li>
-                        <li><i class="fas fa-check"></i> 1-year warranty</li>
-                    </ul>
-                    <button class="btn btn-primary" onclick="openBookingModal()">Get Quote</button>
-                </div>
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3>Emergency Service</h3>
-                        <div class="price">
-                            <span class="amount">$125</span>
-                            <span class="period">/hour</span>
-                        </div>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Same-day service</li>
-                        <li><i class="fas fa-check"></i> Evening/weekend</li>
-                        <li><i class="fas fa-check"></i> Priority scheduling</li>
-                        <li><i class="fas fa-check"></i> 90-day warranty</li>
-                    </ul>
-                    <button class="btn btn-outline" onclick="openBookingModal()">Get Quote</button>
-                </div>
-            </div>
-            <div class="pricing-note">
-                <i class="fas fa-info-circle"></i>
-                <p>All estimates are free and provided before work begins. Senior and military discounts available.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Ready to Get Started?</h2>
-                <p>Contact us today for a free estimate. Same-day service available!</p>
-                <div class="cta-buttons">
-                    <button class="btn btn-large btn-white" onclick="openBookingModal()">
-                        Request Free Quote
-                    </button>
-                    <a href="tel:+18888888888" class="btn btn-large btn-outline-white">
-                        <i class="fas fa-phone"></i> (888) 888-8888
-                    </a>
-                </div>
-                <div class="cta-features">
-                    <div class="cta-feature">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Free Estimates</span>
-                    </div>
-                    <div class="cta-feature">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Same-Day Service</span>
-                    </div>
-                    <div class="cta-feature">
-                        <i class="fas fa-check-circle"></i>
-                        <span>100% Satisfaction</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="contact-wrapper">
-                <div class="contact-info">
-                    <h2>Get In Touch</h2>
-                    <p>Have questions? We're here to help! Reach out to us anytime.</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div>
-                                <h4>Phone</h4>
-                                <a href="tel:+18888888888">(888) 888-8888</a>
-                                <p>24/7 Support Available</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div>
-                                <h4>Email</h4>
-                                <a href="mailto:info@californiahandyman.com">info@californiahandyman.com</a>
-                                <p>Response within 1 hour</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div>
-                                <h4>Hours</h4>
-                                <p>Monday - Sunday</p>
-                                <p>7:00 AM - 8:00 PM</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div>
-                                <h4>Service Area</h4>
-                                <p>All of California</p>
-                                <p>See coverage map above</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="contact-form-wrapper">
-                    <form id="contact-form" class="contact-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="text" name="name" placeholder="Your Name *" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="tel" name="phone" placeholder="Phone Number *" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" name="email" placeholder="Email Address *" required>
-                        </div>
-                        <div class="form-group">
-                            <select name="service" required>
-                                <option value="">Select Service Type *</option>
-                                <option value="electrical">Electrical Work</option>
-                                <option value="plumbing">Plumbing</option>
-                                <option value="painting">Painting & Drywall</option>
-                                <option value="furniture">Furniture Assembly</option>
-                                <option value="carpentry">Carpentry</option>
-                                <option value="general">General Repairs</option>
-                                <option value="emergency">Emergency Service</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <textarea name="message" placeholder="Describe your project in detail..." rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">
-                            Send Message <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <div class="footer-logo">
-                        <i class="fas fa-tools"></i>
-                        <span>California<strong>Handyman</strong></span>
-                    </div>
-                    <p>Your trusted partner for all home repair and maintenance needs across California.</p>
-                    <div class="footer-badges">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ccircle fill='%23f0f0f0' cx='30' cy='30' r='28'/%3E%3Ctext x='30' y='38' font-family='Arial' font-size='14' font-weight='bold' fill='%23333' text-anchor='middle'%3EBBB%3C/text%3E%3C/svg%3E" alt="BBB Accredited">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ccircle fill='%23f0f0f0' cx='30' cy='30' r='28'/%3E%3Ctext x='30' y='35' font-family='Arial' font-size='12' font-weight='bold' fill='%23333' text-anchor='middle'%3ECA%3C/text%3E%3Ctext x='30' y='48' font-family='Arial' font-size='8' fill='%23666' text-anchor='middle'%3ELicensed%3C/text%3E%3C/svg%3E" alt="CA Licensed">
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="#services">Electrical Work</a></li>
-                        <li><a href="#services">Plumbing</a></li>
-                        <li><a href="#services">Painting & Drywall</a></li>
-                        <li><a href="#services">Furniture Assembly</a></li>
-                        <li><a href="#services">Carpentry</a></li>
-                        <li><a href="#services">General Repairs</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#why-us">About Us</a></li>
-                        <li><a href="#testimonials">Reviews</a></li>
-                        <li><a href="#areas">Service Areas</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>Contact</h4>
-                    <ul class="contact-list">
-                        <li>
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:+18888888888">(888) 888-8888</a>
-                        </li>
-                        <li>
-                            <i class="fas fa-envelope"></i>
-                            <a href="mailto:info@californiahandyman.com">info@californiahandyman.com</a>
-                        </li>
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Serving all California</span>
-                        </li>
-                    </ul>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 California Handyman Pro. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="#">Privacy Policy</a>
-                    <span>•</span>
-                    <a href="#">Terms of Service</a>
-                    <span>•</span>
-                    <a href="#">Sitemap</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Booking Modal -->
-    <div class="modal" id="booking-modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeBookingModal()">
-                <i class="fas fa-times"></i>
-            </button>
-            <h3>Request Your Free Quote</h3>
-            <p>Fill out the form below and we'll get back to you within 1 hour!</p>
-            <form id="modal-form" class="modal-form">
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Your Name *" required>
-                </div>
-                <div class="form-group">
-                    <input type="tel" name="phone" placeholder="Phone Number *" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Email Address *" required>
-                </div>
-                <div class="form-group">
-                    <select name="service" id="modal-service" required>
-                        <option value="">Select Service *</option>
-                        <option value="electrical">Electrical Work</option>
-                        <option value="plumbing">Plumbing</option>
-                        <option value="painting">Painting & Drywall</option>
-                        <option value="furniture">Furniture Assembly</option>
-                        <option value="carpentry">Carpentry</option>
-                        <option value="general">General Repairs</option>
-                        <option value="emergency">Emergency Service</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <textarea name="message" placeholder="Describe your project..." rows="4" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="urgent">
-                        <span>This is urgent - I need same-day service</span>
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">
-                    Submit Request <i class="fas fa-arrow-right"></i>
-                </button>
-            </form>
-        </div>
+  <header class="navbar" id="navbar">
+    <div class="container nav-wrapper">
+      <a class="logo" href="#home" aria-label="California Handyman home">
+        <span class="logo-mark" aria-hidden="true"><i class="fas fa-tools"></i></span>
+        <span>California<strong>Handyman</strong></span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#process" class="nav-link">How it works</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#areas" class="nav-link">Service area</a></li>
+          <li><a href="#faq" class="nav-link">FAQ</a></li>
+        </ul>
+      </nav>
+      <div class="nav-cta">
+        <button class="btn btn-primary" type="button" data-open-modal>Request estimate</button>
+      </div>
+      <button class="hamburger" id="hamburger" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+  </header>
 
-    <!-- Floating Phone Button -->
-    <a href="tel:+18888888888" class="floating-phone" aria-label="Call Now">
-        <i class="fas fa-phone"></i>
-    </a>
+  <main id="main-content">
+    <section class="hero" id="home">
+      <div class="hero-glow hero-glow-one" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
+      <div class="container hero-layout">
+        <div class="hero-copy">
+          <div class="eyebrow"><i class="fas fa-screwdriver-wrench" aria-hidden="true"></i> Repairs · installations · maintenance</div>
+          <h1>Get your home project <span>off the list.</span></h1>
+          <p class="hero-lead">Tell us what needs fixing, where you are, and how to reach you. We’ll review the project and confirm local availability before scheduling.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-large" type="button" data-open-modal>Request an estimate <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+            <a class="btn btn-ghost btn-large" href="#services">Explore services</a>
+          </div>
+          <ul class="value-list" aria-label="What to expect">
+            <li><i class="fas fa-list-check" aria-hidden="true"></i><span><strong>Clear project scope</strong><small>Share the details before scheduling</small></span></li>
+            <li><i class="fas fa-location-dot" aria-hidden="true"></i><span><strong>ZIP-based availability</strong><small>Coverage confirmed for your location</small></span></li>
+            <li><i class="fas fa-house-circle-check" aria-hidden="true"></i><span><strong>Residential project focus</strong><small>Repairs, upgrades, and maintenance</small></span></li>
+          </ul>
+        </div>
+        <div class="hero-visual">
+          <div class="image-frame">
+            <img src="/images/generated/hero-handyman.webp" alt="Handyman carrying tools for a residential project" width="1000" height="1250" fetchpriority="high" decoding="async">
+            <div class="project-card">
+              <span class="project-card-icon" aria-hidden="true"><i class="fas fa-clipboard-check"></i></span>
+              <span><strong>Start with the details</strong><small>Service + ZIP + contact</small></span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+      <div class="container hero-form-wrap">
+        <form id="hero-form" class="quick-form" novalidate>
+          <div class="quick-form-heading">
+            <span>Quick estimate request</span>
+            <small>Required fields are marked *</small>
+          </div>
+          <div class="quick-fields">
+            <div class="field">
+              <label for="hero-name">Name *</label>
+              <input id="hero-name" type="text" name="name" autocomplete="name" placeholder="Your name" required>
+            </div>
+            <div class="field">
+              <label for="hero-phone">Phone *</label>
+              <input id="hero-phone" type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="(555) 555-0123" required>
+            </div>
+            <div class="field field-short">
+              <label for="hero-zip">ZIP code *</label>
+              <input id="hero-zip" type="text" name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" placeholder="90210" required>
+            </div>
+            <div class="field">
+              <label for="hero-service">Service *</label>
+              <select id="hero-service" name="service" required>
+                <option value="">Choose a service</option>
+                <option value="general-repairs">General repairs</option>
+                <option value="fixtures-installations">Fixtures & installations</option>
+                <option value="painting-drywall">Painting & drywall</option>
+                <option value="furniture-assembly">Furniture assembly</option>
+                <option value="carpentry">Carpentry</option>
+                <option value="plumbing-maintenance">Plumbing maintenance</option>
+                <option value="other">Other project</option>
+              </select>
+            </div>
+            <input type="hidden" name="website" value="">
+            <button type="submit" class="btn btn-primary quick-submit">Send request <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+          </div>
+          <p class="form-status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
 
-    <script src="script.js"></script>
+    <section class="services section" id="services">
+      <div class="container">
+        <div class="section-heading split-heading">
+          <div><span class="section-kicker">What we can help with</span><h2>One request. A wide range of home projects.</h2></div>
+          <p>Choose the closest category when requesting an estimate. You can describe the exact scope, materials, and photos during follow-up.</p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card featured-service">
+            <div class="service-icon"><i class="fas fa-wrench" aria-hidden="true"></i></div>
+            <h3>General repairs</h3>
+            <p>Doors, hardware, shelving, trim, minor damage, and the small jobs that keep piling up.</p>
+            <button type="button" class="text-link" data-service="general-repairs">Request this service <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+          </article>
+          <article class="service-card">
+            <div class="service-icon"><i class="fas fa-lightbulb" aria-hidden="true"></i></div>
+            <h3>Fixtures & installations</h3>
+            <p>Light fixtures, ceiling fans, curtain rods, wall-mounted items, and household hardware.</p>
+            <button type="button" class="text-link" data-service="fixtures-installations">Request this service <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+          </article>
+          <article class="service-card">
+            <div class="service-icon"><i class="fas fa-paint-roller" aria-hidden="true"></i></div>
+            <h3>Painting & drywall</h3>
+            <p>Wall repairs, patching, touch-ups, room painting, and surface preparation.</p>
+            <button type="button" class="text-link" data-service="painting-drywall">Request this service <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+          </article>
+          <article class="service-card">
+            <div class="service-icon"><i class="fas fa-couch" aria-hidden="true"></i></div>
+            <h3>Furniture assembly</h3>
+            <p>Indoor, outdoor, and office furniture assembled and positioned where you need it.</p>
+            <button type="button" class="text-link" data-service="furniture-assembly">Request this service <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+          </article>
+          <article class="service-card">
+            <div class="service-icon"><i class="fas fa-hammer" aria-hidden="true"></i></div>
+            <h3>Carpentry</h3>
+            <p>Trim, doors, shelving, cabinet adjustments, and practical wood repairs.</p>
+            <button type="button" class="text-link" data-service="carpentry">Request this service <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+          </article>
+          <article class="service-card">
+            <div class="service-icon"><i class="fas fa-faucet-drip" aria-hidden="true"></i></div>
+            <h3>Plumbing maintenance</h3>
+            <p>Faucet, toilet, and fixture maintenance for projects within handyman scope.</p>
+            <button type="button" class="text-link" data-service="plumbing-maintenance">Request this service <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+          </article>
+        </div>
+        <p class="scope-note"><i class="fas fa-circle-info" aria-hidden="true"></i> Work requiring a specialist trade license may need to be referred to an appropriately licensed contractor after scope review.</p>
+      </div>
+    </section>
+
+    <section class="process section" id="process">
+      <div class="container">
+        <div class="section-heading centered-heading">
+          <span class="section-kicker">Simple from the start</span>
+          <h2>From project details to a scheduled visit</h2>
+          <p>No vague “we’ll see” process. Start with the information needed to evaluate the job.</p>
+        </div>
+        <ol class="steps-grid">
+          <li><span class="step-number">01</span><i class="fas fa-pen-to-square" aria-hidden="true"></i><h3>Describe the project</h3><p>Select a service, enter your ZIP, and tell us what needs attention.</p></li>
+          <li><span class="step-number">02</span><i class="fas fa-magnifying-glass" aria-hidden="true"></i><h3>Scope review</h3><p>We review the details and ask for any measurements or photos needed.</p></li>
+          <li><span class="step-number">03</span><i class="fas fa-file-invoice-dollar" aria-hidden="true"></i><h3>Estimate & timing</h3><p>Availability, expected scope, and scheduling options are confirmed with you.</p></li>
+          <li><span class="step-number">04</span><i class="fas fa-calendar-check" aria-hidden="true"></i><h3>Schedule the work</h3><p>Once you approve the plan, choose a suitable appointment window.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="projects section" id="projects">
+      <div class="container">
+        <div class="section-heading split-heading">
+          <div><span class="section-kicker">Project categories</span><h2>See the kinds of work you can request.</h2></div>
+          <p>These images illustrate common project categories. Final scope and availability are confirmed after review.</p>
+        </div>
+        <div class="project-grid">
+          <article class="project-tile project-featured">
+            <img src="/images/generated/project-general-repairs.webp" alt="Handyman adjusting an interior door hinge" width="1200" height="800" loading="lazy" decoding="async">
+            <div class="project-overlay"><span>General repairs</span><h3>Doors, hardware, and everyday fixes</h3></div>
+          </article>
+          <article class="project-tile">
+            <img src="/images/generated/project-fixtures.webp" alt="Handyman installing a kitchen light fixture from a stable ladder" width="1200" height="800" loading="lazy" decoding="async">
+            <div class="project-overlay"><span>Fixtures & installations</span><h3>Careful household upgrades</h3></div>
+          </article>
+          <article class="project-tile">
+            <img src="/images/generated/project-painting.webp" alt="Handyman smoothing a drywall patch before painting" width="1200" height="800" loading="lazy" decoding="async">
+            <div class="project-overlay"><span>Painting & drywall</span><h3>Wall repair and room refresh</h3></div>
+          </article>
+          <article class="project-tile">
+            <img src="/images/generated/project-assembly.webp" alt="Handyman assembling a wood home office desk" width="1200" height="800" loading="lazy" decoding="async">
+            <div class="project-overlay"><span>Furniture assembly</span><h3>Organized, accurate setup</h3></div>
+          </article>
+          <article class="project-tile">
+            <img src="/images/generated/project-carpentry.webp" alt="Handyman measuring a wood shelf for installation" width="1200" height="800" loading="lazy" decoding="async">
+            <div class="project-overlay"><span>Carpentry</span><h3>Trim, shelving, and wood repairs</h3></div>
+          </article>
+          <article class="project-tile project-featured">
+            <img src="/images/generated/project-plumbing.webp" alt="Handyman performing minor bathroom faucet maintenance" width="1200" height="800" loading="lazy" decoding="async">
+            <div class="project-overlay"><span>Plumbing maintenance</span><h3>Minor fixture maintenance</h3></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="areas section" id="areas">
+      <div class="container area-panel">
+        <div class="area-icon" aria-hidden="true"><i class="fas fa-map-location-dot"></i></div>
+        <div class="area-copy">
+          <span class="section-kicker">Service area</span>
+          <h2>Check availability for your California ZIP code.</h2>
+          <p>Coverage can vary by project type, travel distance, and scheduling. Include your ZIP code in the request so availability can be confirmed before you plan around a visit.</p>
+        </div>
+        <button class="btn btn-primary btn-large" type="button" data-open-modal>Check my ZIP <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </section>
+
+    <section class="estimate section" id="contact">
+      <div class="container estimate-layout">
+        <div class="estimate-copy">
+          <span class="section-kicker">Request an estimate</span>
+          <h2>What’s on your repair list?</h2>
+          <p>Share enough detail to understand the project. The request is reviewed before any appointment is scheduled.</p>
+          <div class="estimate-points">
+            <div><i class="fas fa-ruler-combined" aria-hidden="true"></i><span><strong>Be specific</strong><small>Room, item, size, and visible issue</small></span></div>
+            <div><i class="fas fa-camera" aria-hidden="true"></i><span><strong>Photos may help</strong><small>You can provide them during follow-up</small></span></div>
+            <div><i class="fas fa-calendar-days" aria-hidden="true"></i><span><strong>Share your timing</strong><small>Mention any preferred date or deadline</small></span></div>
+          </div>
+        </div>
+        <form id="contact-form" class="estimate-form" novalidate>
+          <div class="form-row">
+            <div class="field"><label for="contact-name">Name *</label><input id="contact-name" name="name" type="text" autocomplete="name" required></div>
+            <div class="field"><label for="contact-phone">Phone *</label><input id="contact-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="contact-email">Email</label><input id="contact-email" name="email" type="email" autocomplete="email"></div>
+            <div class="field"><label for="contact-zip">ZIP code *</label><input id="contact-zip" name="zip" type="text" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" required></div>
+          </div>
+          <div class="field"><label for="contact-service">Service *</label><select id="contact-service" name="service" required><option value="">Choose a service</option><option value="general-repairs">General repairs</option><option value="fixtures-installations">Fixtures & installations</option><option value="painting-drywall">Painting & drywall</option><option value="furniture-assembly">Furniture assembly</option><option value="carpentry">Carpentry</option><option value="plumbing-maintenance">Plumbing maintenance</option><option value="other">Other project</option></select></div>
+          <div class="field"><label for="contact-message">Project details *</label><textarea id="contact-message" name="message" rows="5" placeholder="What needs to be repaired or installed? Include dimensions, materials, or timing if known." required></textarea></div>
+          <input type="hidden" name="website" value="">
+          <button type="submit" class="btn btn-primary btn-block">Send estimate request <i class="fas fa-paper-plane" aria-hidden="true"></i></button>
+          <p class="privacy-note">By submitting, you agree that we may contact you about this request. See our <a href="privacy.html">Privacy Policy</a>.</p>
+          <p class="form-status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="faq section" id="faq">
+      <div class="container faq-layout">
+        <div class="section-heading"><span class="section-kicker">Before you request</span><h2>Frequently asked questions</h2><p>Clear expectations make the first conversation more useful.</p></div>
+        <div class="faq-list">
+          <details><summary>Does submitting the form confirm an appointment?<i class="fas fa-plus" aria-hidden="true"></i></summary><p>No. It starts a project review. Availability, scope, estimate details, and scheduling must be confirmed separately.</p></details>
+          <details><summary>Why do you need my ZIP code?<i class="fas fa-plus" aria-hidden="true"></i></summary><p>It is used to check whether the project location is within the current service range before discussing an appointment.</p></details>
+          <details><summary>Can I request several small jobs at once?<i class="fas fa-plus" aria-hidden="true"></i></summary><p>Yes. List each item in the project details so the full scope can be reviewed together.</p></details>
+          <details><summary>What if my project requires a licensed trade specialist?<i class="fas fa-plus" aria-hidden="true"></i></summary><p>Projects outside handyman scope should be handled by an appropriately licensed contractor. The initial review helps identify that before scheduling.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-main">
+      <div class="footer-brand"><a class="logo footer-logo" href="#home"><span class="logo-mark" aria-hidden="true"><i class="fas fa-tools"></i></span><span>California<strong>Handyman</strong></span></a><p>Home repairs, installations, and maintenance requests reviewed by project and ZIP code.</p></div>
+      <div><h2>Services</h2><ul><li><a href="#services">General repairs</a></li><li><a href="#services">Fixtures & installations</a></li><li><a href="#services">Painting & drywall</a></li><li><a href="#services">Carpentry</a></li></ul></div>
+      <div><h2>Explore</h2><ul><li><a href="#process">How it works</a></li><li><a href="#projects">Project categories</a></li><li><a href="#areas">Service area</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div class="footer-cta"><h2>Have a project?</h2><p>Send the details and your ZIP code for review.</p><button class="btn btn-primary" type="button" data-open-modal>Request estimate</button></div>
+    </div>
+    <div class="container footer-bottom"><p>&copy; <span id="current-year"></span> California Handyman. All rights reserved.</p><div><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="sitemap.xml">Sitemap</a></div></div>
+  </footer>
+
+  <div class="modal" id="booking-modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" type="button" data-close-modal aria-label="Close estimate form"><i class="fas fa-times" aria-hidden="true"></i></button>
+      <span class="section-kicker">Project request</span>
+      <h2 id="modal-title">Request an estimate</h2>
+      <p>Enter the project basics. Submitting does not confirm an appointment.</p>
+      <form id="modal-form" class="modal-form" novalidate>
+        <div class="form-row"><div class="field"><label for="modal-name">Name *</label><input id="modal-name" name="name" type="text" autocomplete="name" required></div><div class="field"><label for="modal-phone">Phone *</label><input id="modal-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required></div></div>
+        <div class="form-row"><div class="field"><label for="modal-email">Email</label><input id="modal-email" name="email" type="email" autocomplete="email"></div><div class="field"><label for="modal-zip">ZIP code *</label><input id="modal-zip" name="zip" type="text" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" required></div></div>
+        <div class="field"><label for="modal-service">Service *</label><select id="modal-service" name="service" required><option value="">Choose a service</option><option value="general-repairs">General repairs</option><option value="fixtures-installations">Fixtures & installations</option><option value="painting-drywall">Painting & drywall</option><option value="furniture-assembly">Furniture assembly</option><option value="carpentry">Carpentry</option><option value="plumbing-maintenance">Plumbing maintenance</option><option value="other">Other project</option></select></div>
+        <div class="field"><label for="modal-message">Project details</label><textarea id="modal-message" name="message" rows="4" placeholder="Briefly describe what you need done."></textarea></div>
+        <input type="hidden" name="website" value="">
+        <button type="submit" class="btn btn-primary btn-block">Send request <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+        <p class="privacy-note">By submitting, you agree that we may contact you about this request. See our <a href="privacy.html">Privacy Policy</a>.</p>
+        <p class="form-status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <button class="mobile-estimate" type="button" data-open-modal>Request estimate <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+  <script src="script.js"></script>
 </body>
 </html>

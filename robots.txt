@@ -1,12 +1,4 @@
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://californiahandymanpro.com/sitemap.xml
-
-# Disallow admin or private areas (if any)
-# Disallow: /admin/
-# Disallow: /private/
-
-# Crawl-delay (optional, adjust if needed)
-# Crawl-delay: 1
+Sitemap: https://california-handymen.com/sitemap.xml

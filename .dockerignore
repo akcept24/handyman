@@ -1,0 +1,10 @@
+node_modules
+.git
+.github
+*.md
+preview.html
+index-premium.html
+images/hero-background.jpg
+images/hero-handyman.png
+images/work-*.jpg
+tests
