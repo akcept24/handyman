@@ -76,6 +76,8 @@ h2 { font-size: clamp(2rem, 4vw, 3.25rem); }
 .hero h1 { max-width: 700px; font-size: clamp(3.2rem, 6.5vw, 5.6rem); }
 .hero h1 span { color: var(--yellow); }
 .hero-lead { max-width: 650px; margin: 24px 0 30px; color: #d7dde7; font-size: clamp(1.05rem, 2vw, 1.25rem); }
+.license-notice { max-width: 650px; display: grid; gap: 3px; margin: -10px 0 28px; padding: 12px 14px; color: #f5f7fa; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); border-left: 4px solid var(--yellow); border-radius: 9px; font-size: .76rem; line-height: 1.45; }
+.license-notice strong { color: var(--yellow); font-size: .85rem; }
 .hero-actions { display: flex; gap: 13px; flex-wrap: wrap; margin-bottom: 38px; }
 .value-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; list-style: none; }
 .value-list li { display: flex; gap: 10px; align-items: flex-start; }
@@ -192,6 +194,8 @@ details p { padding: 0 40px 22px 3px; color: var(--muted); }
 .footer-main { display: grid; grid-template-columns: 1.4fr .8fr .8fr 1fr; gap: 55px; padding-bottom: 55px; }
 .footer-logo { color: #fff; }
 .footer-brand p { max-width: 320px; margin-top: 20px; color: #929dab; }
+.footer-brand .footer-license { margin-top: 12px; color: #c7ced8; font-size: .76rem; line-height: 1.45; }
+.footer-license strong { color: #fff; }
 .footer h2 { margin-bottom: 18px; color: #fff; font-family: var(--font-body); font-size: .86rem; letter-spacing: .08em; text-transform: uppercase; }
 .footer ul { display: grid; gap: 10px; list-style: none; }
 .footer li a, .footer-bottom a { color: #aab3bf; text-decoration: none; }
@@ -249,6 +253,7 @@ details p { padding: 0 40px 22px 3px; color: var(--muted); }
   .hero-layout { grid-template-columns: 1fr; }
   .hero-copy { text-align: center; }
   .hero h1, .hero-lead { margin-inline: auto; }
+  .license-notice { margin-inline: auto; text-align: left; }
   .hero-actions { justify-content: center; }
   .value-list { max-width: 610px; margin-inline: auto; text-align: left; }
   .hero-visual { order: -1; max-width: 430px; margin-inline: auto; }

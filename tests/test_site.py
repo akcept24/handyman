@@ -103,6 +103,13 @@ class ProductionReadinessTests(unittest.TestCase):
         server = (ROOT / "server.js").read_text(encoding="utf-8")
         self.assertIn("Please agree to the contact and website terms.", server)
 
+    def test_unlicensed_status_and_minor_work_limits_are_disclosed(self):
+        self.assertGreaterEqual(HTML.count("Not a licensed contractor."), 3)
+        self.assertIn("under $1,000 total", HTML)
+        self.assertIn("including labor and materials", HTML)
+        self.assertIn("no building permit", HTML)
+        self.assertIn("Larger projects cannot be divided", HTML)
+
     def test_local_assets_exist(self):
         missing = []
         for asset in PARSER.assets:
