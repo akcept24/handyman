@@ -110,6 +110,14 @@ class ProductionReadinessTests(unittest.TestCase):
         self.assertIn("no building permit", HTML)
         self.assertIn("Larger projects cannot be divided", HTML)
 
+    def test_service_area_is_limited_to_santa_clarita_and_valencia(self):
+        self.assertIn("Santa Clarita", HTML)
+        self.assertIn("Valencia", HTML)
+        self.assertIn("Serving Santa Clarita, including Valencia.", HTML)
+        data = json.loads(PARSER.json_ld[0])
+        area_names = {area["name"] for area in data["areaServed"]}
+        self.assertEqual({"Santa Clarita", "Valencia, Santa Clarita"}, area_names)
+
     def test_local_assets_exist(self):
         missing = []
         for asset in PARSER.assets:
