@@ -172,6 +172,10 @@ h2 { font-size: clamp(2rem, 4vw, 3.25rem); }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .privacy-note { color: var(--muted); font-size: .75rem; text-align: center; }
 .privacy-note a { color: var(--blue); }
+.consent-row { display: grid; grid-template-columns: 20px 1fr; gap: 10px; align-items: start; margin-top: 14px; color: var(--ink-soft); font-size: .75rem; line-height: 1.45; text-align: left; }
+.consent-row input { width: 18px; height: 18px; margin-top: 1px; accent-color: var(--orange); }
+.consent-row a { color: var(--blue); font-weight: 650; }
+.consent-row input[aria-invalid="true"] { outline: 2px solid var(--danger); outline-offset: 2px; }
 
 .faq { background: #fff; }
 .faq-layout { display: grid; grid-template-columns: .72fr 1.28fr; gap: 72px; align-items: start; }

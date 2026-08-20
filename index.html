@@ -118,8 +118,10 @@
               </select>
             </div>
             <input type="hidden" name="website" value="">
+            <input type="hidden" name="consent_version" value="2026-08-20">
             <button type="submit" class="btn btn-primary quick-submit">Send request <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
           </div>
+          <label class="consent-row" for="hero-consent"><input id="hero-consent" type="checkbox" name="contact_consent" required><span>I am 18 or older and agree to the <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>. I consent to calls, texts, or email about this request. Consent is not a condition of purchase; message and data rates may apply. This does not subscribe me to marketing.</span></label>
           <p class="form-status" aria-live="polite"></p>
         </form>
       </div>
@@ -141,7 +143,7 @@
           <article class="service-card">
             <div class="service-icon"><i class="fas fa-lightbulb" aria-hidden="true"></i></div>
             <h3>Fixtures & installations</h3>
-            <p>Light fixtures, ceiling fans, curtain rods, wall-mounted items, and household hardware.</p>
+            <p>Non-permitted household fixtures, curtain rods, wall-mounted items, and hardware within legally permitted handyman scope.</p>
             <button type="button" class="text-link" data-service="fixtures-installations">Request this service <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
           </article>
           <article class="service-card">
@@ -165,11 +167,11 @@
           <article class="service-card">
             <div class="service-icon"><i class="fas fa-faucet-drip" aria-hidden="true"></i></div>
             <h3>Plumbing maintenance</h3>
-            <p>Faucet, toilet, and fixture maintenance for projects within handyman scope.</p>
+            <p>Minor fixture maintenance only when no permit or licensed trade contractor is required.</p>
             <button type="button" class="text-link" data-service="plumbing-maintenance">Request this service <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
           </article>
         </div>
-        <p class="scope-note"><i class="fas fa-circle-info" aria-hidden="true"></i> Work requiring a specialist trade license may need to be referred to an appropriately licensed contractor after scope review.</p>
+        <p class="scope-note"><i class="fas fa-circle-info" aria-hidden="true"></i> Every request is subject to legal scope review. Work requiring a permit, a contractor or specialty-trade license, or work outside the accepting provider’s qualifications will not be performed as ordinary handyman work and may be declined or referred.</p>
       </div>
     </section>
 
@@ -260,8 +262,10 @@
           <div class="field"><label for="contact-service">Service *</label><select id="contact-service" name="service" required><option value="">Choose a service</option><option value="general-repairs">General repairs</option><option value="fixtures-installations">Fixtures & installations</option><option value="painting-drywall">Painting & drywall</option><option value="furniture-assembly">Furniture assembly</option><option value="carpentry">Carpentry</option><option value="plumbing-maintenance">Plumbing maintenance</option><option value="other">Other project</option></select></div>
           <div class="field"><label for="contact-message">Project details *</label><textarea id="contact-message" name="message" rows="5" placeholder="What needs to be repaired or installed? Include dimensions, materials, or timing if known." required></textarea></div>
           <input type="hidden" name="website" value="">
+          <input type="hidden" name="consent_version" value="2026-08-20">
+          <label class="consent-row" for="contact-consent"><input id="contact-consent" type="checkbox" name="contact_consent" required><span>I am 18 or older and agree to the <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>. I consent to calls, texts, or email about this request. Consent is not a condition of purchase; message and data rates may apply. This does not subscribe me to marketing.</span></label>
           <button type="submit" class="btn btn-primary btn-block">Send estimate request <i class="fas fa-paper-plane" aria-hidden="true"></i></button>
-          <p class="privacy-note">By submitting, you agree that we may contact you about this request. See our <a href="privacy.html">Privacy Policy</a>.</p>
+          <p class="privacy-note">Submitting a request does not create a contract, approve work, or confirm an appointment.</p>
           <p class="form-status" aria-live="polite"></p>
         </form>
       </div>
@@ -274,7 +278,7 @@
           <details><summary>Does submitting the form confirm an appointment?<i class="fas fa-plus" aria-hidden="true"></i></summary><p>No. It starts a project review. Availability, scope, estimate details, and scheduling must be confirmed separately.</p></details>
           <details><summary>Why do you need my ZIP code?<i class="fas fa-plus" aria-hidden="true"></i></summary><p>It is used to check whether the project location is within the current service range before discussing an appointment.</p></details>
           <details><summary>Can I request several small jobs at once?<i class="fas fa-plus" aria-hidden="true"></i></summary><p>Yes. List each item in the project details so the full scope can be reviewed together.</p></details>
-          <details><summary>What if my project requires a licensed trade specialist?<i class="fas fa-plus" aria-hidden="true"></i></summary><p>Projects outside handyman scope should be handled by an appropriately licensed contractor. The initial review helps identify that before scheduling.</p></details>
+          <details><summary>What if my project requires a permit or licensed contractor?<i class="fas fa-plus" aria-hidden="true"></i></summary><p>It will not be accepted as ordinary handyman work. Projects outside the legally permitted scope must be declined or handled by an appropriately licensed contractor. The initial review helps identify that before scheduling.</p></details>
         </div>
       </div>
     </section>
@@ -303,8 +307,10 @@
         <div class="field"><label for="modal-service">Service *</label><select id="modal-service" name="service" required><option value="">Choose a service</option><option value="general-repairs">General repairs</option><option value="fixtures-installations">Fixtures & installations</option><option value="painting-drywall">Painting & drywall</option><option value="furniture-assembly">Furniture assembly</option><option value="carpentry">Carpentry</option><option value="plumbing-maintenance">Plumbing maintenance</option><option value="other">Other project</option></select></div>
         <div class="field"><label for="modal-message">Project details</label><textarea id="modal-message" name="message" rows="4" placeholder="Briefly describe what you need done."></textarea></div>
         <input type="hidden" name="website" value="">
+        <input type="hidden" name="consent_version" value="2026-08-20">
+        <label class="consent-row" for="modal-consent"><input id="modal-consent" type="checkbox" name="contact_consent" required><span>I am 18 or older and agree to the <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>. I consent to calls, texts, or email about this request. Consent is not a condition of purchase; message and data rates may apply. This does not subscribe me to marketing.</span></label>
         <button type="submit" class="btn btn-primary btn-block">Send request <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
-        <p class="privacy-note">By submitting, you agree that we may contact you about this request. See our <a href="privacy.html">Privacy Policy</a>.</p>
+        <p class="privacy-note">Submitting a request does not create a contract, approve work, or confirm an appointment.</p>
         <p class="form-status" aria-live="polite"></p>
       </form>
     </div>

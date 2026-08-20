@@ -26,7 +26,11 @@ test('validateLead rejects malformed leads', () => {
     phone: '(213) 555-0199',
     service: 'general',
     zip: '90210',
+    contact_consent: true,
   }).valid, true);
+  assert.equal(validateLead({
+    name: 'Alex Smith', phone: '(213) 555-0199', service: 'general', zip: '90210',
+  }).valid, false);
 });
 
 test('formatLead escapes Telegram HTML and contains lead context', () => {
@@ -37,11 +41,16 @@ test('formatLead escapes Telegram HTML and contains lead context', () => {
     zip: '90210',
     message: '<script>alert(1)</script>',
     form_type: 'hero_form',
+    contact_consent: true,
+    consent_version: '2026-08-20',
+    received_at: '2026-08-20T12:00:00.000Z',
   });
   assert.match(text, /&lt;Alex &amp; Co&gt;/);
   assert.doesNotMatch(text, /<script>/);
   assert.match(text, /90210/);
   assert.match(text, /hero_form/);
+  assert.match(text, /Contact consent:<\/b> Yes/);
+  assert.match(text, /2026-08-20T12:00:00.000Z/);
 });
 
 test('health endpoint reports readiness without exposing configuration', async (t) => {
@@ -78,6 +87,7 @@ test('API returns 503 when lead delivery is not configured', async (t) => {
   t.after(() => server.close());
   const response = await post(baseUrl, {
     name: 'Alex Smith', phone: '(213) 555-0199', service: 'general', zip: '90210',
+    contact_consent: true,
   });
   assert.equal(response.status, 503);
   assert.equal((await response.json()).success, false);
@@ -96,7 +106,8 @@ test('API confirms success only after Telegram accepts the lead', async (t) => {
 
   const response = await post(baseUrl, {
     name: 'Alex Smith', phone: '(213) 555-0199', service: 'general', zip: '90210',
-    form_type: 'contact_form', message: 'Repair a door',
+    form_type: 'contact_form', message: 'Repair a door', contact_consent: true,
+    consent_version: '2026-08-20',
   });
   assert.equal(response.status, 200);
   assert.equal((await response.json()).success, true);

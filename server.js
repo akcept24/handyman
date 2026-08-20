@@ -46,6 +46,8 @@ function validateLead(input) {
     message: clean(input?.message, 2000),
     form_type: clean(input?.form_type, 40),
     urgent: input?.urgent === true || input?.urgent === 'on',
+    contact_consent: input?.contact_consent === true || input?.contact_consent === 'on',
+    consent_version: clean(input?.consent_version, 30),
     website: clean(input?.website, 200),
   };
   const errors = [];
@@ -54,6 +56,7 @@ function validateLead(input) {
   if (!lead.service) errors.push('Please select a service.');
   if (!/^\d{5}(?:-\d{4})?$/.test(lead.zip)) errors.push('Please enter a valid ZIP code.');
   if (lead.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email)) errors.push('Please enter a valid email.');
+  if (!lead.contact_consent) errors.push('Please agree to the contact and website terms.');
   return { valid: errors.length === 0, errors, lead };
 }
 
@@ -68,6 +71,9 @@ function formatLead(lead) {
     `<b>Urgent:</b> ${lead.urgent ? 'Yes' : 'No'}`,
     lead.message ? `<b>Project:</b> ${escapeHtml(lead.message)}` : '',
     `<b>Form:</b> ${escapeHtml(lead.form_type || 'unknown')}`,
+    `<b>Contact consent:</b> ${lead.contact_consent ? 'Yes' : 'No'}`,
+    `<b>Consent version:</b> ${escapeHtml(lead.consent_version || 'not provided')}`,
+    `<b>Received:</b> ${escapeHtml(lead.received_at || 'not recorded')}`,
   ];
   return rows.filter(Boolean).join('\n');
 }
@@ -164,6 +170,8 @@ function createApp(options = {}) {
         sendJson(res, 503, { success: false, message: 'Online requests are temporarily unavailable. Please try again later.' });
         return;
       }
+
+      result.lead.received_at = new Date().toISOString();
 
       const response = await fetchImpl(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
         method: 'POST',

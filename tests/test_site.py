@@ -97,6 +97,12 @@ class ProductionReadinessTests(unittest.TestCase):
         self.assertTrue((ROOT / "privacy.html").is_file())
         self.assertTrue((ROOT / "terms.html").is_file())
 
+    def test_every_form_requires_recorded_contact_consent(self):
+        self.assertEqual(3, HTML.count('name="contact_consent" required'))
+        self.assertEqual(3, HTML.count('name="consent_version" value="2026-08-20"'))
+        server = (ROOT / "server.js").read_text(encoding="utf-8")
+        self.assertIn("Please agree to the contact and website terms.", server)
+
     def test_local_assets_exist(self):
         missing = []
         for asset in PARSER.assets:
