@@ -15,6 +15,8 @@ const STATIC_FILES = new Map([
   ['/script.js', 'script.js'],
   ['/robots.txt', 'robots.txt'],
   ['/sitemap.xml', 'sitemap.xml'],
+  ['/tracking.config.js', 'tracking.config.js'],
+  ['/tracking.loader.js', 'tracking.loader.js'],
 ]);
 const IMAGE_TYPES = new Map([
   ['.png', 'image/png'], ['.jpg', 'image/jpeg'], ['.jpeg', 'image/jpeg'],
