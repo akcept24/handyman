@@ -1,7 +1,7 @@
 FROM node:22-alpine
 WORKDIR /app
 COPY package.json server.js ./
-COPY index.html privacy.html terms.html styles.css script.js robots.txt sitemap.xml ./
+COPY index.html privacy.html terms.html styles.css script.js robots.txt sitemap.xml tracking.config.js tracking.loader.js ./
 COPY images ./images
 ENV NODE_ENV=production PORT=3000
 EXPOSE 3000
