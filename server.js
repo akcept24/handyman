@@ -139,7 +139,7 @@ function createApp(options = {}) {
     res.setHeader('x-frame-options', 'SAMEORIGIN');
     res.setHeader('referrer-policy', 'strict-origin-when-cross-origin');
     res.setHeader('permissions-policy', 'camera=(), microphone=(), geolocation=()');
-    res.setHeader('content-security-policy', "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'");
+    res.setHeader('content-security-policy', "default-src 'self'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' https://www.googletagmanager.com https://connect.facebook.net; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://region1.google-analytics.com https://region1.analytics.google.com; base-uri 'self'; form-action 'self'; frame-ancestors 'self'");
 
     const url = new URL(req.url, 'http://localhost');
     if ((req.method === 'GET' || req.method === 'HEAD') && url.pathname === '/health') {
