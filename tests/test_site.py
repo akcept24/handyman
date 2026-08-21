@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 HTML = (ROOT / "index.html").read_text(encoding="utf-8")
 JS = (ROOT / "script.js").read_text(encoding="utf-8")
 CSS = (ROOT / "styles.css").read_text(encoding="utf-8")
+THANK_YOU = (ROOT / "thank-you.html").read_text(encoding="utf-8")
 PUBLIC_TEXT = "\n".join(
     path.read_text(encoding="utf-8")
     for path in [ROOT / "index.html", ROOT / "robots.txt", ROOT / "sitemap.xml"]
@@ -163,6 +164,16 @@ class ProductionReadinessTests(unittest.TestCase):
         self.assertNotIn("Promise.resolve({ success: true })", JS)
         self.assertNotIn("Simulate API", JS)
         self.assertIn("form_type: formType", JS)
+
+    def test_confirmed_leads_redirect_to_conversion_page(self):
+        self.assertTrue((ROOT / "thank-you.html").is_file())
+        self.assertIn("window.location.assign('/thank-you.html')", JS)
+        self.assertGreater(JS.index("payload.success !== true"), JS.index("response.ok"))
+        self.assertGreater(JS.index("window.location.assign('/thank-you.html')"), JS.index("await submitToAPI"))
+        self.assertIn('<meta name="robots" content="noindex,nofollow">', THANK_YOU)
+        self.assertIn("Thank you! Your request was received.", THANK_YOU)
+        self.assertIn("Not a licensed contractor.", THANK_YOU)
+        self.assertIn("under $1,000 total", THANK_YOU)
 
     def test_content_is_visible_without_javascript(self):
         for selector in [".service-card", ".project-tile"]:

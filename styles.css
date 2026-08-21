@@ -227,6 +227,21 @@ details p { padding: 0 40px 22px 3px; color: var(--muted); }
 .legal-card ul { margin: 10px 0 0 22px; }
 .legal-back { display: inline-flex; gap: 8px; margin-bottom: 24px; color: var(--orange-dark); font-weight: 700; text-decoration: none; }
 
+.thank-you-page { min-height: 100vh; background: radial-gradient(circle at 50% 0%, rgba(240,100,47,.18), transparent 38%), var(--ink); }
+.thank-you-main { min-height: 100vh; display: grid; place-items: center; padding: 40px 18px; }
+.thank-you-card { width: min(760px, 100%); padding: clamp(30px, 6vw, 64px); text-align: center; background: #fff; border-radius: 24px; box-shadow: 0 30px 90px rgba(0,0,0,.28); }
+.thank-you-icon { display: grid; place-items: center; width: 74px; height: 74px; margin: 0 auto 22px; color: #fff; background: var(--orange); border-radius: 50%; font-size: 1.8rem; box-shadow: 0 12px 30px rgba(240,100,47,.3); }
+.thank-you-card .eyebrow { display: inline-flex; margin-bottom: 18px; }
+.thank-you-card h1 { max-width: 650px; margin: 0 auto 18px; font-size: clamp(2.1rem, 6vw, 3.7rem); line-height: 1.05; }
+.thank-you-lead { max-width: 620px; margin: 0 auto 28px; color: var(--muted); font-size: 1.05rem; }
+.thank-you-next { margin: 0 auto 24px; padding: 22px 24px; text-align: left; background: var(--slate); border: 1px solid var(--line); border-radius: 14px; }
+.thank-you-next strong { display: block; margin-bottom: 10px; }
+.thank-you-next ul { display: grid; gap: 8px; margin-left: 20px; color: var(--ink-soft); }
+.thank-you-card .license-notice { max-width: none; margin: 0 0 28px; text-align: left; }
+.thank-you-home { display: inline-flex; }
+.thank-you-privacy { margin-top: 22px; color: var(--muted); font-size: .85rem; }
+.thank-you-privacy a { color: var(--ink-soft); }
+
 @media (max-width: 1060px) {
   .nav-menu { gap: 18px; }
   .nav-cta { display: none; }

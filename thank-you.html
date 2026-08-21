@@ -1,75 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You — California Handyman</title>
-    <meta name="robots" content="noindex">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="tracking.config.js"></script>
-    <script src="tracking.loader.js"></script>
-    <style>
-        .thank-you-page {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
-            padding: 2rem;
-        }
-        .thank-you-card {
-            background: #fff;
-            border-radius: 20px;
-            padding: 3rem 2.5rem;
-            max-width: 520px;
-            text-align: center;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
-        }
-        .thank-you-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #28A745, #20c997);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            color: #fff;
-            font-size: 2.5rem;
-        }
-        .thank-you-card h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        .thank-you-card p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your California Handyman estimate request has been received.">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="canonical" href="https://california-handymen.com/thank-you.html">
+  <title>Request Received | California Handyman</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="tracking.config.js"></script>
+  <script src="tracking.loader.js"></script>
 </head>
-<body>
-    <div class="thank-you-page">
-        <div class="thank-you-card">
-            <div class="thank-you-icon"><i class="fas fa-check"></i></div>
-            <h1>Thank You!</h1>
-            <p>We received your request and will contact you within <strong>1 hour</strong>. For urgent repairs, call us directly.</p>
-            <a href="/" class="btn btn-primary btn-large">Back to Home</a>
-            <p style="margin-top:1.5rem;font-size:0.9rem;">
-                <a href="tel:+18888888888"><i class="fas fa-phone"></i> (888) 888-8888</a>
-            </p>
-        </div>
-    </div>
-    <script>
-        window.addEventListener('load', function() {
-            if (typeof trackConversion === 'function') {
-                trackConversion('thank_you_page', { source: 'redirect' });
-            }
-        });
-    </script>
-    <script src="script.js"></script>
+<body class="thank-you-page">
+  <main id="main-content" class="thank-you-main">
+    <section class="thank-you-card" aria-labelledby="thank-you-title">
+      <div class="thank-you-icon" aria-hidden="true"><i class="fas fa-check"></i></div>
+      <p class="eyebrow"><i class="fas fa-location-dot" aria-hidden="true"></i> Santa Clarita · Valencia</p>
+      <h1 id="thank-you-title">Thank you! Your request was received.</h1>
+      <p class="thank-you-lead">We’ll review your project details and contact you using the information you provided. Your request is not a confirmed appointment or service contract.</p>
+      <div class="thank-you-next">
+        <strong>What happens next?</strong>
+        <ul>
+          <li>We review the complete project scope and location.</li>
+          <li>We confirm whether the request fits our minor-work service limits.</li>
+          <li>If it qualifies, we’ll follow up about availability and an estimate.</li>
+        </ul>
+      </div>
+      <aside class="license-notice" aria-label="California contractor license disclosure">
+        <strong>Not a licensed contractor.</strong>
+        <span>Requests are considered only for qualifying casual, minor work under $1,000 total, including labor and materials, when no building permit or licensed trade is required.</span>
+      </aside>
+      <a class="btn btn-primary btn-large thank-you-home" href="/">Return to website</a>
+      <p class="thank-you-privacy"><a href="/privacy.html">Privacy Policy</a> · <a href="/terms.html">Website Terms</a></p>
+    </section>
+  </main>
 </body>
 </html>

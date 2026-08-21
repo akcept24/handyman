@@ -175,7 +175,7 @@ async function handleFormSubmission(form, formType) {
     setFormStatus(form, result.message || 'Your request was sent. We’ll review the details and follow up.', 'success');
     trackEvent('lead_submitted', { form_type: formType, service: data.service });
     trackConversion(formType, data);
-    window.setTimeout(() => { window.location.href = '/thank-you.html'; }, 800);
+    window.setTimeout(() => window.location.assign('/thank-you.html'), 500);
     return;
   } catch (error) {
     setFormStatus(form, error.message, 'error');
