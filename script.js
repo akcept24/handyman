@@ -12,6 +12,37 @@ let lastFocusedElement = null;
 function trackEvent(eventName, eventData = {}) {
   window.dataLayer?.push({ event: eventName, ...eventData });
   window.dispatchEvent(new CustomEvent(`handyman:${eventName}`, { detail: eventData }));
+  if (typeof gtag !== 'undefined') gtag('event', eventName, eventData);
+  if (typeof fbq !== 'undefined') fbq('trackCustom', eventName, eventData);
+}
+
+function trackConversion(conversionType, conversionData = {}) {
+  const cfg = window.SITE_TRACKING || {};
+  const sendTo = cfg.googleAdsConversion;
+  const isPlaceholder = !sendTo || /X{3,}|CONVERSION_LABEL/i.test(sendTo);
+  const txnId = `txn_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+
+  if (typeof gtag !== 'undefined' && !isPlaceholder) {
+    gtag('event', 'conversion', {
+      send_to: sendTo,
+      value: 1.0,
+      currency: 'USD',
+      transaction_id: txnId,
+    });
+  }
+  if (typeof gtag !== 'undefined' && cfg.ga4Id && !/X{3,}/.test(cfg.ga4Id)) {
+    gtag('event', 'generate_lead', {
+      event_category: conversionType,
+      service: conversionData.service || 'general',
+    });
+  }
+  if (typeof fbq !== 'undefined') {
+    fbq('track', 'Lead', {
+      content_name: conversionType,
+      content_category: conversionData.service || 'general',
+    });
+  }
+  trackEvent('conversion', { conversion_type: conversionType, ...conversionData });
 }
 
 function setMenu(open) {
@@ -143,7 +174,9 @@ async function handleFormSubmission(form, formType) {
     clearFieldErrors(form);
     setFormStatus(form, result.message || 'Your request was sent. We’ll review the details and follow up.', 'success');
     trackEvent('lead_submitted', { form_type: formType, service: data.service });
-    if (formType === 'modal_form') window.setTimeout(closeBookingModal, 1800);
+    trackConversion(formType, data);
+    window.setTimeout(() => { window.location.href = '/thank-you.html'; }, 800);
+    return;
   } catch (error) {
     setFormStatus(form, error.message, 'error');
     trackEvent('form_submit_error', { form_type: formType, service: data.service });
@@ -162,6 +195,13 @@ async function handleFormSubmission(form, formType) {
   form?.addEventListener('submit', event => {
     event.preventDefault();
     handleFormSubmission(form, formType);
+  });
+});
+
+document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+  link.addEventListener('click', () => {
+    trackEvent('phone_click', { phone_number: link.getAttribute('href')?.replace('tel:', '') || '' });
+    trackConversion('phone_click', { service: 'call' });
   });
 });
 
