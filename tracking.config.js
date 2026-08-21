@@ -4,7 +4,7 @@
  */
 window.SITE_TRACKING = {
   // Google Analytics 4 — Admin → Data Streams → Measurement ID
-  ga4Id: 'G-XXXXXXXXXX',
+  ga4Id: 'G-CL4VE3BZDK',
 
   // Google Ads — Tools → Conversions → Tag setup
   // Format: 'AW-XXXXXXXXX/AbCdEfGhIjKlMnOpQr'
