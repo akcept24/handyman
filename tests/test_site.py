@@ -171,7 +171,9 @@ class ProductionReadinessTests(unittest.TestCase):
         self.assertGreater(JS.index("payload.success !== true"), JS.index("response.ok"))
         self.assertGreater(JS.index("window.location.assign('/thank-you.html')"), JS.index("await submitToAPI"))
         self.assertIn('<meta name="robots" content="noindex,nofollow">', THANK_YOU)
-        self.assertIn("Thank you! Your request was received.", THANK_YOU)
+        self.assertIn("Request received", THANK_YOU)
+        self.assertIn("You’re all set.", THANK_YOU)
+        self.assertIn("Illustrative service image", THANK_YOU)
         self.assertIn("Not a licensed contractor.", THANK_YOU)
         self.assertIn("under $1,000 total", THANK_YOU)
 
