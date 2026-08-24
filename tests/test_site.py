@@ -202,14 +202,23 @@ class ProductionReadinessTests(unittest.TestCase):
 
     def test_browser_voice_call_is_accessible_and_disclosed(self):
         orb = "https://agent.retellai.com/orb/agent_32e8100822dce62a9f089bc2c9?token=9f133ae95f18a693c882fa23777316ba"
-        self.assertEqual(2, HTML.count(f'href="{orb}"'))
-        self.assertEqual(2, HTML.count('target="_blank" rel="noopener noreferrer"'))
+        self.assertEqual(4, HTML.count(f'href="{orb}"'))
+        self.assertEqual(4, HTML.count('target="_blank" rel="noopener noreferrer"'))
         self.assertIn('id="voice-call"', HTML)
         self.assertIn("automated virtual receptionist", HTML)
         self.assertIn("may be recorded and transcribed", HTML)
         self.assertIn("Do not share a street address", HTML)
         self.assertIn("EN&nbsp;&nbsp; ES&nbsp;&nbsp; RU", HTML)
         self.assertIn(".voice-call-card", CSS)
+
+    def test_voice_call_is_immediately_visible_on_desktop_and_mobile(self):
+        self.assertIn('class="btn nav-call-cta"', HTML)
+        self.assertIn('class="mobile-action-bar"', HTML)
+        self.assertIn('class="mobile-call-cta"', HTML)
+        self.assertIn("Call AI now", HTML)
+        self.assertIn(".mobile-action-bar", CSS)
+        self.assertIn("grid-template-columns: 1fr 1fr", CSS)
+        self.assertIn("display: none", CSS)
 
     def test_privacy_policy_names_voice_processor(self):
         privacy = (ROOT / "privacy.html").read_text(encoding="utf-8")
