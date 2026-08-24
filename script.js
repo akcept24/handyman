@@ -152,7 +152,7 @@ async function submitToAPI(data) {
   if (!response.ok) {
     throw new Error(payload.message || 'We could not send your request. Please try again.');
   }
-  if (payload.success !== true) throw new Error('The request was not confirmed. Please try again.');
+  if (payload.success !== true || payload.delivered !== true) throw new Error('The request was not confirmed. Please try again.');
   return payload;
 }
 

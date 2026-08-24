@@ -98,6 +98,11 @@ class ProductionReadinessTests(unittest.TestCase):
         self.assertTrue((ROOT / "privacy.html").is_file())
         self.assertTrue((ROOT / "terms.html").is_file())
 
+    def test_every_form_has_bot_visible_honeypot(self):
+        self.assertEqual(3, HTML.count('class="hp-field"'))
+        self.assertEqual(3, HTML.count('name="fax_number" tabindex="-1" autocomplete="off"'))
+        self.assertIn('.hp-field', CSS)
+
     def test_every_form_requires_recorded_contact_consent(self):
         self.assertEqual(3, HTML.count('name="contact_consent" required'))
         self.assertEqual(3, HTML.count('name="consent_version" value="2026-08-20"'))
@@ -111,13 +116,18 @@ class ProductionReadinessTests(unittest.TestCase):
         self.assertIn("no building permit", HTML)
         self.assertIn("Larger projects cannot be divided", HTML)
 
-    def test_service_area_is_limited_to_santa_clarita_and_valencia(self):
+    def test_service_area_matches_the_santa_clarita_valley(self):
         self.assertIn("Santa Clarita", HTML)
         self.assertIn("Valencia", HTML)
-        self.assertIn("Serving Santa Clarita, including Valencia.", HTML)
+        self.assertIn("Stevenson Ranch", HTML)
+        self.assertIn("Castaic", HTML)
+        self.assertIn("Serving the Santa Clarita Valley.", HTML)
         data = json.loads(PARSER.json_ld[0])
         area_names = {area["name"] for area in data["areaServed"]}
-        self.assertEqual({"Santa Clarita", "Valencia, Santa Clarita"}, area_names)
+        self.assertEqual(
+            {"Santa Clarita", "Valencia, Santa Clarita", "Stevenson Ranch", "Castaic"},
+            area_names,
+        )
 
     def test_local_assets_exist(self):
         missing = []

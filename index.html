@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Request a clear, no-obligation estimate for minor handyman repairs, furniture assembly, painting, and home maintenance in Santa Clarita and Valencia, California.">
+  <meta name="description" content="Request a clear, no-obligation estimate for minor handyman repairs and home maintenance in Santa Clarita, Valencia, Stevenson Ranch, and Castaic, California.">
   <meta name="author" content="California Handyman">
   <link rel="canonical" href="https://california-handymen.com/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://california-handymen.com/">
   <meta property="og:title" content="Santa Clarita & Valencia Handyman | Minor Home Repairs">
-  <meta property="og:description" content="Request an estimate for qualifying minor home repairs and maintenance in Santa Clarita, including Valencia.">
+  <meta property="og:description" content="Request an estimate for qualifying minor home repairs in Santa Clarita, Valencia, Stevenson Ranch, and Castaic.">
   <meta property="og:image" content="https://california-handymen.com/images/generated/hero-handyman.webp">
   <meta property="og:image:width" content="1000">
   <meta property="og:image:height" content="1250">
   <meta property="og:image:alt" content="California handyman ready for a home repair project">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Santa Clarita & Valencia Handyman Estimates">
-  <meta name="twitter:description" content="Minor home repairs, assembly, painting, and maintenance in Santa Clarita, including Valencia.">
+  <meta name="twitter:description" content="Minor home repairs and maintenance in Santa Clarita, Valencia, Stevenson Ranch, and Castaic.">
   <meta name="twitter:image" content="https://california-handymen.com/images/generated/hero-handyman.webp">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"California Handyman","url":"https://california-handymen.com/","image":"https://california-handymen.com/images/generated/hero-handyman.webp","description":"Qualifying minor handyman repair, assembly, painting, and home maintenance estimate requests in Santa Clarita and Valencia.","areaServed":[{"@type":"City","name":"Santa Clarita","containedInPlace":{"@type":"AdministrativeArea","name":"California"}},{"@type":"Place","name":"Valencia, Santa Clarita","containedInPlace":{"@type":"City","name":"Santa Clarita"}}],"priceRange":"Request an estimate"}
+  {"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"California Handyman","url":"https://california-handymen.com/","image":"https://california-handymen.com/images/generated/hero-handyman.webp","description":"Qualifying minor handyman repair, assembly, painting, and home maintenance estimate requests in the Santa Clarita Valley.","areaServed":[{"@type":"City","name":"Santa Clarita","containedInPlace":{"@type":"AdministrativeArea","name":"California"}},{"@type":"Place","name":"Valencia, Santa Clarita","containedInPlace":{"@type":"City","name":"Santa Clarita"}},{"@type":"Place","name":"Stevenson Ranch","containedInPlace":{"@type":"AdministrativeArea","name":"California"}},{"@type":"Place","name":"Castaic","containedInPlace":{"@type":"AdministrativeArea","name":"California"}}],"priceRange":"Request an estimate"}
   </script>
   <title>Santa Clarita & Valencia Handyman | Minor Home Repairs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,6 +27,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="chat-widget.css">
   <script src="tracking.config.js"></script>
   <script src="tracking.loader.js"></script>
 </head>
@@ -63,9 +64,9 @@
       <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
       <div class="container hero-layout">
         <div class="hero-copy">
-          <div class="eyebrow"><i class="fas fa-location-dot" aria-hidden="true"></i> Santa Clarita · Valencia</div>
+          <div class="eyebrow"><i class="fas fa-location-dot" aria-hidden="true"></i> Santa Clarita Valley</div>
           <h1>Get your home project <span>off the list.</span></h1>
-          <p class="hero-lead">Local help for qualifying minor projects in Santa Clarita, including Valencia. Tell us what needs fixing and we’ll review the full scope before scheduling.</p>
+          <p class="hero-lead">Local help for qualifying minor projects in Santa Clarita, Valencia, Stevenson Ranch, and Castaic. Tell us what needs fixing and we’ll review the full scope before scheduling.</p>
           <aside class="license-notice" aria-label="California contractor license disclosure">
             <strong>Not a licensed contractor.</strong>
             <span>Requests are considered only for casual, minor work under $1,000 total, including labor and materials, when no building permit or licensed trade is required. Larger projects cannot be divided to fit this limit.</span>
@@ -85,7 +86,7 @@
             <img src="/images/generated/hero-handyman.webp" alt="Handyman carrying tools for a residential project" width="1000" height="1250" fetchpriority="high" decoding="async">
             <div class="project-card">
               <span class="project-card-icon" aria-hidden="true"><i class="fas fa-clipboard-check"></i></span>
-              <span><strong>Local project review</strong><small>Santa Clarita + Valencia</small></span>
+              <span><strong>Local project review</strong><small>Santa Clarita Valley</small></span>
             </div>
           </div>
         </div>
@@ -108,7 +109,7 @@
             </div>
             <div class="field field-short">
               <label for="hero-zip">ZIP code *</label>
-              <input id="hero-zip" type="text" name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" placeholder="90210" required>
+              <input id="hero-zip" type="text" name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" placeholder="91355" required>
             </div>
             <div class="field">
               <label for="hero-service">Service *</label>
@@ -123,7 +124,7 @@
                 <option value="other">Other project</option>
               </select>
             </div>
-            <input type="hidden" name="website" value="">
+            <div class="hp-field" aria-hidden="true"><label for="hero-fax-number">Fax number</label><input id="hero-fax-number" type="text" name="fax_number" tabindex="-1" autocomplete="off"></div>
             <input type="hidden" name="consent_version" value="2026-08-20">
             <button type="submit" class="btn btn-primary quick-submit">Send request <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
           </div>
@@ -237,8 +238,8 @@
         <div class="area-icon" aria-hidden="true"><i class="fas fa-map-location-dot"></i></div>
         <div class="area-copy">
           <span class="section-kicker">Service area</span>
-          <h2>Serving Santa Clarita, including Valencia.</h2>
-          <p>We currently focus on homes in Santa Clarita and the Valencia community. Include your ZIP code so the exact address, project scope, and local availability can be confirmed before scheduling.</p>
+          <h2>Serving the Santa Clarita Valley.</h2>
+          <p>We currently serve Santa Clarita, Valencia, Stevenson Ranch, and Castaic. Include your ZIP code so the exact address, project scope, and local availability can be confirmed before scheduling.</p>
         </div>
         <button class="btn btn-primary btn-large" type="button" data-open-modal>Check my ZIP <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
       </div>
@@ -267,7 +268,7 @@
           </div>
           <div class="field"><label for="contact-service">Service *</label><select id="contact-service" name="service" required><option value="">Choose a service</option><option value="general-repairs">General repairs</option><option value="fixtures-installations">Fixtures & installations</option><option value="painting-drywall">Painting & drywall</option><option value="furniture-assembly">Furniture assembly</option><option value="carpentry">Carpentry</option><option value="plumbing-maintenance">Plumbing maintenance</option><option value="other">Other project</option></select></div>
           <div class="field"><label for="contact-message">Project details *</label><textarea id="contact-message" name="message" rows="5" placeholder="What needs to be repaired or installed? Include dimensions, materials, or timing if known." required></textarea></div>
-          <input type="hidden" name="website" value="">
+          <div class="hp-field" aria-hidden="true"><label for="contact-fax-number">Fax number</label><input id="contact-fax-number" type="text" name="fax_number" tabindex="-1" autocomplete="off"></div>
           <input type="hidden" name="consent_version" value="2026-08-20">
           <label class="consent-row" for="contact-consent"><input id="contact-consent" type="checkbox" name="contact_consent" required><span>I am 18 or older and agree to the <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>. I consent to calls, texts, or email about this request. Consent is not a condition of purchase; message and data rates may apply. This does not subscribe me to marketing.</span></label>
           <button type="submit" class="btn btn-primary btn-block">Send estimate request <i class="fas fa-paper-plane" aria-hidden="true"></i></button>
@@ -292,7 +293,7 @@
 
   <footer class="footer">
     <div class="container footer-main">
-      <div class="footer-brand"><a class="logo footer-logo" href="#home"><span class="logo-mark" aria-hidden="true"><i class="fas fa-tools"></i></span><span>California<strong>Handyman</strong></span></a><p>Minor home repair and maintenance requests in Santa Clarita, including Valencia.</p><p class="footer-license"><strong>Not a licensed contractor.</strong> Minor-work requests only, subject to California law.</p></div>
+      <div class="footer-brand"><a class="logo footer-logo" href="#home"><span class="logo-mark" aria-hidden="true"><i class="fas fa-tools"></i></span><span>California<strong>Handyman</strong></span></a><p>Minor home repair and maintenance requests across the Santa Clarita Valley.</p><p class="footer-license"><strong>Not a licensed contractor.</strong> Minor-work requests only, subject to California law.</p></div>
       <div><h2>Services</h2><ul><li><a href="#services">General repairs</a></li><li><a href="#services">Fixtures & installations</a></li><li><a href="#services">Painting & drywall</a></li><li><a href="#services">Carpentry</a></li></ul></div>
       <div><h2>Explore</h2><ul><li><a href="#process">How it works</a></li><li><a href="#projects">Project categories</a></li><li><a href="#areas">Service area</a></li><li><a href="#faq">FAQ</a></li></ul></div>
       <div class="footer-cta"><h2>Have a project?</h2><p>Send the details and your ZIP code for review.</p><button class="btn btn-primary" type="button" data-open-modal>Request estimate</button></div>
@@ -312,7 +313,7 @@
         <div class="form-row"><div class="field"><label for="modal-email">Email</label><input id="modal-email" name="email" type="email" autocomplete="email"></div><div class="field"><label for="modal-zip">ZIP code *</label><input id="modal-zip" name="zip" type="text" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" required></div></div>
         <div class="field"><label for="modal-service">Service *</label><select id="modal-service" name="service" required><option value="">Choose a service</option><option value="general-repairs">General repairs</option><option value="fixtures-installations">Fixtures & installations</option><option value="painting-drywall">Painting & drywall</option><option value="furniture-assembly">Furniture assembly</option><option value="carpentry">Carpentry</option><option value="plumbing-maintenance">Plumbing maintenance</option><option value="other">Other project</option></select></div>
         <div class="field"><label for="modal-message">Project details</label><textarea id="modal-message" name="message" rows="4" placeholder="Briefly describe what you need done."></textarea></div>
-        <input type="hidden" name="website" value="">
+        <div class="hp-field" aria-hidden="true"><label for="modal-fax-number">Fax number</label><input id="modal-fax-number" type="text" name="fax_number" tabindex="-1" autocomplete="off"></div>
         <input type="hidden" name="consent_version" value="2026-08-20">
         <label class="consent-row" for="modal-consent"><input id="modal-consent" type="checkbox" name="contact_consent" required><span>I am 18 or older and agree to the <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>. I consent to calls, texts, or email about this request. Consent is not a condition of purchase; message and data rates may apply. This does not subscribe me to marketing.</span></label>
         <button type="submit" class="btn btn-primary btn-block">Send request <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
@@ -325,5 +326,6 @@
   <button class="mobile-estimate" type="button" data-open-modal>Request estimate <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
   <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
   <script src="script.js"></script>
+  <script src="chat-widget.js" defer></script>
 </body>
 </html>

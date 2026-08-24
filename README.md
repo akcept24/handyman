@@ -7,6 +7,7 @@ Production-oriented landing page for handyman estimate requests in California.
 - Responsive landing page with accessible navigation, forms, modal, FAQ, and legal pages
 - Consistent SEO URLs for `https://california-handymen.com`
 - Node.js server with no runtime dependencies
+- Shared Agent Core for the website chat and a future voice adapter
 - Lead validation and Telegram delivery
 - Honest form state: success is shown only after Telegram accepts the message
 - Honeypot field, request size limit, output escaping, CSP, and security headers
@@ -37,16 +38,20 @@ Never commit real tokens to the repository.
 |---|---:|---|
 | `TELEGRAM_BOT_TOKEN` | Yes | Token for the bot that delivers estimate requests |
 | `TELEGRAM_CHAT_ID` | Yes | User, group, or channel ID that receives leads |
+| `OPENROUTER_API_KEY` | Yes for chat | Server-side key used by the AI assistant; never exposed to the browser |
+| `OPENROUTER_MODEL` | No | Chat model; defaults to `deepseek/deepseek-v4-flash` |
+| `CHAT_DAILY_LIMIT` | No | Per-process daily provider-call circuit breaker; defaults to `200`; invalid values fail closed |
+| `TRUST_PROXY_HOPS` | No | Explicit trusted reverse-proxy hop count for rate-limit identity; defaults to `0` |
 | `PORT` | No | HTTP port; defaults to `3000` |
 
-The bot must be able to send messages to the configured chat. For a group, add the bot to that group before testing.
+The bot must be able to send messages to the configured chat. For a group, add the bot to that group before testing. `CHAT_DAILY_LIMIT` is a last-resort single-replica safety net; enforce the primary distributed rate/spend cap at the CDN/provider because restarts or multiple replicas reset/multiply the in-process counter.
 
 ## Coolify deployment
 
 1. Create or update the application from this GitHub repository.
 2. Choose **Dockerfile** as the build pack.
 3. Set container port to `3000`.
-4. Add `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` as runtime secrets.
+4. Add `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, and `OPENROUTER_API_KEY` as runtime secrets.
 5. Deploy and verify:
    - `/` returns the landing page
    - `/privacy.html` and `/terms.html` return `200`
