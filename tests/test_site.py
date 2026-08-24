@@ -65,6 +65,12 @@ PARSER.feed(HTML)
 
 
 class ProductionReadinessTests(unittest.TestCase):
+    def test_docker_image_includes_all_server_runtime_modules(self):
+        dockerfile = (ROOT / "Dockerfile").read_text()
+        self.assertIn("server.js", dockerfile)
+        self.assertIn("agent-core.js", dockerfile)
+        self.assertIn("voice-intake.js", dockerfile)
+
     def test_public_urls_use_live_domain_and_canonical(self):
         self.assertNotIn("californiahandymanpro.com", PUBLIC_TEXT)
         self.assertIn(f'<link rel="canonical" href="{DOMAIN}/">', HTML)

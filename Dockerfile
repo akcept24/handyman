@@ -1,6 +1,6 @@
 FROM node:22-alpine
 WORKDIR /app
-COPY package.json server.js agent-core.js ./
+COPY package.json server.js agent-core.js voice-intake.js ./
 COPY index.html privacy.html terms.html thank-you.html styles.css script.js chat-widget.css chat-widget.js robots.txt sitemap.xml tracking.config.js tracking.loader.js ./
 COPY images ./images
 ENV NODE_ENV=production PORT=3000
