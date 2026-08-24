@@ -5,6 +5,10 @@ const fs = require('node:fs');
 const path = require('node:path');
 const net = require('node:net');
 const { BUSINESS_PROFILE, buildSystemPrompt, normalizeConversation, enforceReplyPolicy } = require('./agent-core');
+const {
+  authenticateBearer, createIdempotencyStore, fingerprintVoiceLead, formatVoiceLead,
+  validateServiceArea, validateVoiceLead,
+} = require('./voice-intake');
 
 const ROOT = __dirname;
 const MAX_BODY_BYTES = 32 * 1024;
@@ -298,6 +302,13 @@ function createRateLimiter({ limit, windowMs, maxKeys = 1000, now = Date.now, tr
   };
 }
 
+function createTenantRateLimiter({ limit, windowMs, now = Date.now }) {
+  // Voice routes authenticate one provider/tenant. Their shared source IP is not a caller identity.
+  const allow = createRateLimiter({ limit, windowMs, maxKeys: 1, now });
+  const tenantRequest = { socket: { remoteAddress: 'authenticated-voice-tenant' }, headers: {} };
+  return () => allow(tenantRequest);
+}
+
 function createDailyBudget(limit) {
   const safeLimit = Number.isSafeInteger(limit) && limit > 0 && limit <= 10_000 ? limit : 0;
   let state = { day: '', used: 0 };
@@ -427,12 +438,27 @@ function createApp(options = {}) {
   const telegramToken = options.telegramToken ?? process.env.TELEGRAM_BOT_TOKEN;
   const chatId = options.chatId ?? process.env.TELEGRAM_CHAT_ID;
   const openRouterKey = options.openRouterKey ?? process.env.OPENROUTER_API_KEY;
+  const voiceToolSecret = options.voiceToolSecret ?? process.env.VOICE_TOOL_SECRET;
   const fetchImpl = options.fetchImpl ?? globalThis.fetch;
   const configuredDailyLimit = Number(options.chatDailyLimit ?? process.env.CHAT_DAILY_LIMIT ?? 200);
   const trustedProxyHops = Number(options.trustedProxyHops ?? process.env.TRUST_PROXY_HOPS ?? 0);
   const limiterProxyHops = Number.isSafeInteger(trustedProxyHops) && trustedProxyHops >= 0 ? trustedProxyHops : 0;
   const chatRateAllowed = createRateLimiter({ limit: options.chatRateLimit ?? 12, windowMs: 60_000, trustedProxyHops: limiterProxyHops });
   const leadRateAllowed = createRateLimiter({ limit: options.leadRateLimit ?? 8, windowMs: 5 * 60_000, trustedProxyHops: limiterProxyHops });
+  const voiceRequestRateAllowed = createTenantRateLimiter({
+    limit: options.voiceRequestRateLimit ?? 1000, windowMs: 5 * 60_000, now: options.now ?? Date.now,
+  });
+  const voiceLeadRateAllowed = createTenantRateLimiter({
+    limit: options.voiceRateLimit ?? 100, windowMs: 5 * 60_000, now: options.now ?? Date.now,
+  });
+  const voiceAreaRateAllowed = createTenantRateLimiter({
+    limit: options.voiceServiceAreaRateLimit ?? 300, windowMs: 60_000, now: options.now ?? Date.now,
+  });
+  const voiceIdempotency = createIdempotencyStore({
+    ttlMs: options.voiceIdempotencyTtlMs ?? 24 * 60 * 60 * 1000,
+    maxEntries: options.voiceIdempotencyMaxEntries ?? 1000,
+    now: options.now ?? Date.now,
+  });
   const chatDailyBudget = options.chatDailyBudget ?? createDailyBudget(configuredDailyLimit);
   const chatConcurrency = { active: 0, max: 4 };
 
@@ -458,6 +484,12 @@ function createApp(options = {}) {
       sendJson(res, ready ? 200 : 503, { status: ready ? 'ready' : 'not_ready' });
       return;
     }
+    if ((req.method === 'GET' || req.method === 'HEAD') && url.pathname === '/ready/voice') {
+      const validVoiceSecret = authenticateBearer('', voiceToolSecret) !== 'unconfigured';
+      const ready = Boolean(telegramToken && chatId && validVoiceSecret);
+      sendJson(res, ready ? 200 : 503, { status: ready ? 'ready' : 'not_ready' });
+      return;
+    }
     if (req.method === 'GET' || req.method === 'HEAD') {
       if (serveStatic(req, res, url.pathname)) return;
       sendJson(res, 404, { success: false, message: 'Not found.' });
@@ -475,6 +507,110 @@ function createApp(options = {}) {
       } catch (error) {
         console.error('Chat request failed:', error.message);
         sendJson(res, error.status || 502, { success: false, message: 'Chat is temporarily unavailable. Please use the estimate form.' });
+      }
+      return;
+    }
+
+    if (req.method === 'POST' && (url.pathname === '/api/voice/service-area' || url.pathname === '/api/voice/lead')) {
+      const authentication = authenticateBearer(req.headers.authorization, voiceToolSecret);
+      if (authentication === 'unconfigured') {
+        sendJson(res, 503, { success: false, message: 'Voice intake is not configured.' });
+        return;
+      }
+      if (authentication !== 'authenticated') {
+        sendJson(res, 401, { success: false, message: 'Unauthorized.' });
+        return;
+      }
+      if (!voiceRequestRateAllowed()) {
+        sendJson(res, 429, { success: false, delivered: false, message: 'Too many authenticated voice requests.' });
+        return;
+      }
+      const mediaType = String(req.headers['content-type'] || '').split(';', 1)[0].trim().toLowerCase();
+      if (mediaType !== 'application/json') {
+        sendJson(res, 415, { success: false, message: 'Voice tool requests must use application/json.' });
+        return;
+      }
+      try {
+        const input = await readJson(req);
+        if (url.pathname === '/api/voice/service-area') {
+          const result = validateServiceArea(input);
+          if (!result.valid) {
+            sendJson(res, 400, { success: false, message: result.error });
+            return;
+          }
+          if (!voiceAreaRateAllowed()) {
+            sendJson(res, 429, { success: false, message: 'Too many voice tool requests.' });
+            return;
+          }
+          sendJson(res, 200, { eligible: result.eligible, zip: result.zip });
+          return;
+        }
+
+        const result = validateVoiceLead(input);
+        if (!result.valid) {
+          sendJson(res, 400, { success: false, delivered: false, message: result.errors[0] });
+          return;
+        }
+        const fingerprint = fingerprintVoiceLead(result.lead);
+        const receipt = await voiceIdempotency.run(result.lead.call_id, fingerprint, async () => {
+          if (!voiceLeadRateAllowed()) throw Object.assign(new Error('Too many voice tool requests.'), { status: 429 });
+          if (!telegramToken || !chatId) throw Object.assign(new Error('Voice lead delivery is not configured.'), { status: 503 });
+          let response;
+          try {
+            response = await fetchImpl(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
+              method: 'POST',
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify({ chat_id: chatId, text: formatVoiceLead(result.lead), parse_mode: 'HTML' }),
+              signal: AbortSignal.timeout(10_000),
+            });
+          } catch (cause) {
+            throw Object.assign(new Error('Voice lead delivery is indeterminate after a network failure.', { cause }), {
+              status: 503, code: 'DELIVERY_INDETERMINATE', cacheIdempotency: true,
+            });
+          }
+          if (!response.ok) {
+            await readJsonResponseLimited(response, 16 * 1024).catch(() => ({}));
+            throw Object.assign(new Error('Telegram rejected voice lead delivery.'), { status: 502 });
+          }
+          let delivery;
+          try {
+            delivery = await readJsonResponseLimited(response, 16 * 1024);
+          } catch (cause) {
+            throw Object.assign(new Error('Voice lead delivery receipt is indeterminate.', { cause }), {
+              status: 502, code: 'DELIVERY_INDETERMINATE', cacheIdempotency: true,
+            });
+          }
+          if (delivery.ok === false) {
+            throw Object.assign(new Error('Telegram rejected voice lead delivery.'), { status: 502 });
+          }
+          if (delivery.ok !== true || !Number.isSafeInteger(delivery?.result?.message_id)) {
+            throw Object.assign(new Error('Voice lead delivery receipt is indeterminate.'), {
+              status: 502, code: 'DELIVERY_INDETERMINATE', cacheIdempotency: true,
+            });
+          }
+          return { success: true, delivered: true, call_id: result.lead.call_id };
+        });
+        sendJson(res, 200, receipt);
+      } catch (error) {
+        console.error('Voice intake request failed:', error.message);
+        const status = error.status || 502;
+        const messages = {
+          400: 'Voice tool request was not valid JSON.',
+          409: 'This call_id was already used with different lead details.',
+          413: 'Voice tool request is too large.',
+          429: 'Too many voice tool requests.',
+          503: 'Voice lead delivery is not configured.',
+        };
+        const message = error.code === 'DELIVERY_INDETERMINATE'
+          ? 'Delivery was not confirmed; this exact request was not resent to avoid a duplicate.'
+          : error.code === 'IDEMPOTENCY_CAPACITY'
+            ? 'Voice intake is busy with in-flight requests; retry later.'
+            : messages[status] || 'Voice lead delivery failed.';
+        sendJson(res, status, {
+          success: false, delivered: false,
+          message,
+          ...(error.code ? { code: error.code } : {}),
+        });
       }
       return;
     }
