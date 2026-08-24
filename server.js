@@ -270,6 +270,9 @@ function voiceToolArgs(input, expectedName) {
   if (envelopeCallId != null && argsCallId != null && envelopeCallId !== argsCallId) {
     throw Object.assign(new Error('Retell call_id does not match voice lead call_id'), { status: 400 });
   }
+  if (expectedName === 'submit_voice_lead' && envelopeCallId != null) {
+    return { ...input.args, call_id: envelopeCallId };
+  }
   return input.args;
 }
 

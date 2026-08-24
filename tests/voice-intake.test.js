@@ -423,9 +423,11 @@ test('authenticated voice routes accept Retell call envelopes without retaining 
   assert.equal(area.status, 200);
   assert.deepEqual(await area.json(), { eligible: true, zip: '91355' });
 
+  const leadArgs = validVoiceLead();
+  delete leadArgs.call_id;
   const leadEnvelope = {
     name: 'submit_voice_lead',
-    args: validVoiceLead({ call_id: 'retell-real-call' }),
+    args: leadArgs,
     call: { call_id: 'retell-real-call', transcript },
   };
   const lead = await voicePost(base, '/api/voice/lead', leadEnvelope);
