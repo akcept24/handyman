@@ -202,7 +202,7 @@ function validateVoiceLead(input) {
 
   const lead = { ...input, location: { zip, service_area_eligible: serviceAreaEligible } };
   const textValues = [
-    lead.call_id, lead.caller.name, lead.caller.callback_phone, lead.preferences.preferred_callback_window,
+    lead.caller.name, lead.caller.callback_phone, lead.preferences.preferred_callback_window,
     ...Object.values(lead.project).filter(value => typeof value === 'string'),
     ...lead.assessment.uncertainty, ...lead.assessment.missing_info,
   ];

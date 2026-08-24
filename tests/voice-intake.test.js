@@ -145,6 +145,21 @@ test('street addresses are rejected across EN/ES/RU, Unicode digits, and every f
     { category: 'general-repairs', reported_problem: 'Door sticks.', location_on_property: 'Upstairs hallway' },
     { category: 'general-repairs', reported_problem: 'Repair road-facing fence 5 feet wide.' },
   ]) assert.equal(validateVoiceLead(validVoiceLead({ project })).valid, true, JSON.stringify(project));
+
+  const productionRoofLead = validVoiceLead({
+    call_id: 'call_a35846d52231c6150a572f75ec1',
+    project: {
+      category: 'general-repairs',
+      reported_problem: 'Требуется замена участка крыши из черепицы примерно 3 на 3 метра. Протечек нет, профилактический ремонт.',
+      location_on_property: 'Крыша',
+      dimensions: '3 на 3 метра',
+      materials: 'черепица',
+      severity: 'Плановый ремонт, без срочности',
+    },
+    preferences: { urgent: false, preferred_callback_window: 'После обеда' },
+    detected_language: 'ru',
+  });
+  assert.equal(validateVoiceLead(productionRoofLead).valid, true, 'provider call IDs are not caller address text');
 });
 
 test('voice card escapes caller data and in-area cards do not show the out-of-area warning', () => {
