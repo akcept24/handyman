@@ -200,6 +200,23 @@ class ProductionReadinessTests(unittest.TestCase):
             self.assertNotRegex(match.group(1), r"opacity\s*:\s*0\s*;")
         self.assertIn("@media (prefers-reduced-motion: reduce)", CSS)
 
+    def test_browser_voice_call_is_accessible_and_disclosed(self):
+        orb = "https://agent.retellai.com/orb/agent_32e8100822dce62a9f089bc2c9?token=9f133ae95f18a693c882fa23777316ba"
+        self.assertEqual(2, HTML.count(f'href="{orb}"'))
+        self.assertEqual(2, HTML.count('target="_blank" rel="noopener noreferrer"'))
+        self.assertIn('id="voice-call"', HTML)
+        self.assertIn("automated virtual receptionist", HTML)
+        self.assertIn("may be recorded and transcribed", HTML)
+        self.assertIn("Do not share a street address", HTML)
+        self.assertIn("EN&nbsp;&nbsp; ES&nbsp;&nbsp; RU", HTML)
+        self.assertIn(".voice-call-card", CSS)
+
+    def test_privacy_policy_names_voice_processor(self):
+        privacy = (ROOT / "privacy.html").read_text(encoding="utf-8")
+        self.assertIn("Retell AI provides the browser-based automated voice service", privacy)
+        self.assertIn("Full intake and retained project capture begin only after clear consent", privacy)
+        self.assertIn("but not a street address", privacy)
+
 
 if __name__ == "__main__":
     unittest.main()
