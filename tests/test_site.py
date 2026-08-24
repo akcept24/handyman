@@ -202,8 +202,8 @@ class ProductionReadinessTests(unittest.TestCase):
 
     def test_browser_voice_call_is_accessible_and_disclosed(self):
         orb = "https://agent.retellai.com/orb/agent_32e8100822dce62a9f089bc2c9?token=9f133ae95f18a693c882fa23777316ba"
-        self.assertEqual(4, HTML.count(f'href="{orb}"'))
-        self.assertEqual(4, HTML.count('target="_blank" rel="noopener noreferrer"'))
+        self.assertEqual(1, HTML.count(f'href="{orb}"'))
+        self.assertEqual(1, HTML.count('target="_blank" rel="noopener noreferrer"'))
         self.assertIn('id="voice-call"', HTML)
         self.assertIn("automated virtual receptionist", HTML)
         self.assertIn("may be recorded and transcribed", HTML)
@@ -211,18 +211,23 @@ class ProductionReadinessTests(unittest.TestCase):
         self.assertIn("EN&nbsp;&nbsp; ES&nbsp;&nbsp; RU", HTML)
         self.assertIn(".voice-call-card", CSS)
 
-    def test_voice_call_is_immediately_visible_on_desktop_and_mobile(self):
+    def test_phone_call_is_primary_and_visible_on_desktop_and_mobile(self):
+        phone_href = 'href="tel:+16614853595"'
+        self.assertGreaterEqual(HTML.count(phone_href), 4)
+        self.assertIn("(661) 485-3595", HTML)
         self.assertIn('class="btn nav-call-cta"', HTML)
         self.assertIn('class="mobile-action-bar"', HTML)
         self.assertIn('class="mobile-call-cta"', HTML)
-        self.assertIn("Call AI now", HTML)
+        self.assertIn("Call now", HTML)
         self.assertIn(".mobile-action-bar", CSS)
         self.assertIn("grid-template-columns: 1fr 1fr", CSS)
         self.assertIn("display: none", CSS)
+        data = json.loads(PARSER.json_ld[0])
+        self.assertEqual("+16614853595", data["telephone"])
 
     def test_privacy_policy_names_voice_processor(self):
         privacy = (ROOT / "privacy.html").read_text(encoding="utf-8")
-        self.assertIn("Retell AI provides the browser-based automated voice service", privacy)
+        self.assertIn("Retell AI provides the phone and browser-based automated voice service", privacy)
         self.assertIn("Full intake and retained project capture begin only after clear consent", privacy)
         self.assertIn("but not a street address", privacy)
 
