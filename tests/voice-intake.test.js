@@ -400,6 +400,54 @@ test('authenticated voice limits are tenant-wide safety caps and defaults are 10
   assert.equal(deliveries, 100);
 });
 
+test('authenticated voice routes accept Retell call envelopes without retaining transcript metadata', async t => {
+  let deliveries = 0;
+  let sentText = '';
+  const { server, base } = await start({
+    telegramToken: 'telegram', chatId: '123', voiceToolSecret: SECRET,
+    fetchImpl: async (_url, options) => {
+      deliveries += 1;
+      sentText = JSON.parse(options.body).text;
+      return telegramSuccess(91);
+    },
+  });
+  t.after(() => server.close());
+
+  const transcript = 'Caller private transcript context. '.repeat(1400);
+  const areaEnvelope = {
+    name: 'check_service_area',
+    args: { zip: '91355' },
+    call: { call_id: 'retell-real-call', transcript },
+  };
+  const area = await voicePost(base, '/api/voice/service-area', areaEnvelope);
+  assert.equal(area.status, 200);
+  assert.deepEqual(await area.json(), { eligible: true, zip: '91355' });
+
+  const leadEnvelope = {
+    name: 'submit_voice_lead',
+    args: validVoiceLead({ call_id: 'retell-real-call' }),
+    call: { call_id: 'retell-real-call', transcript },
+  };
+  const lead = await voicePost(base, '/api/voice/lead', leadEnvelope);
+  assert.equal(lead.status, 200);
+  assert.deepEqual(await lead.json(), { success: true, delivered: true, call_id: 'retell-real-call' });
+  assert.equal(deliveries, 1);
+  assert.doesNotMatch(sentText, /private transcript context/i);
+
+  const mismatch = await voicePost(base, '/api/voice/lead', {
+    name: 'submit_voice_lead',
+    args: validVoiceLead({ call_id: 'args-call' }),
+    call: { call_id: 'different-call' },
+  });
+  assert.equal(mismatch.status, 400);
+  assert.equal(deliveries, 1);
+
+  const oversized = await voicePost(base, '/api/voice/service-area', {
+    name: 'check_service_area', args: { zip: '91355' }, call: { transcript: 'x'.repeat(257 * 1024) },
+  });
+  assert.equal(oversized.status, 413);
+});
+
 test('authenticated request cap bounds malformed traffic before parsing while delivery cap remains', async t => {
   const { server, base } = await start({ voiceToolSecret: SECRET, voiceRequestRateLimit: 3, voiceRateLimit: 1 });
   t.after(() => server.close());

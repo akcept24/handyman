@@ -12,6 +12,7 @@ const {
 
 const ROOT = __dirname;
 const MAX_BODY_BYTES = 32 * 1024;
+const MAX_VOICE_BODY_BYTES = 256 * 1024;
 const ALLOWED_SERVICES = new Set([
   'general-repairs', 'fixtures-installations', 'painting-drywall',
   'furniture-assembly', 'carpentry', 'plumbing-maintenance', 'other',
@@ -221,10 +222,10 @@ function sendJson(res, status, payload) {
   res.end(body);
 }
 
-function readJson(req) {
+function readJson(req, maxBytes = MAX_BODY_BYTES) {
   return new Promise((resolve, reject) => {
     const declaredLength = Number(req.headers['content-length']);
-    if (Number.isFinite(declaredLength) && declaredLength > MAX_BODY_BYTES) {
+    if (Number.isFinite(declaredLength) && declaredLength > maxBytes) {
       req.resume();
       reject(Object.assign(new Error('Payload too large'), { status: 413 }));
       return;
@@ -237,7 +238,7 @@ function readJson(req) {
     req.on('data', chunk => {
       if (settled) return;
       bytes += Buffer.byteLength(chunk);
-      if (bytes > MAX_BODY_BYTES) {
+      if (bytes > maxBytes) {
         settled = true;
         body = '';
         reject(Object.assign(new Error('Payload too large'), { status: 413 }));
@@ -257,6 +258,19 @@ function readJson(req) {
       reject(error);
     });
   });
+}
+
+function voiceToolArgs(input, expectedName) {
+  if (!input || typeof input !== 'object' || Array.isArray(input) || !Object.hasOwn(input, 'args')) return input;
+  if (input.name !== expectedName || !input.args || typeof input.args !== 'object' || Array.isArray(input.args)) {
+    throw Object.assign(new Error('Invalid Retell voice tool envelope'), { status: 400 });
+  }
+  const envelopeCallId = input.call?.call_id;
+  const argsCallId = input.args.call_id;
+  if (envelopeCallId != null && argsCallId != null && envelopeCallId !== argsCallId) {
+    throw Object.assign(new Error('Retell call_id does not match voice lead call_id'), { status: 400 });
+  }
+  return input.args;
 }
 
 function isPrivateAddress(value) {
@@ -531,7 +545,9 @@ function createApp(options = {}) {
         return;
       }
       try {
-        const input = await readJson(req);
+        const rawInput = await readJson(req, MAX_VOICE_BODY_BYTES);
+        const input = voiceToolArgs(rawInput,
+          url.pathname === '/api/voice/service-area' ? 'check_service_area' : 'submit_voice_lead');
         if (url.pathname === '/api/voice/service-area') {
           const result = validateServiceArea(input);
           if (!result.valid) {
