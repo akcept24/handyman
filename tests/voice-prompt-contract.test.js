@@ -34,6 +34,14 @@ test('voice prompt enforces interruptible, one-question spoken turns', () => {
   );
 });
 
+test('voice prompt ends non-service calls without unsolicited callback collection', () => {
+  containsAll(
+    /caller clearly says they do not need a service request/i,
+    /do not ask for a phone number, contact preference, callback consent, or a callback/i,
+    /one brief closing line/i,
+  );
+});
+
 test('voice prompt fails closed when recording consent is declined or unclear', () => {
   containsAll(
     /consent is otherwise unknown/i,
