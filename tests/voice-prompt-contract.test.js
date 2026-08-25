@@ -23,6 +23,17 @@ test('voice prompt opens naturally without introducing itself as a virtual recep
   containsAll(/If asked whether you are human, say clearly/i, /automated receptionist for California Handyman/i);
 });
 
+test('voice prompt enforces interruptible, one-question spoken turns', () => {
+  containsAll(
+    /one short sentence, normally no more than about 12 spoken words/i,
+    /exactly one question per turn/i,
+    /stop speaking immediately and listen/i,
+    /Do not resume or repeat the interrupted sentence/i,
+    /After successful delivery, say one short confirmation/i,
+    /Do not repeat the phone number, summarize every field, or mention price, timing, or availability/i,
+  );
+});
+
 test('voice prompt fails closed when recording consent is declined or unclear', () => {
   containsAll(
     /consent is otherwise unknown/i,
