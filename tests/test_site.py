@@ -231,6 +231,18 @@ class ProductionReadinessTests(unittest.TestCase):
         self.assertIn("Full intake and retained project capture begin only after clear consent", privacy)
         self.assertIn("but not a street address", privacy)
 
+    def test_paid_conversion_tracking_is_honest_and_lead_only(self):
+        tracking_loader = (ROOT / "tracking.loader.js").read_text(encoding="utf-8")
+        tracking_config = (ROOT / "tracking.config.js").read_text(encoding="utf-8")
+        self.assertIn("googleAdsConversion", tracking_config)
+        self.assertIn("googleAdsId", tracking_loader)
+        self.assertIn("window.gtag('config', googleAdsId)", tracking_loader)
+        self.assertIn("trackConversion(formType, data)", JS)
+        self.assertNotIn("trackConversion('phone_click'", JS)
+        self.assertIn("trackEvent('phone_click'", JS)
+        self.assertIn("trackEvent('browser_call_start'", JS)
+        self.assertIn("payload.success !== true || payload.delivered !== true", JS)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -201,7 +201,12 @@ async function handleFormSubmission(form, formType) {
 document.querySelectorAll('a[href^="tel:"]').forEach(link => {
   link.addEventListener('click', () => {
     trackEvent('phone_click', { phone_number: link.getAttribute('href')?.replace('tel:', '') || '' });
-    trackConversion('phone_click', { service: 'call' });
+  });
+});
+
+document.querySelectorAll('a[href*="agent.retellai.com/orb/"]').forEach(link => {
+  link.addEventListener('click', () => {
+    trackEvent('browser_call_start', { channel: 'retell_browser_call' });
   });
 });
 
