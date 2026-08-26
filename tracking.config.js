@@ -6,11 +6,9 @@ window.SITE_TRACKING = {
   // Google Analytics 4 — Admin → Data Streams → Measurement ID
   ga4Id: 'G-CL4VE3BZDK',
 
-  // Google Ads — Tools → Conversions → Tag setup
-  // Format: 'AW-XXXXXXXXX/AbCdEfGhIjKlMnOpQr'
-  // Base Google Ads tag for customer ID 366-601-2934. Keep the event label as a
-  // placeholder until the "Confirmed estimate request" conversion is created in Ads.
-  googleAdsConversion: 'AW-3666012934/CONVERSION_LABEL',
+  // Google Ads — confirmed website conversion action: Confirmed estimate request.
+  // Fires only after the backend confirms Telegram delivery of a valid estimate request.
+  googleAdsConversion: 'AW-1009989339/EQEDCJbnqugcENvtzOED',
 
   // Facebook Pixel — Events Manager → Pixel ID
   facebookPixelId: 'XXXXXXXXXXXXXXX',
