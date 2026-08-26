@@ -205,9 +205,9 @@ class ProductionReadinessTests(unittest.TestCase):
         self.assertEqual(1, HTML.count(f'href="{orb}"'))
         self.assertEqual(1, HTML.count('target="_blank" rel="noopener noreferrer"'))
         self.assertIn('id="voice-call"', HTML)
-        self.assertIn("automated virtual receptionist", HTML)
-        self.assertIn("may be recorded and transcribed", HTML)
-        self.assertIn("Do not share a street address", HTML)
+        self.assertIn("Opens in a new tab.", HTML)
+        self.assertIn("We only record if you agree.", HTML)
+        self.assertIn("not your full street address", HTML)
         self.assertIn("EN&nbsp;&nbsp; ES&nbsp;&nbsp; RU", HTML)
         self.assertIn(".voice-call-card", CSS)
 
