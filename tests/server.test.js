@@ -268,8 +268,18 @@ test('formatLead escapes Telegram HTML and contains lead context', () => {
   assert.doesNotMatch(text, /<script>/);
   assert.match(text, /90210/);
   assert.match(text, /hero_form/);
-  assert.match(text, /Contact consent:<\/b> Yes/);
+  assert.match(text, /Request contact consent:<\/b> Recorded/);
+  assert.match(text, /Confirm scope, access details, and legal fit/);
   assert.match(text, /2026-08-20T12:00:00.000Z/);
+});
+
+test('formatLead gives furniture requests a focused owner next step', () => {
+  const text = formatLead({
+    name: 'Alex', phone: '(213) 555-0199', service: 'furniture-assembly', zip: '91355',
+    form_type: 'hero_form', contact_consent: true, received_at: '2026-08-20T12:00:00.000Z',
+  });
+  assert.match(text, /Furniture assembly request/);
+  assert.match(text, /Confirm furniture list\/photos, access details, and scope/);
 });
 
 test('health is liveness; lead readiness is independent from optional chat readiness', async (t) => {

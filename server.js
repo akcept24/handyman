@@ -198,19 +198,23 @@ function validateLead(input) {
 }
 
 function formatLead(lead) {
+  const furnitureRequest = lead.service === 'furniture-assembly';
   const rows = [
-    '<b>New handyman estimate request</b>',
-    `<b>Name:</b> ${escapeHtml(lead.name)}`,
-    `<b>Phone:</b> ${escapeHtml(lead.phone)}`,
+    furnitureRequest ? '<b>🛋 Furniture assembly request</b>' : '<b>🧰 New handyman estimate request</b>',
+    '<b>────────────────</b>',
+    `<b>Contact:</b> ${escapeHtml(lead.name)} · ${escapeHtml(lead.phone)}`,
     lead.email ? `<b>Email:</b> ${escapeHtml(lead.email)}` : '',
-    `<b>ZIP:</b> ${escapeHtml(lead.zip)}`,
+    `<b>Area:</b> ${escapeHtml(lead.zip)}`,
     `<b>Service:</b> ${escapeHtml(lead.service)}`,
-    `<b>Urgent:</b> ${lead.urgent ? 'Yes' : 'No'}`,
     lead.message ? `<b>Project:</b> ${escapeHtml(lead.message)}` : '',
+    '<b>────────────────</b>',
+    furnitureRequest
+      ? '<b>Next:</b> Confirm furniture list/photos, access details, and scope before discussing timing or price.'
+      : '<b>Next:</b> Confirm scope, access details, and legal fit before discussing timing or price.',
+    lead.urgent ? '<b>Customer marked:</b> Urgent — review safety and scope first.' : '',
     lead.review_flags?.length ? `<b>Review flags:</b> ${escapeHtml(lead.review_flags.join(', '))}` : '',
-    `<b>Form:</b> ${escapeHtml(lead.form_type || 'unknown')}`,
-    `<b>Contact consent:</b> ${lead.contact_consent ? 'Yes' : 'No'}`,
-    `<b>Consent version:</b> ${escapeHtml(lead.consent_version || 'not provided')}`,
+    `<b>Source:</b> ${escapeHtml(lead.form_type || 'unknown')}`,
+    `<b>Request contact consent:</b> ${lead.contact_consent ? 'Recorded' : 'Not recorded'}`,
     `<b>Received:</b> ${escapeHtml(lead.received_at || 'not recorded')}`,
   ];
   return rows.filter(Boolean).join('\n');
