@@ -220,6 +220,30 @@ function formatLead(lead) {
   return rows.filter(Boolean).join('\n');
 }
 
+function renderRequestReceivedEmail(lead) {
+  const firstName = escapeHtml(lead.name.split(/\s+/, 1)[0] || 'there');
+  const service = escapeHtml(lead.service === 'furniture-assembly' ? 'furniture assembly' : 'home project');
+  return `<!doctype html><html><body style="margin:0;background:#eef2f6;color:#263b50;font-family:Arial,sans-serif"><table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr><td style="padding:28px 12px"><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:600px;margin:auto;background:#ffffff;border:1px solid #d9e1e8;border-radius:12px;overflow:hidden"><tr><td style="padding:24px 28px;background:#10253f;color:#ffffff;font-size:18px;font-weight:700">California <strong>Handyman</strong><div style="margin-top:12px;color:#cbd8e4;font-size:12px;font-weight:400">Santa Clarita Valley · Request received</div></td></tr><tr><td style="padding:30px 28px;font-size:15px;line-height:1.55"><h1 style="margin:0 0 14px;color:#10253f;font-size:26px;line-height:1.15">Thanks, ${firstName}.</h1><p>Your ${service} request is in. We’ll review the details and see whether the work fits our current local service scope.</p><div style="margin:18px 0;padding:15px 16px;background:#f6f8fa;border:1px solid #e0e7ed;border-radius:10px"><strong style="display:block;color:#10253f;font-size:13px;margin-bottom:4px">What happens next</strong>We review the scope, location and project details, then follow up using the contact information you provided.</div><p>If helpful, reply with product links, assembly manuals, measurements, or photos of the boxes and room.</p><p style="color:#597087;font-size:13px">Nothing is scheduled or priced by this email. Scope and availability are confirmed before an appointment.</p></td></tr><tr><td style="padding:17px 28px;border-top:1px solid #d9e1e8;color:#6e8192;font-size:11px">California Handyman · Santa Clarita Valley<br>This message concerns a request you submitted.</td></tr></table></td></tr></table></body></html>`;
+}
+
+async function sendRequestReceivedEmail({ fetchImpl, resendApiKey, resendFromEmail, lead }) {
+  if (!resendApiKey || !resendFromEmail || !lead.email) return { attempted: false };
+  const response = await fetchImpl('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { authorization: `Bearer ${resendApiKey}`, 'content-type': 'application/json' },
+    body: JSON.stringify({
+      from: resendFromEmail,
+      to: [lead.email],
+      subject: 'We received your California Handyman request',
+      html: renderRequestReceivedEmail(lead),
+    }),
+    signal: AbortSignal.timeout(10_000),
+  });
+  const receipt = await readJsonResponseLimited(response, 16 * 1024).catch(() => ({}));
+  if (!response.ok || !clean(receipt?.id, 200)) throw new Error('Resend request-received email failed');
+  return { attempted: true, id: clean(receipt.id, 200) };
+}
+
 function sendJson(res, status, payload) {
   const body = JSON.stringify(payload);
   res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });
@@ -459,6 +483,8 @@ function createApp(options = {}) {
   const telegramToken = options.telegramToken ?? process.env.TELEGRAM_BOT_TOKEN;
   const chatId = options.chatId ?? process.env.TELEGRAM_CHAT_ID;
   const openRouterKey = options.openRouterKey ?? process.env.OPENROUTER_API_KEY;
+  const resendApiKey = options.resendApiKey ?? process.env.RESEND_API_KEY;
+  const resendFromEmail = clean(options.resendFromEmail ?? process.env.RESEND_FROM_EMAIL, 320);
   const voiceToolSecret = options.voiceToolSecret ?? process.env.VOICE_TOOL_SECRET;
   const fetchImpl = options.fetchImpl ?? globalThis.fetch;
   const configuredDailyLimit = Number(options.chatDailyLimit ?? process.env.CHAT_DAILY_LIMIT ?? 200);
@@ -694,6 +720,13 @@ function createApp(options = {}) {
       if (!response.ok || delivery.ok !== true || !Number.isSafeInteger(delivery?.result?.message_id)) {
         throw new Error('Lead delivery failed');
       }
+      // Telegram remains the acknowledged lead-delivery gate. Email is optional,
+      // non-marketing confirmation and must never cause a duplicate lead submission.
+      try {
+        await sendRequestReceivedEmail({ fetchImpl, resendApiKey, resendFromEmail, lead: result.lead });
+      } catch (emailError) {
+        console.error('Request-received email failed after Telegram receipt:', emailError.message);
+      }
       sendJson(res, 200, { success: true, delivered: true, message: 'Your request was sent successfully.' });
     } catch (error) {
       console.error('Lead request failed:', error.message);
@@ -717,4 +750,4 @@ if (require.main === module) {
   createApp().listen(port, '0.0.0.0', () => console.log(`Handyman site listening on port ${port}`));
 }
 
-module.exports = { createApp, validateLead, formatLead, assessSpam, createRateLimiter, createDailyBudget };
+module.exports = { createApp, validateLead, formatLead, assessSpam, createRateLimiter, createDailyBudget, renderRequestReceivedEmail, sendRequestReceivedEmail };

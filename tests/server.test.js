@@ -2,7 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { once } = require('node:events');
 const http = require('node:http');
-const { createApp, validateLead, formatLead, assessSpam, createRateLimiter, createDailyBudget } = require('../server');
+const { createApp, validateLead, formatLead, assessSpam, createRateLimiter, createDailyBudget, sendRequestReceivedEmail } = require('../server');
 const { BUSINESS_PROFILE, SAFE_REPLIES, buildSystemPrompt, normalizeConversation, enforceReplyPolicy } = require('../agent-core');
 const { obviousSpam, legitimateLeads } = require('./spam-corpus');
 
@@ -280,6 +280,35 @@ test('formatLead gives furniture requests a focused owner next step', () => {
   });
   assert.match(text, /Furniture assembly request/);
   assert.match(text, /Confirm furniture list\/photos, access details, and scope/);
+});
+
+test('Resend request confirmation is disabled without verified sender settings', async () => {
+  let calls = 0;
+  const result = await sendRequestReceivedEmail({
+    fetchImpl: async () => { calls += 1; return new Response('{}'); },
+    resendApiKey: 'test-key', resendFromEmail: '', lead: validLead(),
+  });
+  assert.deepEqual(result, { attempted: false });
+  assert.equal(calls, 0);
+});
+
+test('Resend request confirmation uses only the lead email and transactional copy', async () => {
+  let request;
+  const result = await sendRequestReceivedEmail({
+    fetchImpl: async (url, options) => {
+      request = { url, options };
+      return new Response(JSON.stringify({ id: 'email_test_123' }), { status: 200 });
+    },
+    resendApiKey: 'test-key', resendFromEmail: 'California Handyman <hello@example.com>',
+    lead: validLead({ service: 'furniture-assembly' }),
+  });
+  const body = JSON.parse(request.options.body);
+  assert.deepEqual(result, { attempted: true, id: 'email_test_123' });
+  assert.equal(request.url, 'https://api.resend.com/emails');
+  assert.deepEqual(body.to, ['alex@example.com']);
+  assert.match(body.html, /furniture assembly request/i);
+  assert.match(body.html, /Nothing is scheduled or priced/i);
+  assert.doesNotMatch(body.html, /same-day|guaranteed|licensed/i);
 });
 
 test('health is liveness; lead readiness is independent from optional chat readiness', async (t) => {

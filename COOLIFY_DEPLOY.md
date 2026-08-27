@@ -17,11 +17,27 @@ OPENROUTER_API_KEY=<set in Coolify, never commit>
 OPENROUTER_MODEL=deepseek/deepseek-v4-flash
 CHAT_DAILY_LIMIT=200
 TRUST_PROXY_HOPS=1
+
+# Resend transactional request confirmation — enable only after the domain is verified
+RESEND_API_KEY=<set in Coolify, never commit>
+RESEND_FROM_EMAIL=California Handyman <hello@california-handymen.com>
 ```
 
 `PORT` defaults to `3000` and normally does not need to be set.
 `CHAT_DAILY_LIMIT` is a per-container fallback circuit breaker. Configure a hard OpenRouter spending cap and edge/CDN throttling as the distributed production controls.
 `TRUST_PROXY_HOPS=1` assumes exactly one trusted Coolify reverse-proxy hop and that the application port is not directly reachable by untrusted clients. Verify that topology before enabling it; otherwise keep `0` so forwarded headers are ignored.
+
+## Resend sender-domain verification
+
+Resend domain registration for `california-handymen.com` has been created but is not verified yet. Add the following DNS records at the authoritative DNS provider, exactly as shown, then check the domain status in Resend:
+
+| Purpose | Host/name | Type | Value | Priority |
+|---|---|---|---|---:|
+| DKIM | `resend._domainkey` | TXT | `p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDQd9SttYZbNPFHuXGCdDhjPOmFzrHvM5t4mK+qX9WVJgusfWzWxOM/3CpTfn9jTYksd/dCJC6HWfkA+RyPcprz4RokF7LXsFptF4vSFWKJnrHioNalwbBEyFrGyzZKz/rTnixRP4PlX8nM6IYiFYOd1k2ts9TyfOfqSzRaR22btwIDAQAB` | — |
+| SPF / MAIL FROM | `send` | MX | `feedback-smtp.us-east-1.amazonses.com` | `10` |
+| SPF / MAIL FROM | `send` | TXT | `v=spf1 include:amazonses.com ~all` | — |
+
+Do not set `RESEND_FROM_EMAIL` in Coolify until Resend reports the domain as verified. Once verified, use `California Handyman <hello@california-handymen.com>` (or another real, monitored inbox at that domain). The server sends only a request-specific confirmation after Telegram delivery is confirmed; it does not send marketing mail.
 
 ## Release verification
 
