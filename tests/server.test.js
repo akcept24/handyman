@@ -287,7 +287,10 @@ test('request confirmation uses a premium branded email layout with an honest ne
   assert.match(html, /Request received/i);
   assert.match(html, /California <strong>Handyman<\/strong>/i);
   assert.match(html, /We’ll review your project details/i);
-  assert.match(html, /Nothing is scheduled or priced by this email/i);
+  assert.match(html, /within 1 business day/i);
+  assert.match(html, /Reply to this email with product links, photos, measurements, or assembly instructions/i);
+  assert.match(html, /We appreciate the opportunity to help with your project/i);
+  assert.match(html, /Nothing is scheduled or priced yet/i);
   assert.match(html, /Santa Clarita Valley/i);
   assert.match(html, /#e88332/i);
   assert.match(html, /role="presentation"/i);
