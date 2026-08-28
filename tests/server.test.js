@@ -2,7 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { once } = require('node:events');
 const http = require('node:http');
-const { createApp, validateLead, formatLead, assessSpam, createRateLimiter, createDailyBudget, sendRequestReceivedEmail } = require('../server');
+const { createApp, validateLead, formatLead, assessSpam, createRateLimiter, createDailyBudget, renderRequestReceivedEmail, sendRequestReceivedEmail } = require('../server');
 const { BUSINESS_PROFILE, SAFE_REPLIES, buildSystemPrompt, normalizeConversation, enforceReplyPolicy } = require('../agent-core');
 const { obviousSpam, legitimateLeads } = require('./spam-corpus');
 
@@ -280,6 +280,17 @@ test('formatLead gives furniture requests a focused owner next step', () => {
   });
   assert.match(text, /Furniture assembly request/);
   assert.match(text, /Confirm furniture list\/photos, access details, and scope/);
+});
+
+test('request confirmation uses a premium branded email layout with an honest next-step status', () => {
+  const html = renderRequestReceivedEmail(validLead({ name: 'Mia Torres', service: 'furniture-assembly' }));
+  assert.match(html, /Request received/i);
+  assert.match(html, /California <strong>Handyman<\/strong>/i);
+  assert.match(html, /We’ll review your project details/i);
+  assert.match(html, /Nothing is scheduled or priced by this email/i);
+  assert.match(html, /Santa Clarita Valley/i);
+  assert.match(html, /#e88332/i);
+  assert.match(html, /role="presentation"/i);
 });
 
 test('Resend request confirmation is disabled without verified sender settings', async () => {
