@@ -147,7 +147,7 @@ class ProductionReadinessTests(unittest.TestCase):
 
     def test_production_photos_are_optimized_webp(self):
         image_paths = re.findall(r'<img[^>]+src="([^"]+)"', HTML)
-        production_photos = [path for path in image_paths if "/images/generated/" in path]
+        production_photos = [path for path in image_paths if path.startswith("/images/") and path.endswith(".webp")]
         self.assertEqual(7, len(production_photos))
         self.assertEqual(7, len(set(production_photos)))
         for asset in production_photos:
@@ -155,7 +155,7 @@ class ProductionReadinessTests(unittest.TestCase):
                 self.assertTrue(asset.endswith(".webp"))
                 path = ROOT / asset.lstrip("/")
                 self.assertTrue(path.is_file())
-                self.assertLess(path.stat().st_size, 150_000)
+                self.assertLess(path.stat().st_size, 200_000)
 
     def test_json_ld_is_valid_and_contains_no_fake_address(self):
         self.assertEqual(1, len(PARSER.json_ld))

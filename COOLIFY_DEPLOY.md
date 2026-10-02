@@ -62,3 +62,14 @@ Do not set `RESEND_FROM_EMAIL` in Coolify until Resend reports the domain as ver
 - Store secrets only in Coolify runtime variables.
 - Do not expose the bot token in browser JavaScript or HTML.
 - Rotate the token immediately if it appears in logs, commits, screenshots, or chat messages.
+
+## Lead fallback (P0, 2026-10-02)
+
+- `OWNER_ALERT_EMAIL` — owner's inbox. When Telegram does not confirm a web
+  lead, the server stores it in `data/leads.jsonl` (Docker image pre-creates
+  `/app/data` for the `node` user) and emails the full lead to this address
+  via Resend. Set it in Coolify (Production) together with the existing
+  `RESEND_API_KEY` / `RESEND_FROM_EMAIL`.
+- Out-of-area ZIPs are accepted and flagged `OUT OF AREA` in Telegram/email
+  instead of being rejected.
+- Check readiness after deploy: `GET /ready/leads` must return `ready`.

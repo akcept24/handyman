@@ -189,9 +189,12 @@ function validateLead(input) {
   if (lead.consent_version !== CONSENT_VERSION) errors.push('Please review and accept the current contact terms.');
   if (!/^\d{5}(?:-\d{4})?$/.test(lead.zip)) {
     errors.push('Please enter a valid ZIP code.');
-  } else if (!SERVICE_AREA_ZIPS.has(lead.zip.slice(0, 5))) {
-    errors.push('This ZIP code is outside our current Santa Clarita Valley service area.');
   }
+  // Out-of-area leads are accepted and flagged for human review (same policy
+  // as the voice intake path) instead of being silently discarded.
+  lead.service_area_eligible = /^\d{5}/.test(lead.zip)
+    ? SERVICE_AREA_ZIPS.has(lead.zip.slice(0, 5))
+    : false;
   if (lead.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email)) errors.push('Please enter a valid email.');
   if (!lead.contact_consent) errors.push('Please agree to the contact and website terms.');
   return { valid: errors.length === 0, errors, lead };
@@ -199,12 +202,14 @@ function validateLead(input) {
 
 function formatLead(lead) {
   const furnitureRequest = lead.service === 'furniture-assembly';
+  const outOfArea = lead.service_area_eligible === false;
   const rows = [
     furnitureRequest ? '<b>🛋 Furniture assembly request</b>' : '<b>🧰 New handyman estimate request</b>',
+    outOfArea ? '<b>⚠️ OUT OF AREA — HUMAN REVIEW REQUIRED; DO NOT PROMISE SERVICE</b>' : '',
     '<b>────────────────</b>',
     `<b>Contact:</b> ${escapeHtml(lead.name)} · ${escapeHtml(lead.phone)}`,
     lead.email ? `<b>Email:</b> ${escapeHtml(lead.email)}` : '',
-    `<b>Area:</b> ${escapeHtml(lead.zip)}`,
+    `<b>Area:</b> ${escapeHtml(lead.zip)}${outOfArea ? ' (outside current service area)' : ''}`,
     `<b>Service:</b> ${escapeHtml(lead.service)}`,
     lead.message ? `<b>Project:</b> ${escapeHtml(lead.message)}` : '',
     '<b>────────────────</b>',
@@ -245,6 +250,32 @@ async function sendRequestReceivedEmail({ fetchImpl, resendApiKey, resendFromEma
   });
   const receipt = await readJsonResponseLimited(response, 16 * 1024).catch(() => ({}));
   if (!response.ok || !clean(receipt?.id, 200)) throw new Error('Resend request-received email failed');
+  return { attempted: true, id: clean(receipt.id, 200) };
+}
+
+function saveLeadRecord(leadStorePath, record) {
+  if (!leadStorePath) return false;
+  fs.mkdirSync(path.dirname(leadStorePath), { recursive: true });
+  fs.appendFileSync(leadStorePath, `${JSON.stringify(record)}\n`, 'utf8');
+  return true;
+}
+
+async function sendOwnerAlertEmail({ fetchImpl, resendApiKey, resendFromEmail, ownerAlertEmail, lead, channel }) {
+  if (!resendApiKey || !resendFromEmail || !ownerAlertEmail) return { attempted: false };
+  const text = formatLead(lead).replaceAll('<b>', '').replaceAll('</b>', '');
+  const response = await fetchImpl('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { authorization: `Bearer ${resendApiKey}`, 'content-type': 'application/json' },
+    body: JSON.stringify({
+      from: resendFromEmail,
+      to: [ownerAlertEmail],
+      subject: `New California Handyman lead via fallback (${channel}) — ${clean(lead.zip, 10)}`,
+      text: `Lead delivery fallback channel: ${channel}\n\n${text}`,
+    }),
+    signal: AbortSignal.timeout(10_000),
+  });
+  const receipt = await readJsonResponseLimited(response, 16 * 1024).catch(() => ({}));
+  if (!response.ok || !clean(receipt?.id, 200)) throw new Error('Resend owner alert email failed');
   return { attempted: true, id: clean(receipt.id, 200) };
 }
 
@@ -489,6 +520,10 @@ function createApp(options = {}) {
   const openRouterKey = options.openRouterKey ?? process.env.OPENROUTER_API_KEY;
   const resendApiKey = options.resendApiKey ?? process.env.RESEND_API_KEY;
   const resendFromEmail = clean(options.resendFromEmail ?? process.env.RESEND_FROM_EMAIL, 320);
+  const ownerAlertEmail = clean(options.ownerAlertEmail ?? process.env.OWNER_ALERT_EMAIL, 320);
+  const leadStorePath = options.leadStorePath !== undefined
+    ? options.leadStorePath
+    : (process.env.LEAD_STORE_PATH || path.join(ROOT, 'data', 'leads.jsonl'));
   const voiceToolSecret = options.voiceToolSecret ?? process.env.VOICE_TOOL_SECRET;
   const fetchImpl = options.fetchImpl ?? globalThis.fetch;
   const configuredDailyLimit = Number(options.chatDailyLimit ?? process.env.CHAT_DAILY_LIMIT ?? 200);
@@ -538,6 +573,13 @@ function createApp(options = {}) {
     if ((req.method === 'GET' || req.method === 'HEAD') && url.pathname === '/ready/voice') {
       const validVoiceSecret = authenticateBearer('', voiceToolSecret) !== 'unconfigured';
       const ready = Boolean(telegramToken && chatId && validVoiceSecret);
+      sendJson(res, ready ? 200 : 503, { status: ready ? 'ready' : 'not_ready' });
+      return;
+    }
+    if ((req.method === 'GET' || req.method === 'HEAD') && url.pathname === '/ready/leads') {
+      // Lead intake is ready when at least one owner delivery channel is
+      // configured: Telegram or the owner alert email.
+      const ready = Boolean((telegramToken && chatId) || ownerAlertEmail);
       sendJson(res, ready ? 200 : 503, { status: ready ? 'ready' : 'not_ready' });
       return;
     }
@@ -706,32 +748,84 @@ function createApp(options = {}) {
         return;
       }
 
-      if (!telegramToken || !chatId) {
+      if (!(telegramToken && chatId) && !ownerAlertEmail) {
         sendJson(res, 503, { success: false, message: 'Online requests are temporarily unavailable. Please try again later.' });
         return;
       }
 
       result.lead.received_at = new Date().toISOString();
-      result.lead.review_flags = spamAssessment.blocked ? spamAssessment.reasons : [];
+      result.lead.review_flags = [
+        ...(spamAssessment.blocked ? spamAssessment.reasons : []),
+        ...(result.lead.service_area_eligible === false ? ['out-of-area'] : []),
+      ];
 
-      const response = await fetchImpl(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ chat_id: chatId, text: formatLead(result.lead), parse_mode: 'HTML' }),
-        signal: AbortSignal.timeout(10000),
-      });
-      const delivery = await readJsonResponseLimited(response, 16 * 1024).catch(() => ({}));
-      if (!response.ok || delivery.ok !== true || !Number.isSafeInteger(delivery?.result?.message_id)) {
-        throw new Error('Lead delivery failed');
+      // Primary channel: Telegram (one retry on a thrown network error only;
+      // an explicit Telegram rejection is not retried, to avoid duplicates).
+      let telegramDelivered = false;
+      if (telegramToken && chatId) {
+        for (let attempt = 0; attempt < 2 && !telegramDelivered; attempt += 1) {
+          let response;
+          try {
+            response = await fetchImpl(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
+              method: 'POST',
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify({ chat_id: chatId, text: formatLead(result.lead), parse_mode: 'HTML' }),
+              signal: AbortSignal.timeout(10000),
+            });
+          } catch (networkError) {
+            if (attempt === 1) console.error('Telegram lead delivery failed after retry:', networkError.message);
+            continue;
+          }
+          const delivery = await readJsonResponseLimited(response, 16 * 1024).catch(() => ({}));
+          telegramDelivered = Boolean(response.ok && delivery.ok === true && Number.isSafeInteger(delivery?.result?.message_id));
+          break;
+        }
       }
-      // Telegram remains the acknowledged lead-delivery gate. Email is optional,
-      // non-marketing confirmation and must never cause a duplicate lead submission.
+
+      // Fallback 1: durable on-disk lead store, so a Telegram outage can
+      // never silently discard a valid lead.
+      let stored = false;
       try {
-        await sendRequestReceivedEmail({ fetchImpl, resendApiKey, resendFromEmail, lead: result.lead });
-      } catch (emailError) {
-        console.error('Request-received email failed after Telegram receipt:', emailError.message);
+        stored = saveLeadRecord(leadStorePath, {
+          received_at: result.lead.received_at,
+          channel: telegramDelivered ? 'telegram' : 'fallback-pending',
+          lead: result.lead,
+        });
+      } catch (storeError) {
+        console.error('Lead store write failed:', storeError.message);
       }
-      sendJson(res, 200, { success: true, delivered: true, message: 'Your request was sent successfully.' });
+
+      // Fallback 2: owner alert email when Telegram did not confirm.
+      let ownerEmailed = false;
+      if (!telegramDelivered) {
+        try {
+          const alert = await sendOwnerAlertEmail({
+            fetchImpl, resendApiKey, resendFromEmail, ownerAlertEmail,
+            lead: result.lead, channel: stored ? 'store' : 'email',
+          });
+          ownerEmailed = Boolean(alert.attempted);
+        } catch (emailError) {
+          console.error('Owner alert email failed:', emailError.message);
+        }
+      }
+
+      if (!telegramDelivered && !ownerEmailed && !stored) {
+        throw new Error('Lead delivery failed on every configured channel');
+      }
+      const channel = telegramDelivered ? 'telegram' : ownerEmailed ? 'email' : 'store';
+      if (!telegramDelivered) {
+        console.error(`Lead accepted via fallback channel (${channel}) for ZIP ${result.lead.zip}`);
+      }
+      // The client confirmation email stays optional and non-blocking; it is
+      // only sent after an owner channel has accepted the lead.
+      if (telegramDelivered) {
+        try {
+          await sendRequestReceivedEmail({ fetchImpl, resendApiKey, resendFromEmail, lead: result.lead });
+        } catch (emailError) {
+          console.error('Request-received email failed after Telegram receipt:', emailError.message);
+        }
+      }
+      sendJson(res, 200, { success: true, delivered: true, channel, message: 'Your request was sent successfully.' });
     } catch (error) {
       console.error('Lead request failed:', error.message);
       const status = error.status || 502;

@@ -162,6 +162,29 @@ h2 { font-size: clamp(2rem, 4vw, 3.25rem); }
 .steps-grid h3 { margin-bottom: 10px; font-size: 1.15rem; }
 .steps-grid p { color: var(--muted); font-size: .9rem; }
 
+
+.service-price { margin-top: 12px; color: var(--orange-dark); font-weight: 800; font-size: .95rem; }
+.btn-ghost-dark { color: var(--ink); background: #fff; border: 1px solid var(--line); }
+.btn-ghost-dark:hover { background: var(--slate); }
+.pricing { background: var(--paper-warm); }
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 30px; }
+.price-card { position: relative; padding: 28px; background: #fff; border: 1px solid #f0ded4; border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.price-card h3 { margin-bottom: 8px; font-size: 1.3rem; }
+.price-card p { color: var(--muted); }
+.price-value { margin: 10px 0; color: var(--ink) !important; font-family: var(--font-heading); font-size: 2rem; font-weight: 800; letter-spacing: -.03em; }
+.price-card .btn { margin-top: 18px; }
+.price-card-featured { color: #fff; background: var(--ink); border-color: var(--ink); }
+.price-card-featured .price-value { color: #fff !important; }
+.price-card-featured p { color: #cbd5e1; }
+.price-tag { position: absolute; top: 18px; right: 18px; padding: 5px 10px; color: #fff; background: var(--orange); border-radius: 999px; font-size: .7rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.price-table-wrap { max-width: 850px; margin: 0 auto; }
+.price-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.price-table caption { padding: 18px; color: var(--ink); font-weight: 800; text-align: left; }
+.price-table th, .price-table td { padding: 13px 18px; border-top: 1px solid var(--line); text-align: left; }
+.price-table td { color: var(--orange-dark); font-weight: 800; white-space: nowrap; text-align: right; }
+.price-note { margin-top: 16px; color: var(--muted); font-size: .85rem; text-align: center; }
+@media (max-width: 900px) { .pricing-grid { grid-template-columns: 1fr; } }
+
 .projects { color: #fff; background: var(--ink); }
 .projects .section-kicker { color: #ff966d; }
 .projects .section-heading p { color: #aeb8c6; }

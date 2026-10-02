@@ -2,6 +2,9 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { once } = require('node:events');
 const http = require('node:http');
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
 const { createApp, validateLead, formatLead, assessSpam, createRateLimiter, createDailyBudget, renderRequestReceivedEmail, sendRequestReceivedEmail } = require('../server');
 const { BUSINESS_PROFILE, SAFE_REPLIES, buildSystemPrompt, normalizeConversation, enforceReplyPolicy } = require('../agent-core');
 const { obviousSpam, legitimateLeads } = require('./spam-corpus');
@@ -83,7 +86,7 @@ test('validateLead rejects malformed leads', () => {
   }).valid, false);
 });
 
-test('validateLead accepts only ZIP codes in the Santa Clarita service area', () => {
+test('validateLead flags out-of-area ZIP codes instead of discarding the lead', () => {
   for (const zip of [
     '91321', '91322', '91350', '91351', '91354', '91355', '91380', '91381',
     '91382', '91383', '91384', '91385', '91386', '91387', '91390',
@@ -97,12 +100,18 @@ test('validateLead accepts only ZIP codes in the Santa Clarita service area', ()
   }
 
   const outsideArea = validateLead({
-    name: 'Jamie Rivera', phone: '(661) 259-0123', service: 'general-repairs', zip: '11111',
+    name: 'Jamie Rivera', phone: '(661) 259-0123', service: 'general-repairs', zip: '90210',
     message: 'Repair an interior door.', form_type: 'contact_form',
     consent_version: '2026-08-20', contact_consent: true,
   });
-  assert.equal(outsideArea.valid, false);
-  assert.match(outsideArea.errors.join(' '), /service area/i);
+  assert.equal(outsideArea.valid, true, outsideArea.errors.join(', '));
+  assert.equal(outsideArea.lead.service_area_eligible, false);
+  const inArea = validateLead({
+    name: 'Jamie Rivera', phone: '(661) 259-0123', service: 'general-repairs', zip: '91355',
+    message: 'Repair an interior door.', form_type: 'contact_form',
+    consent_version: '2026-08-20', contact_consent: true,
+  });
+  assert.equal(inArea.lead.service_area_eligible, true);
 });
 
 test('assessSpam blocks the observed booking-system solicitation but allows real repair details', () => {
@@ -230,7 +239,7 @@ test('API delivers suspicious but valid leads with review flags instead of silen
   });
   assert.equal(response.status, 200);
   assert.deepEqual(await response.json(), {
-    success: true, delivered: true, message: 'Your request was sent successfully.',
+    success: true, delivered: true, channel: 'telegram', message: 'Your request was sent successfully.',
   });
   assert.equal(deliveryCalls, 1);
   assert.match(deliveredText, /Review flags:/);
@@ -554,10 +563,10 @@ test('API returns 503 on repeated submissions when lead delivery is not configur
   }
 });
 
-test('API continues to report repeated Telegram delivery failures as 502', async (t) => {
+test('API reports 502 only when Telegram and every fallback channel fail', async (t) => {
   let deliveryCalls = 0;
   const { server, baseUrl } = await startServer({
-    telegramToken: 'test-token', chatId: '123',
+    telegramToken: 'test-token', chatId: '123', leadStorePath: '', ownerAlertEmail: '',
     fetchImpl: async () => {
       deliveryCalls += 1;
       return { ok: false, json: async () => ({ ok: false }) };
@@ -579,7 +588,7 @@ test('API continues to report repeated Telegram delivery failures as 502', async
 
 test('API rejects a Telegram ok response without a message receipt', async (t) => {
   const { server, baseUrl } = await startServer({
-    telegramToken: 'test-token', chatId: '123',
+    telegramToken: 'test-token', chatId: '123', leadStorePath: '', ownerAlertEmail: '',
     fetchImpl: async () => ({ ok: true, json: async () => ({ ok: true, result: {} }) }),
   });
   t.after(() => server.close());
@@ -774,4 +783,58 @@ test('server exposes widget assets with the expected content types', async (t) =
   assert.equal(js.status, 200);
   assert.match(js.headers.get('content-type'), /javascript/);
   assert.match(js.headers.get('cache-control'), /no-cache/);
+});
+
+test('API accepts an out-of-area lead and flags it for human review', async (t) => {
+  let deliveredText = '';
+  const { server, baseUrl } = await startServer({
+    telegramToken: 'test-token', chatId: '123',
+    fetchImpl: async (_url, options) => {
+      deliveredText = JSON.parse(options.body).text;
+      return { ok: true, json: async () => ({ ok: true, result: { message_id: 7 } }) };
+    },
+  });
+  t.after(() => server.close());
+  const response = await post(baseUrl, validLead({ zip: '90210' }));
+  assert.equal(response.status, 200);
+  assert.equal((await response.json()).channel, 'telegram');
+  assert.match(deliveredText, /OUT OF AREA/);
+  assert.match(deliveredText, /90210/);
+});
+
+test('API falls back to the lead store when Telegram rejects delivery', async (t) => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'leads-'));
+  const store = path.join(dir, 'leads.jsonl');
+  const { server, baseUrl } = await startServer({
+    telegramToken: 'test-token', chatId: '123', leadStorePath: store, ownerAlertEmail: '',
+    fetchImpl: async () => ({ ok: false, json: async () => ({ ok: false }) }),
+  });
+  t.after(() => server.close());
+  const response = await post(baseUrl, validLead());
+  assert.equal(response.status, 200);
+  const payload = await response.json();
+  assert.equal(payload.delivered, true);
+  assert.equal(payload.channel, 'store');
+  const saved = fs.readFileSync(store, 'utf8');
+  assert.match(saved, /Alex Smith/);
+  assert.match(saved, /91355/);
+});
+
+test('API falls back to the owner alert email when Telegram is down', async (t) => {
+  const seen = [];
+  const { server, baseUrl } = await startServer({
+    telegramToken: 'test-token', chatId: '123', leadStorePath: '',
+    ownerAlertEmail: 'owner@example.com', resendApiKey: 'test-key',
+    resendFromEmail: 'California Handyman <leads@example.com>',
+    fetchImpl: async (url) => {
+      seen.push(String(url));
+      if (String(url).includes('api.telegram.org')) return { ok: false, json: async () => ({ ok: false }) };
+      return new Response(JSON.stringify({ id: 'email_1' }), { status: 200 });
+    },
+  });
+  t.after(() => server.close());
+  const response = await post(baseUrl, validLead({ email: '' }));
+  assert.equal(response.status, 200);
+  assert.equal((await response.json()).channel, 'email');
+  assert.ok(seen.some(url => url.includes('api.resend.com')), seen.join(','));
 });

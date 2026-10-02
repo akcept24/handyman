@@ -33,3 +33,6 @@ build/
 tmp/
 temp/
 *.tmp
+
+# Local lead-store fallback buffer (runtime data, never commit)
+data/
