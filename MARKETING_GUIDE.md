@@ -1,10 +1,10 @@
-# California Handyman — Google Ads Launch Sheet
+# California Handymen — Google Ads Launch Sheet
 
 **Status:** Pre-launch. Do not enable paid traffic until a real Google Ads conversion action is configured and the verification checklist below passes.
 
 ## Truthful advertising boundary
 
-California Handyman is **not a licensed contractor**. Marketing must describe only qualifying casual, minor work that:
+California Handymen is **not a licensed contractor**. Marketing must describe only qualifying casual, minor work that:
 
 - totals under **$1,000 including labor and materials**;
 - needs **no building permit**;

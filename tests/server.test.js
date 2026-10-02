@@ -294,7 +294,7 @@ test('formatLead gives furniture requests a focused owner next step', () => {
 test('request confirmation uses a premium branded email layout with an honest next-step status', () => {
   const html = renderRequestReceivedEmail(validLead({ name: 'Mia Torres', service: 'furniture-assembly' }));
   assert.match(html, /Request received/i);
-  assert.match(html, /California <strong>Handyman<\/strong>/i);
+  assert.match(html, /California <strong>Handymen<\/strong>/i);
   assert.match(html, /We’ll review your project details/i);
   assert.match(html, /within 1 business day/i);
   assert.match(html, /Reply to this email with product links, photos, measurements, or assembly instructions/i);
@@ -322,7 +322,7 @@ test('Resend request confirmation uses only the lead email and transactional cop
       request = { url, options };
       return new Response(JSON.stringify({ id: 'email_test_123' }), { status: 200 });
     },
-    resendApiKey: 'test-key', resendFromEmail: 'California Handyman <hello@example.com>',
+    resendApiKey: 'test-key', resendFromEmail: 'California Handymen <hello@example.com>',
     lead: validLead({ service: 'furniture-assembly' }),
   });
   const body = JSON.parse(request.options.body);
@@ -825,7 +825,7 @@ test('API falls back to the owner alert email when Telegram is down', async (t) 
   const { server, baseUrl } = await startServer({
     telegramToken: 'test-token', chatId: '123', leadStorePath: '',
     ownerAlertEmail: 'owner@example.com', resendApiKey: 'test-key',
-    resendFromEmail: 'California Handyman <leads@example.com>',
+    resendFromEmail: 'California Handymen <leads@example.com>',
     fetchImpl: async (url) => {
       seen.push(String(url));
       if (String(url).includes('api.telegram.org')) return { ok: false, json: async () => ({ ok: false }) };

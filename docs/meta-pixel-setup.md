@@ -5,7 +5,7 @@ Code already supports the Pixel: `tracking.config.js` loads it only when
 so Meta ads currently see zero leads).
 
 1. Open Meta Events Manager with the business Facebook account.
-2. Create a data source: Web → name it `California Handyman Website`.
+2. Create a data source: Web → name it `California Handymen Website`.
 3. Copy the numeric Pixel ID (15–16 digits).
 4. Send the ID to Muse; it goes into `tracking.config.js`
    (`facebookPixelId`) in one small deploy. No other code change is needed:

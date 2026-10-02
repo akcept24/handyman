@@ -16,11 +16,11 @@ test('voice prompt supports English, Spanish, Russian, and mid-call switching', 
 test('voice prompt opens naturally without introducing itself as a virtual receptionist', () => {
   assert.match(
     prompt,
-    /“Thanks for calling California Handyman\. This call may be recorded and transcribed to help with your service request\. Is that okay\?”/,
+    /“Thanks for calling California Handymen\. This call may be recorded and transcribed to help with your service request\. Is that okay\?”/,
   );
   const opening = prompt.match(/## Opening and recording consent([\s\S]*?)The voice provider/i)?.[1] || '';
   assert.doesNotMatch(opening, /virtual receptionist|virtual assistant|AI assistant/i);
-  containsAll(/If asked whether you are human, say clearly/i, /automated receptionist for California Handyman/i);
+  containsAll(/If asked whether you are human, say clearly/i, /automated receptionist for California Handymen/i);
 });
 
 test('voice prompt enforces interruptible, one-question spoken turns', () => {

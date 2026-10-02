@@ -10,7 +10,7 @@
     <section class="ch-panel" id="ch-panel" role="dialog" aria-modal="true" aria-labelledby="ch-title" aria-describedby="ch-privacy-note" aria-hidden="true">
       <header class="ch-head">
         <div class="ch-avatar" aria-hidden="true">🔧</div>
-        <div class="ch-head-copy"><strong id="ch-title">Ask Alex</strong><span>California Handyman project assistant</span></div>
+        <div class="ch-head-copy"><strong id="ch-title">Ask Alex</strong><span>California Handymen project assistant</span></div>
         <button class="ch-close" type="button" aria-label="Close chat">×</button>
       </header>
       <div class="ch-messages" role="log" aria-live="polite" aria-relevant="additions">

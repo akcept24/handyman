@@ -41,14 +41,14 @@
 ### Separate sign-up mechanism required first
 Use a distinct checkbox or signup form containing materially equivalent wording:
 
-> I would like occasional California Handyman news, seasonal home-project tips, and service updates by email. I understand this is optional and I can unsubscribe at any time.
+> I would like occasional California Handymen news, seasonal home-project tips, and service updates by email. I understand this is optional and I can unsubscribe at any time.
 
 Store: email, opt-in timestamp, source URL/UTM, exact consent copy version, unsubscribe state. Do not pre-check this box.
 
 ### Welcome email
 **Template:** `templates/marketing-welcome-opt-in.html`
 
-**Subject:** `You’re on the California Handyman updates list`
+**Subject:** `You’re on the California Handymen updates list`
 
 **Cadence after welcome:** at most one useful email per month, only to active subscribers. Examples: a furniture-assembly preparation checklist, seasonal minor-project checklist, or an availability update that is factually true at send time.
 

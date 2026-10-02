@@ -1,4 +1,4 @@
-# California Handyman — Furniture Assembly Marketing Kit
+# California Handymen — Furniture Assembly Marketing Kit
 
 This folder contains owner-review assets for the Santa Clarita and Valencia furniture-assembly offering.
 

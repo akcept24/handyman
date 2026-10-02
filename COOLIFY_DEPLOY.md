@@ -20,7 +20,7 @@ TRUST_PROXY_HOPS=1
 
 # Resend transactional request confirmation — enable only after the domain is verified
 RESEND_API_KEY=<set in Coolify, never commit>
-RESEND_FROM_EMAIL=California Handyman <hello@california-handymen.com>
+RESEND_FROM_EMAIL=California Handymen <hello@california-handymen.com>
 ```
 
 `PORT` defaults to `3000` and normally does not need to be set.
@@ -37,7 +37,7 @@ Resend domain registration for `california-handymen.com` has been created but is
 | SPF / MAIL FROM | `send` | MX | `feedback-smtp.us-east-1.amazonses.com` | `10` |
 | SPF / MAIL FROM | `send` | TXT | `v=spf1 include:amazonses.com ~all` | — |
 
-Do not set `RESEND_FROM_EMAIL` in Coolify until Resend reports the domain as verified. Once verified, use `California Handyman <hello@california-handymen.com>` (or another real, monitored inbox at that domain). The server sends only a request-specific confirmation after Telegram delivery is confirmed; it does not send marketing mail.
+Do not set `RESEND_FROM_EMAIL` in Coolify until Resend reports the domain as verified. Once verified, use `California Handymen <hello@california-handymen.com>` (or another real, monitored inbox at that domain). The server sends only a request-specific confirmation after Telegram delivery is confirmed; it does not send marketing mail.
 
 ## Release verification
 

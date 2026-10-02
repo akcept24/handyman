@@ -1,7 +1,7 @@
 'use strict';
 
 const BUSINESS_PROFILE = Object.freeze({
-  name: 'California Handyman',
+  name: 'California Handymen',
   assistantName: 'Alex',
   serviceArea: Object.freeze([
     'Santa Clarita', 'Valencia', 'Canyon Country', 'Newhall', 'Saugus',
@@ -47,7 +47,7 @@ function normalizeConversation(input, options = {}) {
 }
 
 const SAFE_REPLIES = Object.freeze({
-  service_area: `California Handyman currently serves ${BUSINESS_PROFILE.serviceArea.join(', ')}. Enter the project ZIP in the secure request form for server-side service-area review.`,
+  service_area: `California Handymen currently serves ${BUSINESS_PROFILE.serviceArea.join(', ')}. Enter the project ZIP in the secure request form for server-side service-area review.`,
   services: `The listed services include ${BUSINESS_PROFILE.services.join(', ')}. Final scope is reviewed by a person before work is accepted.`,
   minor_scope: BUSINESS_PROFILE.legalDisclosure,
   estimate_request: 'Please use the secure request form for your name, phone, ZIP, service, project summary, and contact consent. Submitting starts a human review; it does not confirm pricing or scheduling.',
