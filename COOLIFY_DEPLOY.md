@@ -5,7 +5,8 @@
 - Source: this GitHub repository
 - Build pack: **Dockerfile**
 - Container port: `3000`
-- Health check path: `/ready`
+- Health check path: `/ready/leads`
+- Persistent storage: mount a volume at `/app/data` so `data/leads.jsonl` survives redeploys (required for Telegram-outage fallback when owner email is not yet configured)
 - Auto deploy: optional, recommended after the first verified release
 
 ## Required runtime secrets
@@ -37,7 +38,7 @@ Resend domain registration for `california-handymen.com` has been created but is
 | SPF / MAIL FROM | `send` | MX | `feedback-smtp.us-east-1.amazonses.com` | `10` |
 | SPF / MAIL FROM | `send` | TXT | `v=spf1 include:amazonses.com ~all` | — |
 
-Do not set `RESEND_FROM_EMAIL` in Coolify until Resend reports the domain as verified. Once verified, use `California Handyman <hello@california-handymen.com>` (or another real, monitored inbox at that domain). The server sends only a request-specific confirmation after Telegram delivery is confirmed; it does not send marketing mail.
+Do not set `RESEND_FROM_EMAIL` in Coolify until Resend reports the domain as verified. Once verified, use `California Handyman <hello@california-handymen.com>` (or another real, monitored inbox at that domain). The server sends only a request-specific confirmation after Telegram or the owner alert email accepts the lead; it does not send marketing mail.
 
 ## Release verification
 
@@ -66,10 +67,10 @@ Do not set `RESEND_FROM_EMAIL` in Coolify until Resend reports the domain as ver
 ## Lead fallback (P0, 2026-10-02)
 
 - `OWNER_ALERT_EMAIL` — owner's inbox. When Telegram does not confirm a web
-  lead, the server stores it in `data/leads.jsonl` (Docker image pre-creates
-  `/app/data` for the `node` user) and emails the full lead to this address
-  via Resend. Set it in Coolify (Production) together with the existing
-  `RESEND_API_KEY` / `RESEND_FROM_EMAIL`.
+  lead, the server stores it in `data/leads.jsonl` under the mounted
+  `/app/data` volume and emails the full lead to this address via Resend.
+  Set it in Coolify (Production) together with `RESEND_API_KEY` and
+  `RESEND_FROM_EMAIL` (owner alert email is not ready until all three are set).
 - Out-of-area ZIPs are accepted and flagged `OUT OF AREA` in Telegram/email
   instead of being rejected.
 - Check readiness after deploy: `GET /ready/leads` must return `ready`.

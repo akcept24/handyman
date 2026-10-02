@@ -521,6 +521,7 @@ function createApp(options = {}) {
   const resendApiKey = options.resendApiKey ?? process.env.RESEND_API_KEY;
   const resendFromEmail = clean(options.resendFromEmail ?? process.env.RESEND_FROM_EMAIL, 320);
   const ownerAlertEmail = clean(options.ownerAlertEmail ?? process.env.OWNER_ALERT_EMAIL, 320);
+  const ownerAlertEmailReady = Boolean(ownerAlertEmail && resendApiKey && resendFromEmail);
   const leadStorePath = options.leadStorePath !== undefined
     ? options.leadStorePath
     : (process.env.LEAD_STORE_PATH || path.join(ROOT, 'data', 'leads.jsonl'));
@@ -579,7 +580,7 @@ function createApp(options = {}) {
     if ((req.method === 'GET' || req.method === 'HEAD') && url.pathname === '/ready/leads') {
       // Lead intake is ready when at least one owner delivery channel is
       // configured: Telegram or the owner alert email.
-      const ready = Boolean((telegramToken && chatId) || ownerAlertEmail);
+      const ready = Boolean((telegramToken && chatId) || ownerAlertEmailReady);
       sendJson(res, ready ? 200 : 503, { status: ready ? 'ready' : 'not_ready' });
       return;
     }
@@ -748,7 +749,7 @@ function createApp(options = {}) {
         return;
       }
 
-      if (!(telegramToken && chatId) && !ownerAlertEmail) {
+      if (!(telegramToken && chatId) && !ownerAlertEmailReady) {
         sendJson(res, 503, { success: false, message: 'Online requests are temporarily unavailable. Please try again later.' });
         return;
       }
@@ -818,11 +819,11 @@ function createApp(options = {}) {
       }
       // The client confirmation email stays optional and non-blocking; it is
       // only sent after an owner channel has accepted the lead.
-      if (telegramDelivered) {
+      if (telegramDelivered || ownerEmailed) {
         try {
           await sendRequestReceivedEmail({ fetchImpl, resendApiKey, resendFromEmail, lead: result.lead });
         } catch (emailError) {
-          console.error('Request-received email failed after Telegram receipt:', emailError.message);
+          console.error('Request-received email failed after owner delivery:', emailError.message);
         }
       }
       sendJson(res, 200, { success: true, delivered: true, channel, message: 'Your request was sent successfully.' });
