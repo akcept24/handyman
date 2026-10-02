@@ -1,4 +1,4 @@
-# 🎉 Проект завершен! California Handyman Landing Page
+# 🎉 Проект завершен! California Handymen Landing Page
 
 ## ✅ Что реализовано
 

@@ -1,6 +1,6 @@
 # Retell Voice Agent Acceptance Matrix
 
-Agent: `California Handyman Multilingual Receptionist`  
+Agent: `California Handymen Multilingual Receptionist`  
 Scope: unpublished Retell draft V0  
 Live phone calls and number assignment are explicitly out of scope until approval.
 

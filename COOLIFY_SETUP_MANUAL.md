@@ -1,8 +1,8 @@
-# Coolify Setup - California Handyman Landing
+# Coolify Setup - California Handymen Landing
 
 ## ✅ Уже сделано:
 
-1. **Проект создан:** California Handyman
+1. **Проект создан:** California Handymen
    - UUID: gro13ya46pdv1fal2gto9jua
    - Environment: production
 

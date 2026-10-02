@@ -2,7 +2,7 @@
   "name": "california-handyman-site",
   "version": "1.0.0",
   "private": true,
-  "description": "California Handyman website and lead delivery service",
+  "description": "California Handymen website and lead delivery service",
   "scripts": {
     "start": "node server.js",
     "test": "node --test tests/*.test.js && python3 -m unittest -v tests/test_site.py"
