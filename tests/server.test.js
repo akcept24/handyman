@@ -70,6 +70,16 @@ test('Agent Core keeps web and voice channels on the same business and safety po
   assert.equal(enforceReplyPolicy('{"intent":"unknown"}'), SAFE_REPLIES.human_handoff);
 });
 
+test('chat greets in the visitor language instead of repeating the fallback', () => {
+  assert.match(enforceReplyPolicy('{"intent":"human_handoff"}', 'Привет'), /Привет! Я Alex/);
+  assert.match(enforceReplyPolicy('{"intent":"human_handoff"}', 'На русском пиши'), /Привет! Я Alex/);
+  assert.match(enforceReplyPolicy('{"intent":"service_area"}', 'hola'), /¡Hola! Soy Alex/);
+  assert.match(enforceReplyPolicy('{"intent":"human_handoff"}', 'hello'), /Hi! I'm Alex/);
+  // A greeting plus a real question still goes through the classifier, in the visitor language.
+  assert.match(enforceReplyPolicy('{"intent":"service_area"}', 'Привет, где вы работаете?'), /Santa Clarita/);
+  assert.match(enforceReplyPolicy('{"intent":"human_handoff"}', 'Hola, ¿cuánto cuesta?'), /persona/);
+});
+
 test('validateLead rejects malformed leads', () => {
   assert.deepEqual(validateLead({ name: 'A', phone: '12' }).valid, false);
   assert.deepEqual(validateLead({
