@@ -49,7 +49,7 @@ function normalizeConversation(input, options = {}) {
 const SAFE_REPLIES = Object.freeze({
   greeting: `Hi! I'm ${BUSINESS_PROFILE.assistantName}, the ${BUSINESS_PROFILE.name} assistant. Tell me what you need fixed, assembled, or installed — we serve the Santa Clarita Valley, minor work up to $1,000 only.`,
   service_area: `California Handymen currently serves ${BUSINESS_PROFILE.serviceArea.join(', ')}. Enter the project ZIP in the secure request form for server-side service-area review.`,
-  services: `The listed services include ${BUSINESS_PROFILE.services.join(', ')}. Final scope is reviewed by a person before work is accepted.`,
+  services: `The listed services include ${BUSINESS_PROFILE.services.join(', ')}. Pricing is hybrid: fixed starting prices for defined jobs, $95/hr with a written maximum for mixed lists, and half-day packages from $349. Final scope is reviewed by a person before work is accepted.`,
   minor_scope: BUSINESS_PROFILE.legalDisclosure,
   estimate_request: 'Please use the secure request form for your name, phone, ZIP, service, project summary, and contact consent. Submitting starts a human review; it does not confirm pricing or scheduling.',
   human_handoff: 'I can share the listed service area and minor-work categories. Pricing, qualifications, availability, safety-sensitive scope, and scheduling must be confirmed by a person after reviewing your request.',
@@ -113,7 +113,7 @@ const LOCALIZED_REPLIES = Object.freeze({
   ru: Object.freeze({
     greeting: 'Привет! Я Alex, помощник California Handymen. Расскажите, что нужно починить, собрать или установить — работаем по Santa Clarita Valley, только мелкие работы до $1,000.',
     service_area: `California Handymen сейчас работает в ${BUSINESS_PROFILE.serviceArea.join(', ')}. Введите ZIP проекта в форму заявки — зона обслуживания проверяется на сервере.`,
-    services: `В списке услуг: ${BUSINESS_PROFILE.services.join(', ')}. Итоговый объём работ подтверждает человек перед принятием заказа.`,
+    services: `В списке услуг: ${BUSINESS_PROFILE.services.join(', ')}. Цены гибридные: фиксированные стартовые цены для понятных задач, $95/час с письменным потолком для смешанных списков, пакеты half-day от $349. Итоговый объём работ подтверждает человек перед принятием заказа.`,
     minor_scope: 'Оператор не является лицензированным подрядчиком. Рассматриваются только разовые мелкие работы до $1,000 суммарно, включая работу и материалы, когда не требуется разрешение на строительство или лицензированная специальность. Большие проекты нельзя делить, чтобы уложиться в лимит.',
     estimate_request: 'Пожалуйста, используйте форму заявки: имя, телефон, ZIP, услуга, описание проекта и согласие на связь. Отправка запускает проверку человеком; это не подтверждает цену или запись.',
     human_handoff: 'Могу рассказать о зоне обслуживания и категориях мелких работ. Цены, квалификацию, доступность, сложные по безопасности работы и запись подтверждает человек после рассмотрения вашей заявки.',
@@ -121,7 +121,7 @@ const LOCALIZED_REPLIES = Object.freeze({
   es: Object.freeze({
     greeting: '¡Hola! Soy Alex, el asistente de California Handymen. Cuénteme qué necesita reparar, armar o instalar — trabajamos en Santa Clarita Valley, solo trabajos menores de hasta $1,000.',
     service_area: `California Handymen actualmente atiende ${BUSINESS_PROFILE.serviceArea.join(', ')}. Ingrese el ZIP del proyecto en el formulario de solicitud para la revisión del área de servicio.`,
-    services: `Los servicios incluyen ${BUSINESS_PROFILE.services.join(', ')}. Una persona revisa el alcance final antes de aceptar el trabajo.`,
+    services: `Los servicios incluyen ${BUSINESS_PROFILE.services.join(', ')}. Precios híbridos: precios fijos iniciales para trabajos definidos, $95/hora con un máximo por escrito para listas mixtas, y paquetes de medio día desde $349. Una persona revisa el alcance final antes de aceptar el trabajo.`,
     minor_scope: 'El operador no es un contratista licenciado. Solo se consideran trabajos menores ocasionales de menos de $1,000 en total, incluyendo mano de obra y materiales, cuando no se requiere permiso de construcción ni oficio licenciado. Los proyectos grandes no pueden dividirse para ajustarse al límite.',
     estimate_request: 'Utilice el formulario de solicitud para su nombre, teléfono, ZIP, servicio, resumen del proyecto y consentimiento de contacto. Enviarlo inicia una revisión humana; no confirma precio ni cita.',
     human_handoff: 'Puedo compartir el área de servicio y las categorías de trabajos menores. Precios, calificaciones, disponibilidad, alcance sensible de seguridad y programación los confirma una persona después de revisar su solicitud.',
