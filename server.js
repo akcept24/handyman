@@ -487,7 +487,7 @@ async function handleChat(req, res, fetchImpl, rateAllowed, concurrency, apiKey,
   }
   const providerReply = clean(payload?.choices?.[0]?.message?.content, 1600);
   if (!response.ok || !providerReply) throw new Error(`Chat provider failed (${response.status})`);
-  sendJson(res, 200, { success: true, reply: enforceReplyPolicy(providerReply) });
+  sendJson(res, 200, { success: true, reply: enforceReplyPolicy(providerReply, safeMessages[safeMessages.length - 1].content) });
 }
 
 function staticPath(urlPath) {
