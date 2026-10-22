@@ -448,6 +448,14 @@ async function handleChat(req, res, fetchImpl, rateAllowed, concurrency, apiKey,
     sendJson(res, 400, { success: false, message: 'Please enter a message.' });
     return;
   }
+  const rawMessages = Array.isArray(input?.messages) ? input.messages : [];
+  const lastRawUser = [...rawMessages].reverse().find(item => (
+    item && item.role === 'user' && typeof item.content === 'string'
+  ));
+  if (lastRawUser && lastRawUser.content.length > 1200) {
+    sendJson(res, 400, { success: false, message: 'Please shorten your message.' });
+    return;
+  }
   if (!rateAllowed(req)) {
     sendJson(res, 429, { success: false, message: 'Please wait a moment before sending another message.' });
     return;
@@ -553,6 +561,7 @@ function createApp(options = {}) {
     res.setHeader('x-frame-options', 'SAMEORIGIN');
     res.setHeader('referrer-policy', 'strict-origin-when-cross-origin');
     res.setHeader('permissions-policy', 'camera=(), microphone=(), geolocation=()');
+    res.setHeader('strict-transport-security', 'max-age=31536000; includeSubDomains');
     res.setHeader('content-security-policy', "default-src 'self'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' https://www.googletagmanager.com https://connect.facebook.net; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://region1.google-analytics.com https://region1.analytics.google.com; base-uri 'self'; form-action 'self'; frame-ancestors 'self'");
 
     const url = new URL(req.url, 'http://localhost');
