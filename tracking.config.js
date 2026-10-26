@@ -7,8 +7,10 @@ window.SITE_TRACKING = {
   ga4Id: 'G-CL4VE3BZDK',
 
   // Google Ads — confirmed website conversion action: Confirmed estimate request.
+  // Account 865-691-3527 (akcept2411@gmail.com); conversion action renamed and
+  // tag values verified in the Ads UI on 2026-10-26.
   // Fires only after the backend confirms Telegram delivery of a valid estimate request.
-  googleAdsConversion: 'AW-1009989339/EQEDCJbnqugcENvtzOED',
+  googleAdsConversion: 'AW-18401824141/UMVKCNShwOgcEI2b1sZE',
 
   // Facebook Pixel — Events Manager → Pixel ID
   facebookPixelId: 'XXXXXXXXXXXXXXX',
