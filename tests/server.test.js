@@ -301,6 +301,23 @@ test('formatLead gives furniture requests a focused owner next step', () => {
   assert.match(text, /Confirm furniture list\/photos, access details, and scope/);
 });
 
+test('computer tech help is an accepted lead service end to end', () => {
+  const { valid, errors } = validateLead(validLead({ service: 'computer-tech-help' }));
+  assert.equal(valid, true, errors.join('; '));
+
+  const text = formatLead({
+    name: 'Alex', phone: '(213) 555-0199', service: 'computer-tech-help', zip: '91355',
+    form_type: 'contact_form', contact_consent: true, received_at: '2026-08-20T12:00:00.000Z',
+  });
+  assert.match(text, /Computer & tech help request/);
+  assert.match(text, /Confirm device, issue, and backup status/);
+  assert.match(text, /Never ask for the customer’s passwords/);
+
+  const html = renderRequestReceivedEmail(validLead({ service: 'computer-tech-help' }));
+  assert.match(html, /Computer &amp; tech help request/);
+  assert.match(html, /never send passwords/i);
+});
+
 test('request confirmation uses a premium branded email layout with an honest next-step status', () => {
   const html = renderRequestReceivedEmail(validLead({ name: 'Mia Torres', service: 'furniture-assembly' }));
   assert.match(html, /Request received/i);
