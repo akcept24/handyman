@@ -495,7 +495,7 @@ async function handleChat(req, res, fetchImpl, rateAllowed, concurrency, apiKey,
       body: JSON.stringify({
         model: CHAT_MODEL,
         messages: [{ role: 'system', content: CHAT_SYSTEM_PROMPT }, ...safeMessages],
-        max_tokens: 80,
+        max_tokens: 512,
         temperature: 0,
         response_format: { type: 'json_object' },
       }),
@@ -506,7 +506,18 @@ async function handleChat(req, res, fetchImpl, rateAllowed, concurrency, apiKey,
     concurrency.active -= 1;
   }
   const providerReply = clean(payload?.choices?.[0]?.message?.content, 1600);
-  if (!response.ok || !providerReply) throw new Error(`Chat provider failed (${response.status})`);
+  if (!response.ok || !providerReply) {
+    const choice = payload?.choices?.[0];
+    const diagnostics = [
+      `status=${response.status}`,
+      `finish=${choice?.finish_reason || 'none'}`,
+      `content_len=${(choice?.message?.content || '').length}`,
+      `reasoning_len=${(choice?.message?.reasoning || '').length}`,
+      `completion_tokens=${payload?.usage?.completion_tokens ?? 'unknown'}`,
+      payload?.error ? `provider_error=${clean(payload.error.message || payload.error.code || 'yes', 120)}` : '',
+    ].filter(Boolean).join(' ');
+    throw new Error(`Chat provider failed (${diagnostics})`);
+  }
   sendJson(res, 200, { success: true, reply: enforceReplyPolicy(providerReply, safeMessages[safeMessages.length - 1].content) });
 }
 
