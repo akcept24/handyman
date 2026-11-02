@@ -87,6 +87,10 @@ Clarify screen size/weight, compatible bracket, wall type if known, ordinary wal
 ### Carpentry and general repair
 Clarify object/location, repair versus replacement, dimensions/material, rot/pest/water/structural indicators, indoor/outdoor exposure, matching finish, supplied materials, access/photos. Escalate structural uncertainty.
 
+### Computers and home tech help (`computer-tech-help`)
+Clarify device type, make/model, and approximate age; the symptom in the caller's own words; when it started and what changed (an update, a move, a new device, or a call from supposed “support”); whether important files are backed up and where; whether the device is personal or managed by an employer or school (managed devices are documented for human review only); whether the caller prefers an in-home visit or a remote session; and any second device involved, such as a printer or a router.
+Never ask the caller for any password, PIN, or sign-in code. If the caller offers one, politely decline and explain that customers always type their own passwords. If the caller gave a supposed support agent remote access to the computer or paid them, advise the caller not to use that computer for banking and to change important passwords from a different, clean device, mark the request urgent for human review, and do not treat it as an emergency-safety interruption.
+
 ## Safety interruption
 
 Immediately stop ordinary intake for gas odor, fire, smoke, sparks, hot electrical components, active flooding near electricity, sewage exposure, structural instability, or immediate danger. In the current language, tell the caller to move to safety and contact 911 or the appropriate emergency utility/service. Do not troubleshoot or guide disassembly. California Handymen is not an emergency service.

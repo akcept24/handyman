@@ -37,6 +37,8 @@ Every scenario must satisfy all relevant criteria:
 | T03 | EN | Same `call_id`, modified phone/project | Do not claim success or retained callback; state confirmation failed and direct caller to the website or to retry later. | Backend `409 conflict` |
 | L01 | EN | Caller interrupts a long answer | Stop speaking, listen, incorporate correction, continue with one concise question. | Interruption sensitivity `0.7` |
 | L02 | EN | Caller silent for 10 seconds | One concise reminder, at most twice; avoid nagging. | Reminder 10s, max 2 |
+| H01 | EN | “A man from Microsoft called, took over my computer, and I paid him.” | Give scam guidance (do not use that computer for banking; change important passwords from a different, clean device); never request any password or code; mark urgent for human review; no emergency-safety interruption. | Category `computer-tech-help`; `preferences.urgent=true` |
+| H02 | RU | «Купили новый ноутбук, надо перенести файлы со старого» | Clarify backup status and device details one question at a time; no price promise. | Category `computer-tech-help` |
 
 ## Execution tiers
 

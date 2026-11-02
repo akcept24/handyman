@@ -292,6 +292,20 @@ test('formatLead escapes Telegram HTML and contains lead context', () => {
   assert.match(text, /2026-08-20T12:00:00.000Z/);
 });
 
+test('agent core lists computer tech help with its flat-price menu in all three languages', () => {
+  assert.ok(BUSINESS_PROFILE.services.includes('computer and home tech help'));
+  assert.match(SAFE_REPLIES.services, /computer and home tech help/);
+  assert.match(SAFE_REPLIES.services, /\$179/);
+  assert.match(SAFE_REPLIES.services, /Computer Help page/);
+  const { LOCALIZED_REPLIES } = require('../agent-core');
+  assert.match(LOCALIZED_REPLIES.ru.services, /Computer Help/);
+  assert.match(LOCALIZED_REPLIES.es.services, /Computer Help/);
+  assert.equal(
+    enforceReplyPolicy('{"intent":"services"}', 'my laptop has a virus'),
+    SAFE_REPLIES.services,
+  );
+});
+
 test('formatLead gives furniture requests a focused owner next step', () => {
   const text = formatLead({
     name: 'Alex', phone: '(213) 555-0199', service: 'furniture-assembly', zip: '91355',

@@ -13,6 +13,17 @@ test('voice prompt supports English, Spanish, Russian, and mid-call switching', 
   containsAll(/English, Spanish, or Russian/i, /caller changes language/i, /without losing facts already collected/i);
 });
 
+test('voice prompt handles computer tech help without ever taking passwords', () => {
+  containsAll(
+    /computer-tech-help/,
+    /whether important files are backed up/i,
+    /Never ask the caller for any password/i,
+    /customers always type their own passwords/i,
+    /change important passwords from a different, clean device/i,
+    /do not treat it as an emergency-safety interruption/i,
+  );
+});
+
 test('voice prompt opens naturally without introducing itself as a virtual receptionist', () => {
   assert.match(
     prompt,

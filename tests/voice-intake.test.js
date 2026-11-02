@@ -48,6 +48,19 @@ function telegramSuccess(messageId = 41) {
   return { ok: true, json: async () => ({ ok: true, result: { message_id: messageId } }) };
 }
 
+test('full voice lead accepts the computer-tech-help category', () => {
+  const result = validateVoiceLead(validVoiceLead({
+    project: {
+      category: 'computer-tech-help',
+      reported_problem: 'New laptop needs setup and file transfer from the old one.',
+      location_on_property: 'Home office', severity: 'moderate', photos_available: false,
+    },
+  }));
+  assert.equal(result.valid, true, result.errors?.join('; '));
+  const card = formatVoiceLead(result.lead, '2026-08-24T12:00:00.000Z');
+  assert.match(card, /computer-tech-help/);
+});
+
 test('full voice lead is strict and requires recording plus callback/text consent', () => {
   assert.equal(validateVoiceLead(validVoiceLead()).valid, true);
   for (const recording_consent of ['declined', 'unknown']) {

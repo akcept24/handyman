@@ -6,7 +6,8 @@ const { BUSINESS_PROFILE } = require('./agent-core');
 const SERVICE_AREA_ZIPS = new Set(BUSINESS_PROFILE.serviceAreaZips);
 const CATEGORIES = new Set([
   'general-repairs', 'fixtures-installations', 'painting-drywall',
-  'furniture-assembly', 'tv-mounting', 'carpentry', 'plumbing-maintenance', 'other',
+  'furniture-assembly', 'tv-mounting', 'carpentry', 'plumbing-maintenance',
+  'computer-tech-help', 'other',
 ]);
 const LANGUAGES = new Set(['en', 'es', 'ru']);
 const CONTACT_METHODS = new Set(['phone', 'text', 'either']);
