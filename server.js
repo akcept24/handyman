@@ -652,6 +652,13 @@ function createApp(options = {}) {
     }
     if (req.method === 'GET' || req.method === 'HEAD') {
       if (serveStatic(req, res, url.pathname)) return;
+      // Extensionless page URLs (…/office-moving) redirect to the real
+      // .html page — links shared without the extension must not 404.
+      if (!path.extname(url.pathname) && STATIC_FILES.has(`${url.pathname}.html`)) {
+        res.writeHead(301, { location: `${url.pathname}.html${url.search}` });
+        res.end();
+        return;
+      }
       sendJson(res, 404, { success: false, message: 'Not found.' });
       return;
     }
