@@ -16,7 +16,7 @@ const MAX_VOICE_BODY_BYTES = 256 * 1024;
 const ALLOWED_SERVICES = new Set([
   'general-repairs', 'fixtures-installations', 'painting-drywall',
   'furniture-assembly', 'carpentry', 'plumbing-maintenance',
-  'computer-tech-help', 'office-moving', 'other',
+  'computer-tech-help', 'office-moving', 'emergency-repair', 'other',
 ]);
 const ALLOWED_FORM_TYPES = new Set(['hero_form', 'contact_form', 'modal_form', 'chat_form']);
 const CONSENT_VERSION = '2026-08-20';
@@ -32,6 +32,7 @@ const STATIC_FILES = new Map([
   ['/thank-you.html', 'thank-you.html'],
   ['/computer-help.html', 'computer-help.html'],
   ['/office-moving.html', 'office-moving.html'],
+  ['/emergency-tech-repair.html', 'emergency-tech-repair.html'],
   ['/wifi-mesh.html', 'wifi-mesh.html'],
   ['/ai-at-home.html', 'ai-at-home.html'],
   ['/smart-home.html', 'smart-home.html'],
@@ -161,7 +162,7 @@ function hasValidLeadFieldTypes(input) {
     && Object.keys(input).every(field => LEAD_FIELDS.has(field))
     && LEAD_STRING_FIELDS.every(field => input[field] == null || typeof input[field] === 'string')
     && (input.contact_consent == null || typeof input.contact_consent === 'boolean' || input.contact_consent === 'on')
-    && (input.urgent == null || typeof input.urgent === 'boolean' || input.urgent === 'on'));
+    && (input.urgent == null || typeof input.urgent === 'boolean' || input.urgent === 'on' || input.urgent === 'true'));
 }
 
 function validateLead(input) {
@@ -177,7 +178,7 @@ function validateLead(input) {
     zip: clean(input?.zip, 10),
     message: clean(input?.message, 2000),
     form_type: clean(input?.form_type, 40),
-    urgent: input?.urgent === true || input?.urgent === 'on',
+    urgent: input?.urgent === true || input?.urgent === 'on' || input?.urgent === 'true',
     contact_consent: input?.contact_consent === true || input?.contact_consent === 'on',
     consent_version: clean(input?.consent_version, 30),
     fax_number: clean(input?.fax_number, 200),
@@ -243,7 +244,8 @@ function renderRequestReceivedEmail(lead) {
   const isFurniture = lead.service === 'furniture-assembly';
   const isTech = lead.service === 'computer-tech-help';
   const isOfficeMove = lead.service === 'office-moving';
-  const service = escapeHtml(isFurniture ? 'Furniture assembly' : isTech ? 'Computer & tech help' : isOfficeMove ? 'Office moving' : 'Home project');
+  const isEmergency = lead.service === 'emergency-repair';
+  const service = escapeHtml(isFurniture ? 'Furniture assembly' : isTech ? 'Computer & tech help' : isOfficeMove ? 'Office moving' : isEmergency ? 'Emergency tech repair' : 'Home project');
   const projectHint = isFurniture
     ? 'Product links, assembly manuals, box counts, measurements, or a few room photos can help with review.'
     : isTech
@@ -319,6 +321,7 @@ async function postLeadToBeckloop({ fetchImpl, lead }) {
       service: lead.service,
       message: lead.message || undefined,
       zip: lead.zip,
+      urgent: lead.urgent === true,
     }),
     signal: AbortSignal.timeout(8000),
   });
