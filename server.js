@@ -294,6 +294,34 @@ async function sendOwnerAlertEmail({ fetchImpl, resendApiKey, resendFromEmail, o
   return { attempted: true, id: clean(receipt.id, 200) };
 }
 
+// Cabinet sync (Beckloop): every accepted website lead is also posted
+// into the business cabinet as a job, so form leads live next to the
+// AI-booked calls. Additive and non-blocking by design: when the env is
+// unset this is a no-op, and any failure is logged, never thrown — the
+// site's own Telegram/store/email delivery above stays authoritative.
+async function postLeadToBeckloop({ fetchImpl, lead }) {
+  const url = process.env.BECKLOOP_INTAKE_URL;
+  const secret = process.env.BECKLOOP_INTAKE_SECRET;
+  const tenantId = process.env.BECKLOOP_TENANT_ID;
+  if (!url || !secret || !tenantId) return { attempted: false };
+  const response = await fetchImpl(url, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'x-intake-secret': secret },
+    body: JSON.stringify({
+      tenantId,
+      name: lead.name,
+      phone: lead.phone,
+      email: lead.email || undefined,
+      service: lead.service,
+      message: lead.message || undefined,
+      zip: lead.zip,
+    }),
+    signal: AbortSignal.timeout(8000),
+  });
+  if (!response.ok) throw new Error(`Beckloop intake returned ${response.status}`);
+  return { attempted: true };
+}
+
 function sendJson(res, status, payload) {
   const body = JSON.stringify(payload);
   res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });
@@ -860,6 +888,15 @@ function createApp(options = {}) {
           console.error('Request-received email failed after Telegram receipt:', emailError.message);
         }
       }
+      // Cabinet sync: the lead also lands in Beckloop as a job. Runs for
+      // every accepted lead regardless of which owner channel delivered;
+      // failures are logged only (the form result never depends on it).
+      try {
+        const sync = await postLeadToBeckloop({ fetchImpl, lead: result.lead });
+        if (sync.attempted) console.log(`Lead synced to Beckloop cabinet for ZIP ${result.lead.zip}`);
+      } catch (syncError) {
+        console.error('Beckloop cabinet sync failed:', syncError.message);
+      }
       sendJson(res, 200, { success: true, delivered: true, channel, message: 'Your request was sent successfully.' });
     } catch (error) {
       console.error('Lead request failed:', error.message);
@@ -883,4 +920,4 @@ if (require.main === module) {
   createApp().listen(port, '0.0.0.0', () => console.log(`Handyman site listening on port ${port}`));
 }
 
-module.exports = { createApp, validateLead, formatLead, assessSpam, createRateLimiter, createDailyBudget, renderRequestReceivedEmail, sendRequestReceivedEmail };
+module.exports = { createApp, validateLead, formatLead, assessSpam, createRateLimiter, createDailyBudget, renderRequestReceivedEmail, sendRequestReceivedEmail, postLeadToBeckloop };
