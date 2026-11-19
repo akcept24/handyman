@@ -16,7 +16,8 @@ const MAX_VOICE_BODY_BYTES = 256 * 1024;
 const ALLOWED_SERVICES = new Set([
   'general-repairs', 'fixtures-installations', 'painting-drywall',
   'furniture-assembly', 'carpentry', 'plumbing-maintenance',
-  'computer-tech-help', 'office-moving', 'emergency-repair', 'other',
+  'computer-tech-help', 'office-moving', 'emergency-repair', 'airbnb-setup',
+  'home-office', 'ai-receptionist', 'other',
 ]);
 const ALLOWED_FORM_TYPES = new Set(['hero_form', 'contact_form', 'modal_form', 'chat_form']);
 const CONSENT_VERSION = '2026-08-20';
@@ -33,6 +34,9 @@ const STATIC_FILES = new Map([
   ['/computer-help.html', 'computer-help.html'],
   ['/office-moving.html', 'office-moving.html'],
   ['/emergency-tech-repair.html', 'emergency-tech-repair.html'],
+  ['/airbnb-tech-setup.html', 'airbnb-tech-setup.html'],
+  ['/home-office-setup.html', 'home-office-setup.html'],
+  ['/ai-receptionist-setup.html', 'ai-receptionist-setup.html'],
   ['/wifi-mesh.html', 'wifi-mesh.html'],
   ['/ai-at-home.html', 'ai-at-home.html'],
   ['/smart-home.html', 'smart-home.html'],
@@ -245,7 +249,8 @@ function renderRequestReceivedEmail(lead) {
   const isTech = lead.service === 'computer-tech-help';
   const isOfficeMove = lead.service === 'office-moving';
   const isEmergency = lead.service === 'emergency-repair';
-  const service = escapeHtml(isFurniture ? 'Furniture assembly' : isTech ? 'Computer & tech help' : isOfficeMove ? 'Office moving' : isEmergency ? 'Emergency tech repair' : 'Home project');
+  const nicheLabel = { 'airbnb-setup': 'Airbnb host tech setup', 'home-office': 'Home office setup', 'ai-receptionist': 'AI receptionist setup' }[lead.service];
+  const service = escapeHtml(isFurniture ? 'Furniture assembly' : isTech ? 'Computer & tech help' : isOfficeMove ? 'Office moving' : isEmergency ? 'Emergency tech repair' : nicheLabel || 'Home project');
   const projectHint = isFurniture
     ? 'Product links, assembly manuals, box counts, measurements, or a few room photos can help with review.'
     : isTech

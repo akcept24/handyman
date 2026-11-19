@@ -1,7 +1,7 @@
 FROM node:22-alpine
 WORKDIR /app
 COPY package.json server.js agent-core.js voice-intake.js ./
-COPY index.html privacy.html terms.html thank-you.html computer-help.html office-moving.html emergency-tech-repair.html wifi-mesh.html ai-at-home.html smart-home.html styles.css script.js chat-widget.css chat-widget.js robots.txt sitemap.xml tracking.config.js tracking.loader.js ./
+COPY index.html privacy.html terms.html thank-you.html computer-help.html office-moving.html emergency-tech-repair.html airbnb-tech-setup.html home-office-setup.html ai-receptionist-setup.html wifi-mesh.html ai-at-home.html smart-home.html styles.css script.js chat-widget.css chat-widget.js robots.txt sitemap.xml tracking.config.js tracking.loader.js ./
 COPY images ./images
 RUN mkdir -p /app/data && chown node:node /app/data
 ENV NODE_ENV=production PORT=3000
