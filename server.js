@@ -17,7 +17,8 @@ const ALLOWED_SERVICES = new Set([
   'general-repairs', 'fixtures-installations', 'painting-drywall',
   'furniture-assembly', 'carpentry', 'plumbing-maintenance',
   'computer-tech-help', 'office-moving', 'emergency-repair', 'airbnb-setup',
-  'home-office', 'ai-receptionist', 'other',
+  'home-office', 'ai-receptionist', 'office-it-support', 'workstation-setup',
+  'office-wifi', 'remote-it-support', 'other',
 ]);
 const ALLOWED_FORM_TYPES = new Set(['hero_form', 'contact_form', 'modal_form', 'chat_form']);
 const CONSENT_VERSION = '2026-08-20';
@@ -33,6 +34,10 @@ const STATIC_FILES = new Map([
   ['/thank-you.html', 'thank-you.html'],
   ['/computer-help.html', 'computer-help.html'],
   ['/office-moving.html', 'office-moving.html'],
+  ['/office-it-support.html', 'office-it-support.html'],
+  ['/workstation-setup.html', 'workstation-setup.html'],
+  ['/office-wifi.html', 'office-wifi.html'],
+  ['/remote-it-support.html', 'remote-it-support.html'],
   ['/emergency-tech-repair.html', 'emergency-tech-repair.html'],
   ['/airbnb-tech-setup.html', 'airbnb-tech-setup.html'],
   ['/home-office-setup.html', 'home-office-setup.html'],
