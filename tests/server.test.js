@@ -252,7 +252,7 @@ test('API delivers suspicious but valid leads with review flags instead of silen
     success: true, delivered: true, channel: 'telegram', message: 'Your request was sent successfully.',
   });
   assert.equal(deliveryCalls, 1);
-  assert.match(deliveredText, /Review flags:/);
+  assert.match(deliveredText, /Нужна ручная проверка/);
 });
 
 test('API honestly rejects a filled fax_number honeypot without claiming delivery', async (t) => {
@@ -286,10 +286,13 @@ test('formatLead escapes Telegram HTML and contains lead context', () => {
   assert.match(text, /&lt;Alex &amp; Co&gt;/);
   assert.doesNotMatch(text, /<script>/);
   assert.match(text, /90210/);
-  assert.match(text, /hero_form/);
-  assert.match(text, /Request contact consent:<\/b> Recorded/);
-  assert.match(text, /Confirm scope, access details, and legal fit/);
-  assert.match(text, /2026-08-20T12:00:00.000Z/);
+  assert.match(text, /Заявка с сайта/);
+  assert.match(text, /Мелкий ремонт по дому/);
+  assert.match(text, /20 авг, 05:00/);
+  assert.doesNotMatch(text, /hero_form/);
+  assert.doesNotMatch(text, /contact_form/);
+  assert.doesNotMatch(text, /2026-08-20T12:00:00.000Z/);
+  assert.match(text, /Подтверди объём работ и доступ/);
 });
 
 test('agent core lists computer tech help with its flat-price menu in all three languages', () => {
@@ -311,8 +314,9 @@ test('formatLead gives furniture requests a focused owner next step', () => {
     name: 'Alex', phone: '(213) 555-0199', service: 'furniture-assembly', zip: '91355',
     form_type: 'hero_form', contact_consent: true, received_at: '2026-08-20T12:00:00.000Z',
   });
-  assert.match(text, /Furniture assembly request/);
-  assert.match(text, /Confirm furniture list\/photos, access details, and scope/);
+  assert.match(text, /Заявка с сайта/);
+  assert.match(text, /Сборка мебели/);
+  assert.match(text, /список мебели, фото и доступ/);
 });
 
 test('computer tech help is an accepted lead service end to end', () => {
@@ -323,9 +327,9 @@ test('computer tech help is an accepted lead service end to end', () => {
     name: 'Alex', phone: '(213) 555-0199', service: 'computer-tech-help', zip: '91355',
     form_type: 'contact_form', contact_consent: true, received_at: '2026-08-20T12:00:00.000Z',
   });
-  assert.match(text, /Computer & tech help request/);
-  assert.match(text, /Confirm device, issue, and backup status/);
-  assert.match(text, /Never ask for the customer’s passwords/);
+  assert.match(text, /Компьютеры и техника/);
+  assert.match(text, /устройство и проблему/);
+  assert.match(text, /Пароли у клиента не спрашивать/);
 
   const html = renderRequestReceivedEmail(validLead({ service: 'computer-tech-help' }));
   assert.match(html, /Computer &amp; tech help request/);
@@ -839,7 +843,7 @@ test('API accepts an out-of-area lead and flags it for human review', async (t) 
   const response = await post(baseUrl, validLead({ zip: '90210' }));
   assert.equal(response.status, 200);
   assert.equal((await response.json()).channel, 'telegram');
-  assert.match(deliveredText, /OUT OF AREA/);
+  assert.match(deliveredText, /Вне зоны обслуживания/);
   assert.match(deliveredText, /90210/);
 });
 

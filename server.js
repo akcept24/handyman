@@ -216,34 +216,63 @@ function validateLead(input) {
   return { valid: errors.length === 0, errors, lead };
 }
 
+const SERVICE_LABELS_RU = {
+  'general-repairs': 'Мелкий ремонт по дому',
+  'furniture-assembly': 'Сборка мебели',
+  'fixtures-installations': 'Светильники и фурнитура',
+  'painting-drywall': 'Покраска и гипсокартон',
+  'carpentry': 'Столярка',
+  'plumbing-maintenance': 'Сантехника (мелкая)',
+  'computer-tech-help': 'Компьютеры и техника',
+  'office-moving': 'Переезд офиса',
+  'emergency-repair': 'Срочная техпомощь',
+  'airbnb-setup': 'Настройка для Airbnb',
+  'home-office': 'Домашний офис',
+  'ai-receptionist': 'AI-ресепшн (настройка)',
+  'office-it-support': 'IT-поддержка офиса',
+  'workstation-setup': 'Настройка рабочего места',
+  'office-wifi': 'Офисный Wi-Fi',
+  'remote-it-support': 'Удалённая IT-помощь',
+  'other': 'Другое',
+};
+
+const RU_MONTHS_SHORT = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+
+// Human owner-facing timestamp: "25 ноя, 14:31" in Los Angeles time.
+// Built from en-US parts + own month names so it does not depend on ICU locales.
+function formatReceivedAt(iso) {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Los_Angeles', day: 'numeric', month: 'numeric',
+    hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+  }).formatToParts(d);
+  const get = (t) => parts.find((p) => p.type === t)?.value || '';
+  return `${get('day')} ${RU_MONTHS_SHORT[Number(get('month')) - 1]}, ${get('hour')}:${get('minute')}`;
+}
+
 function formatLead(lead) {
   const furnitureRequest = lead.service === 'furniture-assembly';
   const techRequest = lead.service === 'computer-tech-help';
   const outOfArea = lead.service_area_eligible === false;
+  const serviceLabel = SERVICE_LABELS_RU[lead.service] || lead.service;
+  const received = lead.received_at ? formatReceivedAt(lead.received_at) : '';
   const rows = [
-    furnitureRequest
-      ? '<b>🛋 Furniture assembly request</b>'
-      : techRequest
-        ? '<b>💻 Computer & tech help request</b>'
-        : '<b>🧰 New handyman estimate request</b>',
-    outOfArea ? '<b>⚠️ OUT OF AREA — HUMAN REVIEW REQUIRED; DO NOT PROMISE SERVICE</b>' : '',
-    '<b>────────────────</b>',
-    `<b>Contact:</b> ${escapeHtml(lead.name)} · ${escapeHtml(lead.phone)}`,
+    '<b>🌐 Заявка с сайта</b>',
+    `<b>Услуга:</b> ${escapeHtml(serviceLabel)}`,
+    `<b>Клиент:</b> ${escapeHtml(lead.name)} · ${escapeHtml(lead.phone)}`,
     lead.email ? `<b>Email:</b> ${escapeHtml(lead.email)}` : '',
-    `<b>Area:</b> ${escapeHtml(lead.zip)}${outOfArea ? ' (outside current service area)' : ''}`,
-    `<b>Service:</b> ${escapeHtml(lead.service)}`,
-    lead.message ? `<b>Project:</b> ${escapeHtml(lead.message)}` : '',
-    '<b>────────────────</b>',
+    `<b>ZIP:</b> ${escapeHtml(lead.zip)}`,
+    lead.message ? `<b>Что нужно:</b> ${escapeHtml(lead.message)}` : '',
+    received ? `<b>Пришла:</b> ${received}` : '',
+    lead.urgent ? '<b>⚠️ СРОЧНО — клиент отметил срочность</b>' : '',
+    outOfArea ? '<b>⚠️ Вне зоны обслуживания — не обещать, решить вручную</b>' : '',
+    lead.review_flags?.length ? '<b>⚠️ Нужна ручная проверка заявки</b>' : '',
     furnitureRequest
-      ? '<b>Next:</b> Confirm furniture list/photos, access details, and scope before discussing timing or price.'
+      ? '<b>Что дальше:</b> Подтверди список мебели, фото и доступ — потом сроки и цена.'
       : techRequest
-        ? '<b>Next:</b> Confirm device, issue, and backup status before discussing timing or price. Never ask for the customer’s passwords.'
-        : '<b>Next:</b> Confirm scope, access details, and legal fit before discussing timing or price.',
-    lead.urgent ? '<b>Customer marked:</b> Urgent — review safety and scope first.' : '',
-    lead.review_flags?.length ? `<b>Review flags:</b> ${escapeHtml(lead.review_flags.join(', '))}` : '',
-    `<b>Source:</b> ${escapeHtml(lead.form_type || 'unknown')}`,
-    `<b>Request contact consent:</b> ${lead.contact_consent ? 'Recorded' : 'Not recorded'}`,
-    `<b>Received:</b> ${escapeHtml(lead.received_at || 'not recorded')}`,
+        ? '<b>Что дальше:</b> Подтверди устройство и проблему, есть ли бэкап. Пароли у клиента не спрашивать.'
+        : '<b>Что дальше:</b> Подтверди объём работ и доступ — потом сроки и цена.',
   ];
   return rows.filter(Boolean).join('\n');
 }
