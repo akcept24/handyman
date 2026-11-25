@@ -40,11 +40,7 @@
         <select id="ch-service" name="service" required>
           <option value="">Choose a service *</option>
           <option value="general-repairs">General repairs</option>
-          <option value="fixtures-installations">Fixtures & installations</option>
-          <option value="painting-drywall">Painting & drywall</option>
           <option value="furniture-assembly">Furniture assembly</option>
-          <option value="carpentry">Carpentry</option>
-          <option value="plumbing-maintenance">Plumbing maintenance</option>
           <option value="other">Other project</option>
         </select>
         <div class="ch-hp" aria-hidden="true"><label>Fax number<input name="fax_number" type="text" tabindex="-1" autocomplete="off"></label></div>
