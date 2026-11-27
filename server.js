@@ -45,6 +45,7 @@ const STATIC_FILES = new Map([
   ['/wifi-mesh.html', 'wifi-mesh.html'],
   ['/ai-at-home.html', 'ai-at-home.html'],
   ['/smart-home.html', 'smart-home.html'],
+  ['/furniture-assembly.html', 'furniture-assembly.html'],
   ['/styles.css', 'styles.css'],
   ['/script.js', 'script.js'],
   ['/robots.txt', 'robots.txt'],
